@@ -9,6 +9,7 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import AuthLayout from "../layouts/AuthLayout";
 import PrivateRoute from "../provider/PrivateRoute";
+import ListingDetails from "../pages/ListingDetails";
 
 export const router = createBrowserRouter([
   {
@@ -46,6 +47,14 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <MyOrder />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/listing-details/:id",
+        element: (
+          <PrivateRoute>
+            <ListingDetails />
           </PrivateRoute>
         ),
       },

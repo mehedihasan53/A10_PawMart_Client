@@ -1,45 +1,46 @@
-import React from "react";
+import React, { useContext, useState } from "react";
+import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
+import { AuthContext } from "../provider/AuthProvider";
 
-const AddListing = ({ currentUserEmail }) => {
+const AddListing = () => {
+  const { user } = useContext(AuthContext);
+  const [price, setPrice] = useState("");
+  const [isPriceReadonly, setIsPriceReadonly] = useState(false);
+
+  const handleCategoryChange = (e) => {
+    if (e.target.value === "pets") {
+      setPrice(0);
+      setIsPriceReadonly(true);
+    } else {
+      setPrice("");
+      setIsPriceReadonly(false);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const name = e.target.name.value;
-    const category = e.target.category.value;
-    const price = e.target.price.value;
-    const location = e.target.location.value;
-    const description = e.target.description.value;
-    const image = e.target.image.value;
-    const date = e.target.date.value;
-    const email = e.target.email.value;
-
     const formData = {
-      name,
-      category,
-      price,
-      location,
-      description,
-      image,
-      date,
-      email,
+      name: e.target.name.value,
+      category: e.target.category.value,
+      price: parseInt(e.target.price.value),
+      location: e.target.location.value,
+      description: e.target.description.value,
+      image: e.target.image.value,
+      date: e.target.date.value,
+      email: e.target.email.value,
     };
-    console.log(formData);
 
     try {
-      const response = await fetch("http://localhost:3000/listings", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
-
-      if (!response.ok) throw new Error("Failed to add listing");
-
+      await axios.post("http://localhost:3000/listings", formData);
       toast.success("Listing added successfully!");
       e.target.reset();
-      e.target.email.value = currentUserEmail || "";
+      setPrice("");
+      setIsPriceReadonly(false);
     } catch (err) {
-      toast.error(err.message);
+      console.error(err);
+      toast.error("Failed to add listing");
     }
   };
 
@@ -67,6 +68,7 @@ const AddListing = ({ currentUserEmail }) => {
           <select
             name="category"
             required
+            onChange={handleCategoryChange}
             className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400"
           >
             <option value="">Select Category</option>
@@ -83,6 +85,9 @@ const AddListing = ({ currentUserEmail }) => {
             type="number"
             name="price"
             min="0"
+            value={price}
+            readOnly={isPriceReadonly}
+            onChange={(e) => setPrice(e.target.value)}
             required
             className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400"
             placeholder="0 if pet is selected"
@@ -136,7 +141,7 @@ const AddListing = ({ currentUserEmail }) => {
           <input
             type="email"
             name="email"
-            value={currentUserEmail || ""}
+            value={user?.email || ""}
             readOnly
             className="w-full px-4 py-2 border rounded-lg bg-gray-100"
           />
