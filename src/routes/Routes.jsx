@@ -10,6 +10,7 @@ import Register from "../pages/Register";
 import AuthLayout from "../layouts/AuthLayout";
 import PrivateRoute from "../provider/PrivateRoute";
 import ListingDetails from "../pages/ListingDetails";
+import CategoryFilteredPage from "../components/CategoryFilteredPage";
 
 export const router = createBrowserRouter([
   {
@@ -57,6 +58,10 @@ export const router = createBrowserRouter([
             <ListingDetails />
           </PrivateRoute>
         ),
+      },
+      {
+        path: "/category-filtered-product/:categoryName",
+        element: <CategoryFilteredPage />,
       },
     ],
   },
