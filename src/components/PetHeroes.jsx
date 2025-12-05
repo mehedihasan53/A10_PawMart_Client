@@ -30,7 +30,6 @@ const PetHeroes = () => {
   return (
     <section className="pb-16 bg-gray-50">
       <div className="container mx-auto px-4">
-        {/* Title */}
         <div className="flex justify-center items-center gap-3 mb-10">
           <FaPaw className="text-orange-500 text-3xl" />
           <h2 className="text-3xl md:text-4xl font-bold text-gray-800">
@@ -38,7 +37,6 @@ const PetHeroes = () => {
           </h2>
         </div>
 
-        {/* Card Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
           {heroes.map((hero, index) => (
             <div

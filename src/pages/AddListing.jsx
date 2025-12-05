@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import { AuthContext } from "../provider/AuthProvider";
+import DynamicTitle from "../components/DynamicTitle";
 
 const AddListing = () => {
   const { user } = useContext(AuthContext);
@@ -46,6 +47,7 @@ const AddListing = () => {
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-12">
+      <DynamicTitle title="Add New Listing" />
       <Toaster position="top-right" />
       <h1 className="text-3xl font-bold mb-8 text-center">Add New Listing</h1>
       <form

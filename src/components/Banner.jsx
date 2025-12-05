@@ -103,7 +103,7 @@ const Banner = () => {
           ></button>
         ))}
       </div>
-      {/* Left/Right Arrows */}
+      {/* Left+Right Arrows */}
       <button
         onClick={prevSlide}
         className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/40 text-white p-2 rounded-full hover:bg-black/60 transition"

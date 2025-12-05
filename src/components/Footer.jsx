@@ -12,11 +12,9 @@ import {
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-50 border-t border-gray-200 py-10 ">
+    <footer className="bg-gray-200 border-t border-gray-200 py-10 ">
       <div className="container mx-auto px-4">
-        {/* Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
-          {/* Brand */}
           <div>
             <div className="flex items-center space-x-3 mb-3">
               <div className="bg-gradient-to-r from-orange-500 to-pink-500 p-2 rounded-full">

@@ -61,7 +61,7 @@ const AuthProvider = ({ children }) => {
       .finally(() => setLoading(false));
   };
 
-  // Track authentication
+  // 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);

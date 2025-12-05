@@ -1,10 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { FaPaw, FaHome } from "react-icons/fa";
+import DynamicTitle from "./DynamicTitle";
 
 const ErrorPage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-orange-50 flex flex-col items-center justify-center px-4">
+      <DynamicTitle title="404 Not Found" />
       <div className="relative z-10 text-center max-w-2xl">
         <div className="mb-8">
           <h1 className="text-9xl md:text-[10rem] font-black text-transparent bg-clip-text bg-gradient-to-r from-orange-500 via-red-500 to-pink-500">

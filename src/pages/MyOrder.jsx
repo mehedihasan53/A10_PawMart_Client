@@ -4,6 +4,7 @@ import Loading from "../components/Loading";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import { FaFilePdf, FaBoxOpen } from "react-icons/fa";
+import DynamicTitle from "../components/DynamicTitle";
 
 const MyOrder = () => {
   const { user } = useAuth();
@@ -62,6 +63,7 @@ const MyOrder = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
+      <DynamicTitle title="My Orders" />
       <div className="mb-2 text-center">
         <h1 className="text-3xl font-bold text-gray-800">My Orders</h1>
       </div>

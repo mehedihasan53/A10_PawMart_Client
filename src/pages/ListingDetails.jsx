@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import Loading from "../components/Loading";
+import DynamicTitle from "../components/DynamicTitle";
+import { AuthContext } from "../provider/AuthProvider";
 
 const ListingDetails = () => {
+  const { user } = useContext(AuthContext);
   const { id } = useParams();
   const navigate = useNavigate();
   const [listing, setListing] = useState(null);
@@ -35,7 +38,7 @@ const ListingDetails = () => {
       listingId: listing._id,
       productName: listing.name,
       buyerName: formData.get("name"),
-      email: formData.get("email"),
+      email: user?.email || formData.get("email"),
       phone: formData.get("phone"),
       quantity: listing.category === "Pets" ? 1 : formData.get("quantity"),
       price: listing.price,
@@ -55,15 +58,12 @@ const ListingDetails = () => {
   };
 
   if (!listing) {
-    return (
-      <div>
-        <Loading />
-      </div>
-    );
+    return <Loading />;
   }
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
+      <DynamicTitle title={listing.name} />
       <Toaster position="top-right" />
 
       <button
@@ -147,6 +147,8 @@ const ListingDetails = () => {
                 type="email"
                 name="email"
                 placeholder="Email Address"
+                value={user?.email || ""}
+                readOnly
                 required
                 className="w-full px-4 py-3 border rounded-lg"
               />

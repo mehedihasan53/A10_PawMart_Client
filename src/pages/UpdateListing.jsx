@@ -1,9 +1,10 @@
 import React, { useEffect, useState, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-import toast, { Toaster } from "react-hot-toast";
 import { AuthContext } from "../provider/AuthProvider";
 import Loading from "../components/Loading";
+import DynamicTitle from "../components/DynamicTitle";
+import { FaCheckCircle } from "react-icons/fa";
 
 const UpdateListing = () => {
   const { user } = useContext(AuthContext);
@@ -22,9 +23,8 @@ const UpdateListing = () => {
   });
   const [isPriceReadonly, setIsPriceReadonly] = useState(false);
   const [loading, setLoading] = useState(true);
-
+  const [modalMessage, setModalMessage] = useState("");
   useEffect(() => {
-    // fetch existing listing data
     axios
       .get(`http://localhost:3000/listings/${id}`)
       .then((res) => {
@@ -67,11 +67,15 @@ const UpdateListing = () => {
     e.preventDefault();
     try {
       await axios.put(`http://localhost:3000/listings/${id}`, formData);
-      toast.success("Listing updated successfully!");
-      navigate("/my-listings");
+      setModalMessage("Listing updated successfully!");
+      setTimeout(() => {
+        setModalMessage("");
+        navigate("/my-listings");
+      }, 2000);
     } catch (err) {
       console.error(err);
-      toast.error("Failed to update listing");
+      setModalMessage("Failed to update listing.");
+      setTimeout(() => setModalMessage(""), 3000);
     }
   };
 
@@ -79,7 +83,22 @@ const UpdateListing = () => {
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-12">
-      <Toaster position="top-right" />
+      <DynamicTitle title="Update Listing" />
+
+      {/* Success Modal */}
+      {modalMessage && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+          <div className="bg-white dark:bg-gray-800 p-8 rounded-2xl max-w-md w-full shadow-xl text-center animate-fade-in">
+            <div className="mx-auto w-20 h-20 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center mb-4">
+              <FaCheckCircle className="text-4xl text-green-600 dark:text-green-400" />
+            </div>
+            <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+              {modalMessage}
+            </h3>
+          </div>
+        </div>
+      )}
+
       <h1 className="text-3xl font-bold mb-8 text-center">Update Listing</h1>
       <form
         onSubmit={handleUpdate}

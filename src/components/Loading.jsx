@@ -23,22 +23,9 @@ const Loading = () => {
         />
       </div>
 
-      <p className="mt-8 text-gray-700 font-semibold text-lg animate-pulse">
+      <p className="mt-8 text-gray-700 font-semibold text-lg animate-pulse ">
         Loading...
       </p>
-
-      {/* Decorative Dots */}
-      <div className="mt-8 flex space-x-2">
-        <div className="w-3 h-3 rounded-full bg-blue-400 animate-ping"></div>
-        <div
-          className="w-3 h-3 rounded-full bg-indigo-400 animate-ping"
-          style={{ animationDelay: "0.2s" }}
-        ></div>
-        <div
-          className="w-3 h-3 rounded-full bg-purple-400 animate-ping"
-          style={{ animationDelay: "0.4s" }}
-        ></div>
-      </div>
 
       {/* Animations */}
       <style>

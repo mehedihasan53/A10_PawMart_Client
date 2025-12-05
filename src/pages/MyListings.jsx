@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { FaTrash, FaEdit } from "react-icons/fa";
 import { useAuth } from "../firebase/firebase.config";
 import Loading from "../components/Loading";
+import DynamicTitle from "../components/DynamicTitle";
 
 const MyListings = () => {
   const { user } = useAuth();
@@ -58,6 +59,7 @@ const MyListings = () => {
 
       {myListings.length === 0 ? (
         <div className="text-center py-12 bg-gradient-to-br from-orange-50 to-pink-50 rounded-2xl shadow-sm ">
+          <DynamicTitle title="My Listings" />
           <div className="text-6xl mb-4">📭</div>
           <h3 className="text-xl font-semibold text-gray-800 mb-2">
             No listings found
@@ -75,7 +77,6 @@ const MyListings = () => {
         </div>
       ) : (
         <>
-          {/* Desktop Table (Hidden on mobile) */}
           <div className="hidden md:block overflow-x-auto rounded-xl border border-gray-200 shadow-sm">
             <table className="w-full">
               <thead className="bg-gradient-to-r from-orange-50 to-pink-50">
@@ -179,7 +180,6 @@ const MyListings = () => {
             </table>
           </div>
 
-          {/* Mobile Cards (Visible only on mobile) */}
           <div className="md:hidden space-y-4">
             {myListings.map((item, index) => (
               <div
@@ -187,7 +187,6 @@ const MyListings = () => {
                 className="bg-white rounded-xl border border-gray-200 p-4 shadow-sm hover:shadow-md transition-shadow"
               >
                 <div className="flex items-start gap-4">
-                  {/* Image */}
                   <img
                     src={item.image}
                     alt={item.name}

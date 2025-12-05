@@ -63,11 +63,19 @@ export const router = createBrowserRouter([
       },
       {
         path: "/category-filtered-product/:categoryName",
-        element: <CategoryFilteredPage />,
+        element: (
+          <PrivateRoute>
+            <CategoryFilteredPage />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/update-listing/:id",
-        element: <Update />,
+        element: (
+          <PrivateRoute>
+            <Update />
+          </PrivateRoute>
+        ),
       },
     ],
   },

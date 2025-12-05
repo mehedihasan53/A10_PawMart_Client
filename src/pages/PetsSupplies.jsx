@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import Loading from "../components/Loading";
+import DynamicTitle from "../components/DynamicTitle";
 
 const PetsSupplies = () => {
   const [listings, setListings] = useState([]);
@@ -32,9 +33,9 @@ const PetsSupplies = () => {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-12">
+      <DynamicTitle title="Pets & Supplies" />
       <h1 className="text-3xl font-bold mb-6 text-center">Pets & Supplies</h1>
 
-      {/* Filters and Search */}
       <div className="mb-6 flex flex-col sm:flex-row justify-center gap-4">
         <select
           value={categoryFilter}

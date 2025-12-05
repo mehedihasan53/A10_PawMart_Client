@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { FaGoogle } from "react-icons/fa";
 import { AuthContext } from "../provider/AuthProvider";
+import DynamicTitle from "../components/DynamicTitle";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -39,6 +40,7 @@ const Login = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-orange-50 to-pink-50 px-4">
+      <DynamicTitle title="Login" />
       <div className="card bg-white w-full max-w-md shadow-2xl p-8 rounded-2xl">
         <h1 className="text-4xl font-bold text-center mb-6 text-orange-500">
           Login Now!
