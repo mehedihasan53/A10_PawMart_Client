@@ -11,6 +11,7 @@ import {
 } from "firebase/auth";
 import toast from "react-hot-toast";
 import { app } from "../firebase/firebase.config";
+import Loading from "../components/Loading";
 
 export const AuthContext = createContext();
 export const auth = getAuth(app);
@@ -79,6 +80,10 @@ const AuthProvider = ({ children }) => {
     updateUserProfile,
     logOut,
   };
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <AuthContext.Provider value={authData}>{children}</AuthContext.Provider>

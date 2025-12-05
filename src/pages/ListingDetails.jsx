@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
+import Loading from "../components/Loading";
 
 const ListingDetails = () => {
   const { id } = useParams();
@@ -55,11 +56,8 @@ const ListingDetails = () => {
 
   if (!listing) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-orange-400 border-t-transparent"></div>
-          <p className="mt-4 text-gray-600">Loading...</p>
-        </div>
+      <div>
+        <Loading />
       </div>
     );
   }

@@ -37,7 +37,7 @@ const WhyAdopt = () => {
           {reasons.map((item, i) => (
             <div
               key={i}
-              className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition duration-300 text-center border"
+              className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition duration-300 text-center "
             >
               <div className="flex justify-center mb-4">{item.icon}</div>
 

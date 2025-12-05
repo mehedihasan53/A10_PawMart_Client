@@ -4,6 +4,7 @@ import CategorySection from "../components/CategorySection";
 import RecentListings from "../components/RecentListings";
 import PetHeroes from "../components/PetHeroes";
 import WhyAdopt from "../components/WhyAdopt";
+import Loading from "../components/Loading";
 
 const Home = () => {
   return (
@@ -13,6 +14,7 @@ const Home = () => {
       <RecentListings />
       <WhyAdopt />
       <PetHeroes />
+      <Loading />
     </div>
   );
 };
