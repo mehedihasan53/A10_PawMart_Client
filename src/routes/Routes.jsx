@@ -11,7 +11,7 @@ import AuthLayout from "../layouts/AuthLayout";
 import PrivateRoute from "../provider/PrivateRoute";
 import ListingDetails from "../pages/ListingDetails";
 import CategoryFilteredPage from "../components/CategoryFilteredPage";
-import Update from "../pages/Update";
+import Update from "../pages/UpdateListing";
 
 export const router = createBrowserRouter([
   {
