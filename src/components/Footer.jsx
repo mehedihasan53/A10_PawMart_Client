@@ -60,7 +60,7 @@ const Footer = () => {
 
               <li>
                 <Link
-                  to="/contact"
+                  to="/"
                   className="flex items-center space-x-2 text-gray-600 hover:text-orange-500 transition"
                 >
                   <FaPhone />
@@ -76,7 +76,7 @@ const Footer = () => {
             <ul className="space-y-3">
               <li>
                 <Link
-                  to="/privacy-policy"
+                  to="/"
                   className="flex items-center space-x-2 text-gray-600 hover:text-orange-500 transition"
                 >
                   <FaLock />
@@ -86,7 +86,7 @@ const Footer = () => {
 
               <li>
                 <Link
-                  to="/terms"
+                  to="/"
                   className="flex items-center space-x-2 text-gray-600 hover:text-orange-500 transition"
                 >
                   <FaFileAlt />
@@ -96,7 +96,7 @@ const Footer = () => {
 
               <li>
                 <Link
-                  to="/faq"
+                  to="/"
                   className="flex items-center space-x-2 text-gray-600 hover:text-orange-500 transition"
                 >
                   <FaQuestionCircle />

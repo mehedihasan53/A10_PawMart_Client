@@ -77,7 +77,7 @@ const MyOrder = () => {
         {orders.length > 0 && (
           <button
             onClick={downloadPDF}
-            className="flex items-center gap-2 px-5 py-3 bg-orange-500 text-white rounded-lg font-semibold w-full md:w-auto justify-center"
+            className="flex items-center gap-2 px-5 py-3 bg-gradient-to-r from-orange-500 to-pink-500 text-white rounded-lg font-semibold w-full md:w-auto justify-center"
           >
             <FaFilePdf /> Download Report
           </button>

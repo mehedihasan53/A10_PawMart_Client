@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
+import Loading from "./Loading";
 
 const CategoryFilteredPage = () => {
   const { categoryName } = useParams();
@@ -24,9 +25,7 @@ const CategoryFilteredPage = () => {
     <div className="max-w-6xl mx-auto px-4 py-12">
       <h1 className="text-3xl font-bold mb-6">{categoryName}</h1>
 
-      {items.length === 0 && (
-        <p className="text-gray-500">No items available in this category.</p>
-      )}
+      {items.length === 0 && <Loading />}
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {items.map((item) => (

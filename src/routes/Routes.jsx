@@ -12,12 +12,13 @@ import PrivateRoute from "../provider/PrivateRoute";
 import ListingDetails from "../pages/ListingDetails";
 import CategoryFilteredPage from "../components/CategoryFilteredPage";
 import Update from "../pages/UpdateListing";
+import ErrorPage from "../components/ErrorPage";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
-    errorElement: <h1>404 Page Not Found</h1>,
+    errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
         index: true,
@@ -73,7 +74,7 @@ export const router = createBrowserRouter([
   {
     path: "/auth",
     element: <AuthLayout />,
-    errorElement: <h1>404 Page Not Found</h1>,
+    errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
         path: "/auth/login",

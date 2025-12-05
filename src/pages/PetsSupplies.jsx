@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import Loading from "../components/Loading";
 
 const PetsSupplies = () => {
   const [listings, setListings] = useState([]);
@@ -88,7 +89,7 @@ const PetsSupplies = () => {
           ))}
         </div>
       ) : (
-        <p className="text-center mt-6">No listings found.</p>
+        <Loading />
       )}
     </div>
   );
