@@ -1,4 +1,6 @@
 import { initializeApp } from "firebase/app";
+import { useContext } from "react";
+import { AuthContext } from "../provider/AuthProvider";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -12,3 +14,4 @@ const firebaseConfig = {
 
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
+export const useAuth = () => useContext(AuthContext);

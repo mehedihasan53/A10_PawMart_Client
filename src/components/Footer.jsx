@@ -12,88 +12,105 @@ import {
 
 const Footer = () => {
   return (
-    <footer className="bg-white border-t border-gray-200 py-8">
+    <footer className="bg-gray-50 border-t border-gray-200 py-10 mt-16">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {/* Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
           {/* Brand */}
           <div>
-            <div className="flex items-center space-x-3 mb-4">
+            <div className="flex items-center space-x-3 mb-3">
               <div className="bg-gradient-to-r from-orange-500 to-pink-500 p-2 rounded-full">
                 <FaPaw className="text-white text-xl" />
               </div>
-              <h2 className="text-2xl font-bold bg-gradient-to-r from-orange-500 to-pink-500 bg-clip-text text-transparent">
+              <h2 className="text-2xl font-extrabold bg-gradient-to-r from-orange-500 to-pink-500 bg-clip-text text-transparent">
                 PawMart
               </h2>
             </div>
-            <p className="text-gray-600">
-              PawMart connects local pet owners and buyers for adoption and pet
-              care products.
+            <p className="text-gray-600 leading-relaxed">
+              A safe place to adopt pets, buy supplies, and connect with caring
+              pet owners.
             </p>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-lg font-semibold mb-4 text-gray-800">
+            <h3 className="text-lg font-semibold text-gray-800 mb-3">
               Quick Links
             </h3>
-            <div className="space-y-3">
-              <Link
-                to="/"
-                className="flex items-center space-x-3 text-gray-600 hover:text-orange-500 transition-colors"
-              >
-                <FaHome className="text-lg" />
-                <span>Home</span>
-              </Link>
-              <Link
-                to="/pets-supplies"
-                className="flex items-center space-x-3 text-gray-600 hover:text-orange-500 transition-colors"
-              >
-                <FaShoppingBag className="text-lg" />
-                <span>Pets & Supplies</span>
-              </Link>
-              <Link
-                to="/"
-                className="flex items-center space-x-3 text-gray-600 hover:text-orange-500 transition-colors"
-              >
-                <FaPhone className="text-lg" />
-                <span>Contact Us</span>
-              </Link>
-            </div>
+            <ul className="space-y-3">
+              <li>
+                <Link
+                  to="/"
+                  className="flex items-center space-x-2 text-gray-600 hover:text-orange-500 transition"
+                >
+                  <FaHome />
+                  <span>Home</span>
+                </Link>
+              </li>
+
+              <li>
+                <Link
+                  to="/pets-supplies"
+                  className="flex items-center space-x-2 text-gray-600 hover:text-orange-500 transition"
+                >
+                  <FaShoppingBag />
+                  <span>Pets & Supplies</span>
+                </Link>
+              </li>
+
+              <li>
+                <Link
+                  to="/contact"
+                  className="flex items-center space-x-2 text-gray-600 hover:text-orange-500 transition"
+                >
+                  <FaPhone />
+                  <span>Contact Us</span>
+                </Link>
+              </li>
+            </ul>
           </div>
 
           {/* Legal */}
           <div>
-            <h3 className="text-lg font-semibold mb-4 text-gray-800">Legal</h3>
-            <div className="space-y-3">
-              <Link
-                to="/"
-                className="flex items-center space-x-3 text-gray-600 hover:text-orange-500 transition-colors"
-              >
-                <FaLock className="text-lg" />
-                <span>Privacy Policy</span>
-              </Link>
-              <Link
-                to="/"
-                className="flex items-center space-x-3 text-gray-600 hover:text-orange-500 transition-colors"
-              >
-                <FaFileAlt className="text-lg" />
-                <span>Terms of Service</span>
-              </Link>
-              <Link
-                to="/"
-                className="flex items-center space-x-3 text-gray-600 hover:text-orange-500 transition-colors"
-              >
-                <FaQuestionCircle className="text-lg" />
-                <span>FAQ</span>
-              </Link>
-            </div>
+            <h3 className="text-lg font-semibold text-gray-800 mb-3">Legal</h3>
+            <ul className="space-y-3">
+              <li>
+                <Link
+                  to="/privacy-policy"
+                  className="flex items-center space-x-2 text-gray-600 hover:text-orange-500 transition"
+                >
+                  <FaLock />
+                  <span>Privacy Policy</span>
+                </Link>
+              </li>
+
+              <li>
+                <Link
+                  to="/terms"
+                  className="flex items-center space-x-2 text-gray-600 hover:text-orange-500 transition"
+                >
+                  <FaFileAlt />
+                  <span>Terms of Service</span>
+                </Link>
+              </li>
+
+              <li>
+                <Link
+                  to="/faq"
+                  className="flex items-center space-x-2 text-gray-600 hover:text-orange-500 transition"
+                >
+                  <FaQuestionCircle />
+                  <span>FAQ</span>
+                </Link>
+              </li>
+            </ul>
           </div>
         </div>
 
-        {/* Copyright */}
-        <div className="border-t border-gray-200 mt-8 pt-6 text-center">
-          <p className="text-gray-500">
-            © {new Date().getFullYear()} PawMart. All rights reserved.
+        {/* Bottom */}
+        <div className="text-center border-t border-gray-200 mt-10 pt-5">
+          <p className="text-gray-500 text-sm">
+            © {new Date().getFullYear()} PawMart — All Rights Reserved.
           </p>
         </div>
       </div>
