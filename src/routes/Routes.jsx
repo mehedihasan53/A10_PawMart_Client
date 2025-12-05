@@ -11,6 +11,7 @@ import AuthLayout from "../layouts/AuthLayout";
 import PrivateRoute from "../provider/PrivateRoute";
 import ListingDetails from "../pages/ListingDetails";
 import CategoryFilteredPage from "../components/CategoryFilteredPage";
+import Update from "../pages/Update";
 
 export const router = createBrowserRouter([
   {
@@ -62,6 +63,10 @@ export const router = createBrowserRouter([
       {
         path: "/category-filtered-product/:categoryName",
         element: <CategoryFilteredPage />,
+      },
+      {
+        path: "/update-listing/:id",
+        element: <Update />,
       },
     ],
   },
