@@ -3,7 +3,6 @@ import React from "react";
 const Loading = () => {
   return (
     <div className="min-h-[400px] flex flex-col items-center justify-center bg-gray-50">
-      {/* Loader Container */}
       <div className="relative w-[120px] h-[90px] mx-auto">
         {/* Bouncing Ball */}
         <div
@@ -24,7 +23,6 @@ const Loading = () => {
         />
       </div>
 
-      {/* Loading Text */}
       <p className="mt-8 text-gray-700 font-semibold text-lg animate-pulse">
         Loading...
       </p>
