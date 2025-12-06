@@ -12,7 +12,9 @@ const MyListings = () => {
 
   useEffect(() => {
     if (user?.email) {
-      fetch(`http://localhost:3000/my-listings?email=${user?.email}`)
+      fetch(
+        `https://pawmart-server-ebon.vercel.app/my-listings?email=${user?.email}`
+      )
         .then((res) => res.json())
         .then((data) => {
           setMyListings(data);
@@ -28,9 +30,12 @@ const MyListings = () => {
       return;
 
     try {
-      const res = await fetch(`http://localhost:3000/listings/${id}`, {
-        method: "DELETE",
-      });
+      const res = await fetch(
+        `https://pawmart-server-ebon.vercel.app/listings/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
       if (!res.ok) throw new Error("Failed to delete");
 
       const result = await res.json();

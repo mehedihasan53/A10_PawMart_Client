@@ -16,7 +16,9 @@ const ListingDetails = () => {
   useEffect(() => {
     const fetchListing = async () => {
       try {
-        const res = await axios.get(`http://localhost:3000/listings/${id}`);
+        const res = await axios.get(
+          `https://pawmart-server-ebon.vercel.app/listings/${id}`
+        );
         setListing(res.data);
       } catch (err) {
         // console.error(err);
@@ -48,7 +50,10 @@ const ListingDetails = () => {
     };
 
     try {
-      await axios.post("http://localhost:3000/orders", orderData);
+      await axios.post(
+        "https://pawmart-server-ebon.vercel.app/orders",
+        orderData
+      );
       toast.success("Order placed successfully!");
       closeModal();
     } catch (err) {

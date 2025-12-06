@@ -10,7 +10,9 @@ const RecentListings = () => {
   useEffect(() => {
     const loadRecent = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/recent-listings");
+        const res = await axios.get(
+          "https://pawmart-server-ebon.vercel.app/recent-listings"
+        );
         setRecent(res.data);
       } catch (err) {
         console.error(err);

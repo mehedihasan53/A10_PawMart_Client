@@ -34,7 +34,10 @@ const AddListing = () => {
     };
 
     try {
-      await axios.post("http://localhost:3000/listings", formData);
+      await axios.post(
+        "https://pawmart-server-ebon.vercel.app/listings",
+        formData
+      );
       toast.success("Listing added successfully!");
       e.target.reset();
       setPrice("");

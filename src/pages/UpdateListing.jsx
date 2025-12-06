@@ -26,7 +26,7 @@ const UpdateListing = () => {
   const [modalMessage, setModalMessage] = useState("");
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/listings/${id}`)
+      .get(`https://pawmart-server-ebon.vercel.app/listings/${id}`)
       .then((res) => {
         const data = res.data;
         setFormData({
@@ -66,7 +66,10 @@ const UpdateListing = () => {
   const handleUpdate = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`http://localhost:3000/listings/${id}`, formData);
+      await axios.put(
+        `https://pawmart-server-ebon.vercel.app/listings/${id}`,
+        formData
+      );
       setModalMessage("Listing updated successfully!");
       setTimeout(() => {
         setModalMessage("");

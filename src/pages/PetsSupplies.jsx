@@ -12,7 +12,9 @@ const PetsSupplies = () => {
   useEffect(() => {
     const fetchListings = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/listings");
+        const res = await axios.get(
+          "https://pawmart-server-ebon.vercel.app/listings"
+        );
         setListings(res.data);
       } catch (err) {
         // console.error("Failed to fetch listings:", err);

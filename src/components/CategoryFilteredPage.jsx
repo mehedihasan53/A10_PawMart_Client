@@ -11,7 +11,7 @@ const CategoryFilteredPage = () => {
     const loadItems = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:3000/listings/category/${categoryName}`
+          `https://pawmart-server-ebon.vercel.app/listings/category/${categoryName}`
         );
         setItems(res.data);
       } catch (err) {

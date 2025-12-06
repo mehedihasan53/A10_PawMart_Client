@@ -14,7 +14,7 @@ const MyOrder = () => {
   useEffect(() => {
     if (!user?.email) return;
 
-    fetch(`http://localhost:3000/orders?email=${user.email}`)
+    fetch(`https://pawmart-server-ebon.vercel.app/orders?email=${user.email}`)
       .then((res) => res.json())
       .then((data) => setOrders(data))
       .finally(() => setLoading(false));
