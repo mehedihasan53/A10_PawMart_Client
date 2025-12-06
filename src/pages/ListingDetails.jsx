@@ -19,7 +19,7 @@ const ListingDetails = () => {
         const res = await axios.get(`http://localhost:3000/listings/${id}`);
         setListing(res.data);
       } catch (err) {
-        console.error(err);
+        // console.error(err);
         toast.error("Failed to fetch listing");
         navigate("/");
       }
@@ -52,7 +52,7 @@ const ListingDetails = () => {
       toast.success("Order placed successfully!");
       closeModal();
     } catch (err) {
-      console.error(err);
+      //   console.error(err);
       toast.error("Failed to place order");
     }
   };

@@ -41,7 +41,7 @@ const Navbar = () => {
     try {
       await logOut();
     } catch (err) {
-      console.error(err);
+      //   console.error(err);
     }
   };
 
@@ -144,13 +144,13 @@ const Navbar = () => {
               <>
                 <Link
                   to="/auth/login"
-                  className="font-medium text-base-content hover:text-primary transition-colors"
+                  className="font-medium text-base-content hover:text-orange-400 transition-colors"
                 >
                   Login
                 </Link>
                 <Link
                   to="/auth/register"
-                  className="bg-primary text-primary-content px-6 py-2.5 rounded-lg font-medium hover:shadow-lg hover:scale-105 transition-all shadow-md"
+                  className="bg-gradient-to-r from-orange-500 to-pink-500 text-primary-content px-6 py-2.5 rounded-lg font-medium hover:shadow-lg hover:scale-105 transition-all shadow-md"
                 >
                   Register
                 </Link>

@@ -43,7 +43,7 @@ const UpdateListing = () => {
         setLoading(false);
       })
       .catch((err) => {
-        console.error(err);
+        // console.error(err);
         setLoading(false);
       });
   }, [id]);
@@ -73,7 +73,7 @@ const UpdateListing = () => {
         navigate("/my-listings");
       }, 2000);
     } catch (err) {
-      console.error(err);
+      // console.error(err);
       setModalMessage("Failed to update listing.");
       setTimeout(() => setModalMessage(""), 3000);
     }

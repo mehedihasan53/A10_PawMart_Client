@@ -15,7 +15,7 @@ const CategoryFilteredPage = () => {
         );
         setItems(res.data);
       } catch (err) {
-        console.error(err);
+        // console.error(err);
       }
     };
     loadItems();

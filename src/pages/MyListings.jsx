@@ -38,7 +38,7 @@ const MyListings = () => {
         setMyListings(myListings.filter((item) => item._id !== id));
       }
     } catch (err) {
-      console.error(err);
+      //   console.error(err);
       alert("Could not delete listing.");
     }
   };

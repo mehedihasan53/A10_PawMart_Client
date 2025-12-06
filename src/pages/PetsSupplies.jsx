@@ -15,7 +15,7 @@ const PetsSupplies = () => {
         const res = await axios.get("http://localhost:3000/listings");
         setListings(res.data);
       } catch (err) {
-        console.error("Failed to fetch listings:", err);
+        // console.error("Failed to fetch listings:", err);
       }
     };
     fetchListings();

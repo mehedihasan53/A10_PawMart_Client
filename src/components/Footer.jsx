@@ -9,12 +9,14 @@ import {
   FaFileAlt,
   FaQuestionCircle,
 } from "react-icons/fa";
+import { SiX, SiGithub, SiLinkedin, SiInstagram } from "react-icons/si"; // Social media icons
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-200 border-t border-gray-200 py-10 ">
+    <footer className="bg-gray-200 border-t border-gray-200 py-10">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
+          {/* Brand */}
           <div>
             <div className="flex items-center space-x-3 mb-3">
               <div className="bg-gradient-to-r from-orange-500 to-pink-500 p-2 rounded-full">
@@ -28,6 +30,42 @@ const Footer = () => {
               A safe place to adopt pets, buy supplies, and connect with caring
               pet owners.
             </p>
+
+            {/* Social Media */}
+            <div className="flex mt-4 space-x-4">
+              <a
+                href="https://twitter.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-600 hover:text-blue-500 transition"
+              >
+                <SiX className="text-2xl" />
+              </a>
+              <a
+                href="https://github.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-600 hover:text-gray-900 transition"
+              >
+                <SiGithub className="text-2xl" />
+              </a>
+              <a
+                href="https://www.linkedin.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-600 hover:text-blue-700 transition"
+              >
+                <SiLinkedin className="text-2xl" />
+              </a>
+              <a
+                href="https://www.instagram.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-600 hover:text-pink-500 transition"
+              >
+                <SiInstagram className="text-2xl" />
+              </a>
+            </div>
           </div>
 
           {/* Quick Links */}
@@ -45,7 +83,6 @@ const Footer = () => {
                   <span>Home</span>
                 </Link>
               </li>
-
               <li>
                 <Link
                   to="/pets-supplies"
@@ -55,7 +92,6 @@ const Footer = () => {
                   <span>Pets & Supplies</span>
                 </Link>
               </li>
-
               <li>
                 <Link
                   to="/"
@@ -81,7 +117,6 @@ const Footer = () => {
                   <span>Privacy Policy</span>
                 </Link>
               </li>
-
               <li>
                 <Link
                   to="/"
@@ -91,7 +126,6 @@ const Footer = () => {
                   <span>Terms of Service</span>
                 </Link>
               </li>
-
               <li>
                 <Link
                   to="/"
