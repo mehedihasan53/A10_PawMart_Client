@@ -25,7 +25,13 @@ const AuthProvider = ({ children }) => {
   const createUser = async (email, password) => {
     setLoading(true);
     try {
-      return await createUserWithEmailAndPassword(auth, email, password);
+      const result = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      setUser(result.user);
+      return result;
     } finally {
       setLoading(false);
     }
@@ -35,7 +41,9 @@ const AuthProvider = ({ children }) => {
   const signIn = async (email, password) => {
     setLoading(true);
     try {
-      return await signInWithEmailAndPassword(auth, email, password);
+      const result = await signInWithEmailAndPassword(auth, email, password);
+      setUser(result.user);
+      return result;
     } finally {
       setLoading(false);
     }
@@ -45,7 +53,9 @@ const AuthProvider = ({ children }) => {
   const googleLogin = async () => {
     setLoading(true);
     try {
-      return await signInWithPopup(auth, googleProvider);
+      const result = await signInWithPopup(auth, googleProvider);
+      setUser(result.user);
+      return result;
     } catch (err) {
       toast.error(err.message);
       throw err;
@@ -62,6 +72,7 @@ const AuthProvider = ({ children }) => {
     setLoading(true);
     try {
       await signOut(auth);
+      setUser(null);
       toast.success("Logged out");
     } catch (err) {
       toast.error(err.message);
