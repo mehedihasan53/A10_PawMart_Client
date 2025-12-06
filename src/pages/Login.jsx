@@ -22,19 +22,30 @@ const Login = () => {
       toast.success("Login successful!");
       navigate("/");
     } catch (err) {
-      toast.error(err.message);
-    } finally {
       setLoading(false);
+
+      if (err.code === "auth/wrong-password") {
+        toast.error("Incorrect password. Please try again!");
+      } else if (err.code === "auth/user-not-found") {
+        toast.error("No user found with this email.");
+      } else if (err.code === "auth/invalid-email") {
+        toast.error("Invalid email address.");
+      } else {
+        toast.error(err.message);
+      }
     }
   };
 
   const handleGoogleLogin = async () => {
+    setLoading(true);
     try {
       await googleLogin();
       toast.success("Login successful!");
       navigate("/");
     } catch (err) {
       toast.error(err.message);
+    } finally {
+      setLoading(false);
     }
   };
 

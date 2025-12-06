@@ -9,7 +9,7 @@ import {
   FaFileAlt,
   FaQuestionCircle,
 } from "react-icons/fa";
-import { SiX, SiGithub, SiLinkedin, SiInstagram } from "react-icons/si"; // Social media icons
+import { SiX, SiGithub, SiLinkedin, SiInstagram } from "react-icons/si";
 
 const Footer = () => {
   return (

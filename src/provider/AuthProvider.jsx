@@ -22,23 +22,30 @@ const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   // Create account
-  const createUser = (email, password) => {
+  const createUser = async (email, password) => {
     setLoading(true);
-    return createUserWithEmailAndPassword(auth, email, password);
+    try {
+      return await createUserWithEmailAndPassword(auth, email, password);
+    } finally {
+      setLoading(false);
+    }
   };
 
   // Login with email
-  const signIn = (email, password) => {
+  const signIn = async (email, password) => {
     setLoading(true);
-    return signInWithEmailAndPassword(auth, email, password);
+    try {
+      return await signInWithEmailAndPassword(auth, email, password);
+    } finally {
+      setLoading(false);
+    }
   };
 
   // Google login/register
   const googleLogin = async () => {
     setLoading(true);
     try {
-      const result = await signInWithPopup(auth, googleProvider);
-      return result;
+      return await signInWithPopup(auth, googleProvider);
     } catch (err) {
       toast.error(err.message);
       throw err;
@@ -48,26 +55,27 @@ const AuthProvider = ({ children }) => {
   };
 
   // Update profile
-  const updateUserProfile = (info) => {
-    return updateProfile(auth.currentUser, info);
-  };
+  const updateUserProfile = (info) => updateProfile(auth.currentUser, info);
 
   // Logout
-  const logOut = () => {
+  const logOut = async () => {
     setLoading(true);
-    return signOut(auth)
-      .then(() => toast.success("Logged out"))
-      .catch((err) => toast.error(err.message))
-      .finally(() => setLoading(false));
+    try {
+      await signOut(auth);
+      toast.success("Logged out");
+    } catch (err) {
+      toast.error(err.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  // 
+  // Listen to auth changes
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
       setLoading(false);
     });
-
     return () => unsubscribe();
   }, []);
 
