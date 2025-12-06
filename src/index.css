@@ -1,2 +1,67 @@
 @import "tailwindcss";
 @plugin "daisyui";
+
+.dark {
+  background-color: #111827;
+  color: #d1d5db;
+}
+
+/* Navbar, Footer, Cards, Sections */
+.dark,
+.dark .bg-base-100,
+.dark .bg-white,
+.dark .bg-gray-50,
+.dark .bg-gray-100,
+.dark footer,
+.dark .bg-white.p-6.rounded-xl.shadow-md {
+  background-color: #1f2937;
+  color: #d1d5db;
+}
+
+/* Text overrides */
+.dark .text-gray-900,
+.dark .text-gray-800,
+.dark .text-gray-700,
+.dark .text-gray-600,
+.dark section h1,
+.dark section h2,
+.dark section h3,
+.dark section p,
+.dark section span:not(.text-orange-500) {
+  color: #d1d5db;
+}
+
+/* Inputs and Buttons */
+.dark .input,
+.dark .input-bordered,
+.dark button:not(.bg-gradient-to-r) {
+  background-color: #374151;
+  border-color: #4b5563;
+  color: #d1d5db;
+}
+
+.dark .bg-orange-50 {
+  background-color: #571515 !important;
+  color: #fef3c7 !important;
+}
+
+/* Tables */
+.dark table,
+.dark th,
+.dark td {
+  background-color: #1f2937;
+  color: #d1d5db;
+  border-color: #4b5563;
+}
+
+/* Modal overlay */
+.dark .bg-black\/50 {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+/* Login+Register  */
+.dark .bg-gradient-to-br.from-orange-50.to-pink-50,
+.dark
+  .min-h-screen.flex.items-center.justify-center.bg-gradient-to-br.from-orange-50.to-pink-50 {
+  background: linear-gradient(135deg, #1f2937 0%, #111827 100%) !important;
+}

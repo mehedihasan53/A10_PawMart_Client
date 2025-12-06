@@ -54,7 +54,7 @@ const Login = () => {
       <DynamicTitle title="Login" />
       <div className="card bg-white w-full max-w-md shadow-2xl p-8 rounded-2xl">
         <h1 className="text-4xl font-bold text-center mb-6 text-orange-500">
-          Login Now!
+          Login Now
         </h1>
 
         <form onSubmit={handleEmailLogin} className="space-y-4">
