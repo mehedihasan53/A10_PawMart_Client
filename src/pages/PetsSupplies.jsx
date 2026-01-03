@@ -48,7 +48,7 @@ const PetsSupplies = () => {
           Pets & <span className="text-orange-600">Supplies</span>
         </h1>
 
-        {/* --- Search & Filter Bar --- */}
+        {/* -- Search & Filter Bar -- */}
         <div className="mb-12 flex flex-col md:flex-row items-center gap-4 bg-gray-50 dark:bg-[#1f2937] p-4 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm">
           <div className="relative flex-1 w-full">
             <FaSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
