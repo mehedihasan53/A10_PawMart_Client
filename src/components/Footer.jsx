@@ -119,7 +119,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  to="/"
+                  to="/terms-of-service"
                   className="flex items-center space-x-2 text-gray-600 hover:text-orange-500 transition"
                 >
                   <FaFileAlt />

@@ -17,6 +17,7 @@ import AboutUs from "../pages/AboutUs";
 import Contact from "../components/shared/Contact";
 import Partners from "../components/shared/Partners";
 import PrivacyPolicy from "../components/shared/PrivacyPolicy";
+import TermsOfService from "../components/shared/TermsOfService";
 
 export const router = createBrowserRouter([
   {
@@ -96,6 +97,10 @@ export const router = createBrowserRouter([
       {
         path: "/privacy-policy",
         element: <PrivacyPolicy />,
+      },
+      {
+        path: "/terms-of-service",
+        element: <TermsOfService />,
       },
     ],
   },
