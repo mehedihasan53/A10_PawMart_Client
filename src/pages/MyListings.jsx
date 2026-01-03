@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { FaTrash, FaEdit } from "react-icons/fa";
+import { FaTrash, FaEdit, FaPlus } from "react-icons/fa";
 import { useAuth } from "../firebase/firebase.config";
 import Loading from "../components/Loading";
 import DynamicTitle from "../components/DynamicTitle";
@@ -24,7 +24,6 @@ const MyListings = () => {
     }
   }, [user?.email]);
 
-  // Delete handler
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this listing?"))
       return;
@@ -43,7 +42,6 @@ const MyListings = () => {
         setMyListings(myListings.filter((item) => item._id !== id));
       }
     } catch (err) {
-      //   console.error(err);
       alert("Could not delete listing.");
     }
   };
@@ -51,133 +49,102 @@ const MyListings = () => {
   if (loading) return <Loading />;
 
   return (
-    <div className="px-4 py-8 md:px-6 lg:px-8 max-w-7xl mx-auto">
-      {/* Header */}
-      <div className="mb-8 text-center">
-        <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
-          My Listings
-        </h1>
-        <p className="text-gray-600">
-          Manage all your pet listings in one place
-        </p>
+    <div className="px-4 py-12 md:px-6 lg:px-8 max-w-7xl mx-auto min-h-screen">
+      <DynamicTitle title="My Listings | PawMart" />
+
+      <div className="flex flex-col md:flex-row justify-between items-center mb-10 gap-4">
+        <div className="text-center md:text-left">
+          <h1 className="text-3xl md:text-4xl font-black text-gray-900 uppercase tracking-tight">
+            My <span className="text-orange-600">Listings</span>
+          </h1>
+          <p className="text-gray-500 mt-1">
+            Manage your pets and supplies in one dashboard.
+          </p>
+        </div>
+        <Link
+          to="/add-listing"
+          className="flex items-center gap-2 bg-orange-600 hover:bg-orange-700 text-white px-6 py-3 rounded-2xl font-bold transition-all shadow-lg shadow-orange-600/20 active:scale-95"
+        >
+          <FaPlus size={14} /> Add New Item
+        </Link>
       </div>
 
       {myListings.length === 0 ? (
-        <div className="text-center py-12 bg-gradient-to-br from-orange-50 to-pink-50 rounded-2xl shadow-sm ">
-          <DynamicTitle title="My Listings" />
-          <div className="text-6xl mb-4">📭</div>
-          <h3 className="text-xl font-semibold text-gray-800 mb-2">
-            No listings found
+        <div className="text-center py-20 bg-gray-50 rounded-[3rem] border-2 border-dashed border-gray-200">
+          <div className="text-7xl mb-6">🐾</div>
+          <h3 className="text-2xl font-bold text-gray-800 mb-2">
+            No listings yet
           </h3>
-          <p className="text-gray-600 mb-6 max-w-md mx-auto">
-            You haven't created any listings yet. Start by adding your first pet
-            or product!
+          <p className="text-gray-500 mb-8 max-w-sm mx-auto">
+            Ready to find a home for a pet or sell some supplies? Start by
+            creating your first post!
           </p>
           <Link
             to="/add-listing"
-            className="inline-block px-6 py-3 bg-gradient-to-r from-orange-500 to-pink-500 text-white rounded-lg font-semibold hover:shadow-lg transition-all"
+            className="inline-block px-8 py-4 bg-gray-900 text-white rounded-2xl font-bold hover:bg-orange-600 transition-colors"
           >
-            + Add New Listing
+            Create Your First Listing
           </Link>
         </div>
       ) : (
-        <>
-          <div className="hidden md:block overflow-x-auto rounded-xl border border-gray-200 shadow-sm">
-            <table className="w-full">
-              <thead className="bg-gradient-to-r from-orange-50 to-pink-50">
-                <tr>
-                  <th className="py-4 px-6 text-left text-sm font-semibold text-gray-700">
-                    #
-                  </th>
-                  <th className="py-4 px-6 text-left text-sm font-semibold text-gray-700">
-                    Image
-                  </th>
-                  <th className="py-4 px-6 text-left text-sm font-semibold text-gray-700">
-                    Name
-                  </th>
-                  <th className="py-4 px-6 text-left text-sm font-semibold text-gray-700">
-                    Category
-                  </th>
-                  <th className="py-4 px-6 text-left text-sm font-semibold text-gray-700">
-                    Price
-                  </th>
-                  <th className="py-4 px-6 text-left text-sm font-semibold text-gray-700">
-                    Location
-                  </th>
-                  <th className="py-4 px-6 text-left text-sm font-semibold text-gray-700">
-                    Update
-                  </th>
-                  <th className="py-4 px-6 text-left text-sm font-semibold text-gray-700">
-                    Delete
-                  </th>
+        <div className="overflow-hidden rounded-[2rem] border border-gray-100 shadow-xl bg-white">
+          <div className="hidden md:block">
+            <table className="w-full text-left border-collapse">
+              <thead>
+                <tr className="bg-gray-50 text-gray-400 text-xs uppercase tracking-widest font-black">
+                  <th className="py-5 px-8">Item</th>
+                  <th className="py-5 px-6">Category</th>
+                  <th className="py-5 px-6">Price</th>
+                  <th className="py-5 px-6">Location</th>
+                  <th className="py-5 px-8 text-right">Actions</th>
                 </tr>
               </thead>
-
-              <tbody className="divide-y divide-gray-200">
-                {myListings.map((item, index) => (
+              <tbody className="divide-y divide-gray-50">
+                {myListings.map((item) => (
                   <tr
                     key={item._id}
-                    className="hover:bg-gray-50 transition-colors"
+                    className="hover:bg-orange-50/30 transition-colors group"
                   >
-                    <td className="py-4 px-6 text-gray-500 font-medium">
-                      {index + 1}
-                    </td>
-                    <td className="py-4 px-6">
-                      <img
-                        src={item.image}
-                        alt={item.name}
-                        className="w-16 h-16 rounded-lg object-cover shadow-sm"
-                      />
-                    </td>
-                    <td className="py-4 px-6">
-                      <div>
-                        <h3 className="font-semibold text-gray-900">
+                    <td className="py-5 px-8">
+                      <div className="flex items-center gap-4">
+                        <img
+                          src={item.image}
+                          alt={item.name}
+                          className="w-14 h-14 rounded-xl object-cover shadow-sm group-hover:scale-105 transition-transform"
+                        />
+                        <span className="font-bold text-gray-900">
                           {item.name}
-                        </h3>
+                        </span>
                       </div>
                     </td>
-                    <td className="py-4 px-6">
-                      <span
-                        className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${
-                          item.category === "Pets"
-                            ? "bg-blue-100 text-blue-800"
-                            : item.category === "Pet Food"
-                            ? "bg-green-100 text-green-800"
-                            : item.category === "Accessories"
-                            ? "bg-purple-100 text-purple-800"
-                            : "bg-pink-100 text-pink-800"
-                        }`}
-                      >
+                    <td className="py-5 px-6 text-sm">
+                      <span className="px-3 py-1 bg-gray-100 rounded-full text-gray-600 font-medium">
                         {item.category}
                       </span>
                     </td>
-                    <td className="py-4 px-6">
-                      <div className="font-semibold">
-                        {item.price === 0 || !item.price ? (
-                          <span className="text-green-600">Free Adoption</span>
-                        ) : (
-                          <span className="text-gray-900">${item.price}</span>
-                        )}
+                    <td className="py-5 px-6 font-bold text-orange-600">
+                      {item.price === 0 || !item.price
+                        ? "FREE"
+                        : `৳${item.price}`}
+                    </td>
+                    <td className="py-5 px-6 text-gray-500 text-sm">
+                      {item.location}
+                    </td>
+                    <td className="py-5 px-8">
+                      <div className="flex justify-end gap-3">
+                        <Link
+                          to={`/update-listing/${item._id}`}
+                          className="p-3 bg-blue-50 text-blue-600 rounded-xl hover:bg-blue-600 hover:text-white transition-all"
+                        >
+                          <FaEdit size={16} />
+                        </Link>
+                        <button
+                          onClick={() => handleDelete(item._id)}
+                          className="p-3 bg-red-50 text-red-600 rounded-xl hover:bg-red-600 hover:text-white transition-all"
+                        >
+                          <FaTrash size={16} />
+                        </button>
                       </div>
-                    </td>
-                    <td className="py-4 px-6 text-gray-700">{item.location}</td>
-                    <td className="py-4 px-6">
-                      <Link
-                        to={`/update-listing/${item._id}`}
-                        className="p-2 bg-blue-50 hover:bg-blue-100 rounded-lg text-blue-600 transition-colors inline-block"
-                        title="Edit"
-                      >
-                        <FaEdit size={16} />
-                      </Link>
-                    </td>
-                    <td className="py-4 px-6">
-                      <button
-                        onClick={() => handleDelete(item._id)}
-                        className="p-2 bg-red-50 hover:bg-red-100 rounded-lg text-red-600 transition-colors"
-                        title="Delete"
-                      >
-                        <FaTrash size={16} />
-                      </button>
                     </td>
                   </tr>
                 ))}
@@ -185,84 +152,53 @@ const MyListings = () => {
             </table>
           </div>
 
-          <div className="md:hidden space-y-4">
-            {myListings.map((item, index) => (
-              <div
-                key={item._id}
-                className="bg-white rounded-xl border border-gray-200 p-4 shadow-sm hover:shadow-md transition-shadow"
-              >
-                <div className="flex items-start gap-4">
+          {/* Mobile Grid View */}
+          <div className="md:hidden grid grid-cols-1 divide-y divide-gray-100">
+            {myListings.map((item) => (
+              <div key={item._id} className="p-6">
+                <div className="flex gap-4">
                   <img
                     src={item.image}
                     alt={item.name}
-                    className="w-20 h-20 rounded-lg object-cover flex-shrink-0"
+                    className="w-20 h-20 rounded-2xl object-cover"
                   />
-
-                  {/* Content */}
-                  <div className="flex-1 min-w-0">
-                    <div className="flex justify-between items-start mb-1">
-                      <h3 className="font-semibold text-gray-900 truncate">
-                        {item.name}
-                      </h3>
-                      <span className="text-sm text-gray-500">
-                        #{index + 1}
-                      </span>
-                    </div>
-
-                    <div className="flex flex-wrap gap-2 mb-3">
-                      <span
-                        className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                          item.category === "Pets"
-                            ? "bg-blue-100 text-blue-800"
-                            : item.category === "Pet Food"
-                            ? "bg-green-100 text-green-800"
-                            : item.category === "Accessories"
-                            ? "bg-purple-100 text-purple-800"
-                            : "bg-pink-100 text-pink-800"
-                        }`}
-                      >
+                  <div className="flex-1">
+                    <h3 className="font-black text-gray-900 uppercase text-sm tracking-tight">
+                      {item.name}
+                    </h3>
+                    <p className="text-orange-600 font-bold text-lg">
+                      {item.price === 0 || !item.price
+                        ? "FREE"
+                        : `৳${item.price}`}
+                    </p>
+                    <div className="flex gap-2 mt-2">
+                      <span className="text-[10px] font-bold bg-gray-100 px-2 py-0.5 rounded uppercase">
                         {item.category}
                       </span>
-                      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                      <span className="text-[10px] font-bold bg-gray-100 px-2 py-0.5 rounded uppercase">
                         {item.location}
                       </span>
                     </div>
-
-                    <div className="flex items-center justify-between">
-                      <div className="font-semibold">
-                        {item.price === 0 || !item.price ? (
-                          <span className="text-green-600 text-sm">
-                            Free Adoption
-                          </span>
-                        ) : (
-                          <span className="text-gray-900">${item.price}</span>
-                        )}
-                      </div>
-
-                      {/* Action Buttons */}
-                      <div className="flex items-center space-x-2">
-                        <Link
-                          to={`/update-listing/${item._id}`}
-                          className="p-1.5 bg-blue-50 hover:bg-blue-100 rounded-lg text-blue-600"
-                          title="Edit"
-                        >
-                          <FaEdit size={14} />
-                        </Link>
-                        <button
-                          onClick={() => handleDelete(item._id)}
-                          className="p-1.5 bg-red-50 hover:bg-red-100 rounded-lg text-red-600"
-                          title="Delete"
-                        >
-                          <FaTrash size={14} />
-                        </button>
-                      </div>
-                    </div>
                   </div>
+                </div>
+                <div className="flex gap-3 mt-4">
+                  <Link
+                    to={`/update-listing/${item._id}`}
+                    className="flex-1 flex justify-center items-center py-3 bg-blue-50 text-blue-600 rounded-xl font-bold"
+                  >
+                    Edit
+                  </Link>
+                  <button
+                    onClick={() => handleDelete(item._id)}
+                    className="flex-1 flex justify-center items-center py-3 bg-red-50 text-red-600 rounded-xl font-bold"
+                  >
+                    Delete
+                  </button>
                 </div>
               </div>
             ))}
           </div>
-        </>
+        </div>
       )}
     </div>
   );
