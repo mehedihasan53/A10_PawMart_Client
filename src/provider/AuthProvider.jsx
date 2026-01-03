@@ -11,7 +11,6 @@ import {
 } from "firebase/auth";
 import toast from "react-hot-toast";
 import { app } from "../firebase/firebase.config";
-import Loading from "../components/Loading";
 
 export const AuthContext = createContext();
 export const auth = getAuth(app);
@@ -22,50 +21,28 @@ const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   // Create account
-  const createUser = async (email, password) => {
+  const createUser = (email, password) => {
     setLoading(true);
-    try {
-      const result = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      setUser(result.user);
-      return result;
-    } finally {
-      setLoading(false);
-    }
+    return createUserWithEmailAndPassword(auth, email, password);
   };
 
-  // Login with email
-  const signIn = async (email, password) => {
+  // Login with email & password
+  const signIn = (email, password) => {
     setLoading(true);
-    try {
-      const result = await signInWithEmailAndPassword(auth, email, password);
-      setUser(result.user);
-      return result;
-    } finally {
-      setLoading(false);
-    }
+    return signInWithEmailAndPassword(auth, email, password);
   };
 
   // Google login/register
-  const googleLogin = async () => {
+  const googleLogin = () => {
     setLoading(true);
-    try {
-      const result = await signInWithPopup(auth, googleProvider);
-      setUser(result.user);
-      return result;
-    } catch (err) {
-      toast.error(err.message);
-      throw err;
-    } finally {
-      setLoading(false);
-    }
+    return signInWithPopup(auth, googleProvider);
   };
 
-  // Update profile
-  const updateUserProfile = (info) => updateProfile(auth.currentUser, info);
+  // Update user profile
+  const updateUserProfile = (info) => {
+    setLoading(true);
+    return updateProfile(auth.currentUser, info);
+  };
 
   // Logout
   const logOut = async () => {
@@ -73,7 +50,7 @@ const AuthProvider = ({ children }) => {
     try {
       await signOut(auth);
       setUser(null);
-      toast.success("Logged out");
+      toast.success("Successfully logged out!");
     } catch (err) {
       toast.error(err.message);
     } finally {
@@ -81,7 +58,6 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-  // Listen to auth changes
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -93,16 +69,13 @@ const AuthProvider = ({ children }) => {
   const authData = {
     user,
     loading,
+    setLoading,
     createUser,
     signIn,
     googleLogin,
     updateUserProfile,
     logOut,
   };
-
-  if (loading) {
-    return <Loading />;
-  }
 
   return (
     <AuthContext.Provider value={authData}>{children}</AuthContext.Provider>

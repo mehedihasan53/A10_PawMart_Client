@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import { FaGoogle } from "react-icons/fa";
+import { FaGoogle, FaUserShield, FaUser } from "react-icons/fa";
 import { AuthContext } from "../provider/AuthProvider";
 import DynamicTitle from "../components/DynamicTitle";
 
@@ -13,6 +13,20 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
+  // Function to auto-fill demo credentials
+  const fillDemoCredentials = (role) => {
+    if (role === "admin") {
+      setEmail("admin@pawmart.com");
+      setPassword("Admin@123");
+
+      toast.success("Admin credentials filled!");
+    } else {
+      setEmail("user@pawmart.com");
+      setPassword("User@123");
+      toast.success("User credentials filled!");
+    }
+  };
+
   const handleEmailLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -23,7 +37,6 @@ const Login = () => {
       navigate("/");
     } catch (err) {
       setLoading(false);
-
       if (err.code === "auth/wrong-password") {
         toast.error("Incorrect password. Please try again!");
       } else if (err.code === "auth/user-not-found") {
@@ -57,6 +70,24 @@ const Login = () => {
           Login Now
         </h1>
 
+        {/* Demo Buttons  */}
+        <div className="flex gap-2 mb-6">
+          <button
+            onClick={() => fillDemoCredentials("user")}
+            className="flex-1 py-2 px-3 border-2 border-dashed border-orange-200 rounded-xl flex items-center justify-center gap-2 text-xs font-bold text-gray-500 hover:bg-orange-50 transition-colors"
+            type="button"
+          >
+            <FaUser className="text-orange-400" /> DEMO USER
+          </button>
+          <button
+            onClick={() => fillDemoCredentials("admin")}
+            className="flex-1 py-2 px-3 border-2 border-dashed border-pink-200 rounded-xl flex items-center justify-center gap-2 text-xs font-bold text-gray-500 hover:bg-pink-50 transition-colors"
+            type="button"
+          >
+            <FaUserShield className="text-pink-400" /> DEMO ADMIN
+          </button>
+        </div>
+
         <form onSubmit={handleEmailLogin} className="space-y-4">
           <div>
             <label className="label">Email</label>
@@ -85,7 +116,7 @@ const Login = () => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 rounded-lg font-semibold text-white bg-gradient-to-r from-orange-500 to-pink-500"
+            className="w-full py-3 rounded-lg font-semibold text-white bg-gradient-to-r from-orange-500 to-pink-500 shadow-md hover:opacity-90 transition-all active:scale-95"
           >
             {loading ? "Logging in..." : "Login"}
           </button>
@@ -95,7 +126,7 @@ const Login = () => {
 
         <button
           onClick={handleGoogleLogin}
-          className="w-full py-3 rounded-lg border flex items-center justify-center gap-2"
+          className="w-full py-3 rounded-lg border flex items-center justify-center gap-2 hover:bg-gray-50 transition-colors"
         >
           <FaGoogle className="text-red-500" /> Login with Google
         </button>

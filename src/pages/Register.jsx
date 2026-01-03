@@ -61,6 +61,7 @@ const Register = () => {
             <label className="label">Full Name</label>
             <input
               name="name"
+              placeholder="Enter your full name"
               className="input input-bordered w-full"
               required
             />
@@ -70,6 +71,7 @@ const Register = () => {
             <label className="label">Email</label>
             <input
               name="email"
+              placeholder="Enter your email"
               type="email"
               className="input input-bordered w-full"
               required
@@ -80,6 +82,7 @@ const Register = () => {
             <label className="label">Password</label>
             <input
               name="password"
+              placeholder="Enter your password"
               type="password"
               className="input input-bordered w-full"
               required
@@ -90,6 +93,7 @@ const Register = () => {
             <label className="label">Photo URL</label>
             <input
               name="photoURL"
+              placeholder="Enter your photo URL"
               className="input input-bordered w-full"
               required
             />
