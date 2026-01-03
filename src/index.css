@@ -65,3 +65,23 @@
   .min-h-screen.flex.items-center.justify-center.bg-gradient-to-br.from-orange-50.to-pink-50 {
   background: linear-gradient(135deg, #1f2937 0%, #111827 100%) !important;
 }
+
+/* Custom Dark Mode Orange Overrides */
+.dark .bg-orange-600 {
+  background-color: #ea580c !important;
+  color: #ffffff !important;
+}
+
+.dark .bg-orange-600:hover {
+  background-color: #f97316 !important;
+}
+
+.dark button.bg-orange-600 {
+  background-color: #ea580c !important;
+  border-color: #fb923c !important;
+  color: #ffffff !important;
+}
+
+.dark .text-orange-600 {
+  color: #fb923c !important;
+}

@@ -13,6 +13,10 @@ import ListingDetails from "../pages/ListingDetails";
 import CategoryFilteredPage from "../components/CategoryFilteredPage";
 import Update from "../pages/UpdateListing";
 import ErrorPage from "../components/ErrorPage";
+import AboutUs from "../pages/AboutUs";
+import Contact from "../components/shared/Contact";
+import Partners from "../components/shared/Partners";
+import PrivacyPolicy from "../components/shared/PrivacyPolicy";
 
 export const router = createBrowserRouter([
   {
@@ -28,6 +32,10 @@ export const router = createBrowserRouter([
       {
         path: "/pets-supplies",
         element: <PetsSupplies />,
+      },
+      {
+        path: "/about-us",
+        element: <AboutUs />,
       },
       {
         path: "/add-listing",
@@ -76,6 +84,18 @@ export const router = createBrowserRouter([
             <Update />
           </PrivateRoute>
         ),
+      },
+      {
+        path: "/contact",
+        element: <Contact />,
+      },
+      {
+        path: "/partners",
+        element: <Partners />,
+      },
+      {
+        path: "/privacy-policy",
+        element: <PrivacyPolicy />,
       },
     ],
   },

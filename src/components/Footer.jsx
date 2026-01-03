@@ -94,7 +94,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  to="/"
+                  to="/contact"
                   className="flex items-center space-x-2 text-gray-600 hover:text-orange-500 transition"
                 >
                   <FaPhone />
@@ -110,7 +110,7 @@ const Footer = () => {
             <ul className="space-y-3">
               <li>
                 <Link
-                  to="/"
+                  to="/privacy-policy"
                   className="flex items-center space-x-2 text-gray-600 hover:text-orange-500 transition"
                 >
                   <FaLock />

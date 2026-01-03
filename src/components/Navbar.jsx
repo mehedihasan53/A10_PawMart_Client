@@ -13,6 +13,7 @@ import {
   FaMoon,
 } from "react-icons/fa";
 import { AuthContext } from "../provider/AuthProvider";
+import { label } from "framer-motion/client";
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -28,6 +29,7 @@ const Navbar = () => {
   const navItems = [
     { to: "/", label: "Home", icon: FaHome },
     { to: "/pets-supplies", label: "Pets & Supplies", icon: FaShoppingBag },
+    { to: "/about-us", label: "About Us", icon: FaPaw },
   ];
 
   const userNavItems = [
