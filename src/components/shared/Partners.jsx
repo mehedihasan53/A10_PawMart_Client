@@ -41,7 +41,7 @@ const Partners = () => {
 
   return (
     <div className="bg-white dark:bg-[#111827] min-h-screen font-sans transition-colors duration-300">
-      {/* --- Simple Hero Section --- */}
+      {/* ---  Hero Section --- */}
       <section className="py-20 border-b border-gray-100 dark:border-gray-800">
         <div className="max-w-7xl mx-auto px-6 text-center">
           <motion.div initial="hidden" animate="visible" variants={fadeInUp}>

@@ -29,7 +29,7 @@ const Contact = () => {
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-            {/* 1. Contact Information Column */}
+            {/*  Contact Information Column */}
             <div className="space-y-10">
               <div>
                 <h2 className="text-2xl font-bold text-gray-900 dark:text-[#d1d5db] mb-6">
@@ -87,7 +87,7 @@ const Contact = () => {
               </div>
 
               {/* Emergency Support Card */}
-              <div className="p-8 bg-orange-50 dark:bg-[#571515] rounded-[2rem] border border-orange-100 dark:border-orange-900/30 flex gap-5">
+              <div className="p-8 bg-orange-50 dark:bg-orange-500 rounded-[2rem] border border-orange-100 dark:border-orange-600 flex gap-5">
                 <FaExclamationTriangle className="text-orange-600 dark:text-orange-400 text-3xl flex-shrink-0" />
                 <div>
                   <h3 className="font-bold text-orange-900 dark:text-orange-100 mb-2 italic">
@@ -102,7 +102,7 @@ const Contact = () => {
               </div>
             </div>
 
-            {/* 2. Contact Form Column */}
+            {/* Contact Form Column */}
             <div className="bg-white dark:bg-[#1f2937] p-8 md:p-10 rounded-[2.5rem] shadow-sm border border-gray-100 dark:border-gray-700">
               <form className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
