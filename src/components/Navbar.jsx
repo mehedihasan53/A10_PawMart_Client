@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useRef, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import {
   FaPaw,
@@ -11,41 +11,69 @@ import {
   FaTimes,
   FaSun,
   FaMoon,
+  FaColumns,
+  FaSignOutAlt,
 } from "react-icons/fa";
 import { AuthContext } from "../provider/AuthProvider";
-import { label } from "framer-motion/client";
+import useRole from "../hooks/useRole";
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
   const { user, logOut } = useContext(AuthContext);
   const [isDark, setIsDark] = useState(false);
+  const [role] = useRole();
+  const dropdownRef = useRef(null);
 
   const toggleTheme = () => {
     setIsDark(!isDark);
-    if (!isDark) document.documentElement.classList.add("dark");
-    else document.documentElement.classList.remove("dark");
+    document.documentElement.classList.toggle("dark");
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsProfileOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const handleLogout = async () => {
+    try {
+      await logOut();
+      setIsProfileOpen(false);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const navItems = [
     { to: "/", label: "Home", icon: FaHome },
     { to: "/pets-supplies", label: "Pets & Supplies", icon: FaShoppingBag },
-    { to: "/about-us", label: "About Us", icon: FaPaw },
   ];
 
-  const userNavItems = [
+  const adminNavItems = [
     { to: "/add-listing", label: "Add Listing", icon: FaPlus },
     { to: "/my-listings", label: "My Listings", icon: FaList },
+  ];
+
+  const commonUserItems = [
     { to: "/my-orders", label: "My Orders", icon: FaShoppingCart },
   ];
 
-  const handleLogout = async () => {
-    try {
-      await logOut();
-    } catch (err) {}
-  };
+  const aboutUsItem = { to: "/about-us", label: "About Us", icon: FaPaw };
+
+  const activeLinkClass = ({ isActive }) =>
+    `flex items-center space-x-2 px-3 py-2 rounded-lg transition-all duration-200 ${
+      isActive
+        ? "bg-gradient-to-r from-orange-500 to-pink-500 text-white shadow-md"
+        : "text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800"
+    }`;
 
   return (
-    <nav className="sticky top-0 z-50 bg-white dark:bg-gray-900 shadow">
+    <nav className="sticky top-0 z-50 bg-white dark:bg-gray-900 shadow-md">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between py-3">
           <Link to="/" className="flex items-center space-x-3 group">
@@ -62,51 +90,50 @@ const Navbar = () => {
             </div>
           </Link>
 
-          {/* Desktop Links */}
-          <div className="hidden lg:flex items-center space-x-2">
+          <div className="hidden lg:flex items-center space-x-1">
             {navItems.map((item) => (
-              <NavLink
-                key={item.to}
-                to={item.to}
-                className={({ isActive }) =>
-                  `flex items-center space-x-2 px-3 py-2 rounded-lg transition-all duration-200 ${
-                    isActive
-                      ? "bg-gradient-to-r from-orange-500 to-pink-500 text-white"
-                      : "text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800"
-                  }`
-                }
-              >
+              <NavLink key={item.to} to={item.to} className={activeLinkClass}>
                 <item.icon className="text-lg" />
                 <span className="font-medium">{item.label}</span>
               </NavLink>
             ))}
 
-            {user &&
-              userNavItems.map((item) => (
-                <NavLink
-                  key={item.to}
-                  to={item.to}
-                  className={({ isActive }) =>
-                    `flex items-center space-x-2 px-3 py-2 rounded-lg transition-all duration-200 ${
-                      isActive
-                        ? "bg-gradient-to-r from-orange-500 to-pink-500 text-white"
-                        : "text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800"
-                    }`
-                  }
-                >
-                  <item.icon className="text-lg" />
-                  <span className="font-medium">{item.label}</span>
-                </NavLink>
-              ))}
+            {user && (
+              <>
+                {role === "admin" &&
+                  adminNavItems.map((item) => (
+                    <NavLink
+                      key={item.to}
+                      to={item.to}
+                      className={activeLinkClass}
+                    >
+                      <item.icon className="text-lg" />
+                      <span className="font-medium">{item.label}</span>
+                    </NavLink>
+                  ))}
+                {commonUserItems.map((item) => (
+                  <NavLink
+                    key={item.to}
+                    to={item.to}
+                    className={activeLinkClass}
+                  >
+                    <item.icon className="text-lg" />
+                    <span className="font-medium">{item.label}</span>
+                  </NavLink>
+                ))}
+              </>
+            )}
+
+            <NavLink to={aboutUsItem.to} className={activeLinkClass}>
+              <aboutUsItem.icon className="text-lg" />
+              <span className="font-medium">{aboutUsItem.label}</span>
+            </NavLink>
           </div>
 
-          {/* Right Section */}
           <div className="flex items-center space-x-4">
-            {/* Theme Toggle */}
             <button
               onClick={toggleTheme}
-              className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
-              title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
+              className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 transition-colors"
             >
               {isDark ? (
                 <FaSun className="text-yellow-500 text-lg" />
@@ -115,125 +142,116 @@ const Navbar = () => {
               )}
             </button>
 
-            <div className="hidden lg:flex items-center space-x-4">
-              {!user ? (
-                <>
-                  <Link
-                    to="/auth/login"
-                    className="font-medium text-gray-700 dark:text-gray-200 hover:text-orange-500 transition-colors"
-                  >
-                    Login
-                  </Link>
-                  <Link
-                    to="/auth/register"
-                    className="bg-gradient-to-r from-orange-500 to-pink-500 text-white px-6 py-2.5 rounded-lg font-medium hover:shadow-lg hover:scale-105 transition-all shadow-md"
-                  >
-                    Register
-                  </Link>
-                </>
-              ) : (
-                <div className="flex items-center space-x-3">
+            {!user ? (
+              <div className="hidden lg:flex items-center space-x-3">
+                <Link
+                  to="/auth/login"
+                  className="font-medium text-gray-700 dark:text-gray-200 hover:text-orange-500 transition-colors"
+                >
+                  Login
+                </Link>
+                <Link
+                  to="/auth/register"
+                  className="bg-gradient-to-r from-orange-500 to-pink-500 text-white px-6 py-2.5 rounded-lg font-medium hover:scale-105 transition-all shadow-md"
+                >
+                  Register
+                </Link>
+              </div>
+            ) : (
+              <div className="relative" ref={dropdownRef}>
+                <button
+                  onClick={() => setIsProfileOpen(!isProfileOpen)}
+                  className="flex items-center space-x-2 focus:outline-none"
+                >
                   <img
                     src={user.photoURL || "/default-avatar.png"}
-                    alt={user.displayName || "Profile"}
-                    className="w-8 h-8 rounded-full object-cover border-2 border-orange-500"
+                    className="w-10 h-10 rounded-full border-2 border-orange-500 object-cover p-0.5"
+                    alt="User"
                   />
-                  <span className="text-gray-700 dark:text-gray-200 font-medium">
-                    {user.displayName || "Profile"}
-                  </span>
-                  <button
-                    onClick={handleLogout}
-                    className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-colors"
-                  >
-                    Logout
-                  </button>
-                </div>
-              )}
-            </div>
+                </button>
 
-            {/* Mobile Menu Toggle */}
+                {isProfileOpen && (
+                  <div className="absolute right-0 mt-2 w-56 bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border dark:border-gray-700 py-3 z-50">
+                    <div className="px-4 py-3 border-b dark:border-gray-700 mb-2">
+                      <p className="text-sm font-bold dark:text-white truncate">
+                        {user?.displayName}
+                      </p>
+                      <p className="text-xs text-gray-500 truncate">
+                        {user?.email}
+                      </p>
+                    </div>
+
+                    <Link
+                      to={
+                        role === "admin"
+                          ? "/dashboard/admin-home"
+                          : "/dashboard/user-home"
+                      }
+                      onClick={() => setIsProfileOpen(false)}
+                      className="flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-orange-50 dark:hover:bg-gray-700 transition-colors"
+                    >
+                      <FaColumns className="mr-3 text-orange-500" /> Dashboard
+                    </Link>
+
+                    <div className="border-t dark:border-gray-700 my-2"></div>
+
+                    <button
+                      onClick={handleLogout}
+                      className="w-full flex items-center px-4 py-2 text-sm text-red-600 hover:bg-red-50 dark:hover:bg-gray-700 transition-colors"
+                    >
+                      <FaSignOutAlt className="mr-3" /> Logout Account
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
+
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden p-2 text-gray-700 dark:text-gray-200 hover:text-orange-500"
+              className="lg:hidden text-gray-700 dark:text-gray-200"
             >
               {isMobileMenuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
             </button>
           </div>
         </div>
 
-        {/* Mobile Menu */}
         {isMobileMenuOpen && (
           <div className="lg:hidden border-t py-3 border-gray-200 dark:border-gray-700">
-            <div className="space-y-2 px-2">
-              {[...navItems, ...(user ? userNavItems : [])].map((item) => (
+            <div className="space-y-1">
+              {[
+                ...navItems,
+                ...(user && role === "admin" ? adminNavItems : []),
+                ...(user ? commonUserItems : []),
+                aboutUsItem,
+              ].map((item) => (
                 <Link
                   key={item.to}
                   to={item.to}
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
                 >
-                  <item.icon className="text-lg" />
+                  <item.icon />
                   <span>{item.label}</span>
                 </Link>
               ))}
-
-              <button
-                onClick={() => {
-                  toggleTheme();
-                  setIsMobileMenuOpen(false);
-                }}
-                className="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors w-full"
-              >
-                {isDark ? (
-                  <FaSun className="text-lg text-yellow-500" />
-                ) : (
-                  <FaMoon className="text-lg" />
-                )}
-                <span>{isDark ? "Light Mode" : "Dark Mode"}</span>
-              </button>
-
-              <div className="pt-4 space-y-3">
-                {!user ? (
-                  <>
-                    <Link
-                      to="/auth/login"
-                      onClick={() => setIsMobileMenuOpen(false)}
-                      className="block w-full text-center py-2.5 text-gray-700 dark:text-gray-200 hover:text-orange-500"
-                    >
-                      Login
-                    </Link>
-                    <Link
-                      to="/auth/register"
-                      onClick={() => setIsMobileMenuOpen(false)}
-                      className="block w-full text-center py-2.5 bg-gradient-to-r from-orange-500 to-pink-500 text-white rounded-lg font-medium hover:shadow-lg"
-                    >
-                      Register
-                    </Link>
-                  </>
-                ) : (
-                  <div className="px-4 py-3">
-                    <div className="flex items-center space-x-3 mb-3">
-                      <img
-                        src={user.photoURL || "/default-avatar.png"}
-                        alt={user.displayName || "Profile"}
-                        className="w-8 h-8 rounded-full object-cover border-2 border-orange-500"
-                      />
-                      <span className="text-gray-700 dark:text-gray-200 font-medium">
-                        {user.displayName || "Profile"}
-                      </span>
-                    </div>
-                    <button
-                      onClick={() => {
-                        handleLogout();
-                        setIsMobileMenuOpen(false);
-                      }}
-                      className="w-full text-center py-2.5 bg-red-500 text-white rounded-lg font-medium hover:bg-red-600"
-                    >
-                      Logout
-                    </button>
-                  </div>
-                )}
-              </div>
+              {!user && (
+                <div className="pt-4 px-4 space-y-2">
+                  <Link
+                    to="/auth/login"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="block w-full text-center py-2 text-gray-700 dark:text-gray-200 border rounded-lg"
+                  >
+                    Login
+                  </Link>
+                  <Link
+                    to="/auth/register"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="block w-full text-center py-2 bg-orange-500 text-white rounded-lg"
+                  >
+                    Register
+                  </Link>
+                </div>
+              )}
             </div>
           </div>
         )}

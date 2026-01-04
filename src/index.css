@@ -1,87 +1,117 @@
 @import "tailwindcss";
 @plugin "daisyui";
 
+/* CUSTOM COLOR FOR DARK MODE */
 .dark {
-  background-color: #111827;
-  color: #d1d5db;
+  background-color: #0f172a;
+  color: #f1f5f9;
 }
 
-/* Navbar, Footer, Cards, Sections */
+/* BASE BACKGROUNDS */
 .dark,
 .dark .bg-base-100,
 .dark .bg-white,
-.dark .bg-gray-50,
-.dark .bg-gray-100,
 .dark footer,
-.dark .bg-white.p-6.rounded-xl.shadow-md {
-  background-color: #1f2937;
-  color: #d1d5db;
+.dark .card,
+.dark section {
+  background-color: #0f172a;
+  color: #e2e8f0;
 }
 
-/* Text overrides */
+/* SECONDARY SURFACES (Cards, About Us Info Boxes, Collapses) */
+.dark .bg-gray-50,
+.dark .bg-gray-100,
+.dark .inner-container,
+.dark .collapse,
+.dark .bg-white.p-6,
+.dark .bg-white.p-10 {
+  background-color: #1e293b !important;
+  border-color: #334155 !important;
+}
+
+/* ABOUT US SECTION   */
+.dark .bg-orange-50 {
+  background-color: rgba(234, 88, 12, 0.1) !important;
+  color: #fb923c !important;
+  border: 1px solid rgba(234, 88, 12, 0.2) !important;
+}
+
+/* TYPOGRAPHY */
 .dark .text-gray-900,
 .dark .text-gray-800,
 .dark .text-gray-700,
-.dark .text-gray-600,
-.dark section h1,
-.dark section h2,
-.dark section h3,
-.dark section p,
-.dark section span:not(.text-orange-500) {
-  color: #d1d5db;
+.dark .text-gray-600 {
+  color: #cbd5e1 !important;
 }
 
-/* Inputs and Buttons */
-.dark .input,
-.dark .input-bordered,
-.dark button:not(.bg-gradient-to-r) {
-  background-color: #374151;
-  border-color: #4b5563;
-  color: #d1d5db;
-}
-
-.dark .bg-orange-50 {
-  background-color: #571515 !important;
-  color: #fef3c7 !important;
-}
-
-/* Tables */
-.dark table,
-.dark th,
-.dark td {
-  background-color: #1f2937;
-  color: #d1d5db;
-  border-color: #4b5563;
-}
-
-/* Modal overlay */
-.dark .bg-black\/50 {
-  background-color: rgba(0, 0, 0, 0.6);
-}
-
-/* Login+Register  */
-.dark .bg-gradient-to-br.from-orange-50.to-pink-50,
-.dark
-  .min-h-screen.flex.items-center.justify-center.bg-gradient-to-br.from-orange-50.to-pink-50 {
-  background: linear-gradient(135deg, #1f2937 0%, #111827 100%) !important;
-}
-
-/* Custom Dark Mode Orange Overrides */
-.dark .bg-orange-600 {
-  background-color: #ea580c !important;
-  color: #ffffff !important;
-}
-
-.dark .bg-orange-600:hover {
-  background-color: #f97316 !important;
-}
-
-.dark button.bg-orange-600 {
-  background-color: #ea580c !important;
-  border-color: #fb923c !important;
-  color: #ffffff !important;
+.dark .text-gray-500,
+.dark .text-gray-400 {
+  color: #94a3b8 !important;
 }
 
 .dark .text-orange-600 {
   color: #fb923c !important;
+}
+
+/* FORMS & INTERACTION */
+.dark .input,
+.dark .select,
+.dark .textarea,
+.dark .input-bordered {
+  background-color: #0f172a !important;
+  border-color: #334155 !important;
+  color: #f1f5f9 !important;
+}
+
+.dark .input:focus,
+.dark .select:focus {
+  border-color: #ea580c !important;
+}
+
+.dark label,
+.dark .label-text {
+  color: #94a3b8 !important;
+}
+
+/* BUTTONS & TABLES */
+.dark button.border {
+  background-color: #1e293b !important;
+  border-color: #334155 !important;
+}
+
+.dark .table,
+.dark table {
+  background-color: #1e293b !important;
+}
+
+.dark th {
+  background-color: #0f172a !important;
+  color: #f1f5f9 !important;
+}
+
+.dark td {
+  border-color: #334155 !important;
+}
+
+/* GRADIENTS & UTILITIES */
+.dark .divider::before,
+.dark .divider::after {
+  background-color: #334155 !important;
+}
+
+.dark .modal-box {
+  background-color: #1e293b !important;
+  box-shadow: none;
+}
+
+.dark .from-orange-50.to-white {
+  background-image: linear-gradient(to bottom, #1e293b, #0f172a) !important;
+}
+
+.dark .from-orange-500.to-pink-600 {
+  background-image: linear-gradient(
+    to bottom right,
+    #ea580c,
+    #db2777
+  ) !important;
 }

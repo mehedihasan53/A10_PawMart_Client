@@ -2,55 +2,76 @@ import React from "react";
 
 const Loading = () => {
   return (
-    <div className="min-h-[400px] flex flex-col items-center justify-center bg-gray-50">
-      <div className="relative w-[120px] h-[90px] mx-auto">
-        {/* Bouncing Ball */}
-        <div
-          className="absolute bottom-[30px] left-[50px] h-[30px] w-[30px] rounded-full bg-gradient-to-r from-blue-500 to-purple-600 shadow-lg"
-          style={{
-            animation: "loading-bounce 0.5s ease-in-out infinite alternate",
-          }}
-        />
+    <div className="min-h-[400px] flex flex-col items-center justify-center bg-white">
+      <div className="relative w-[120px] h-[120px]">
+        <div className="absolute inset-0 bg-orange-200 rounded-full blur-3xl opacity-20 animate-pulse"></div>
 
-        {/* Steps */}
+        {/* Main Bouncing Paw/Ball */}
         <div
-          className="absolute right-0 top-0 h-[7px] w-[45px] rounded-[4px]"
+          className="absolute bottom-0 left-[40px] h-[40px] w-[40px] rounded-full bg-gradient-to-tr from-orange-500 via-pink-500 to-red-500 shadow-[0_10px_20px_rgba(249,115,22,0.4)] z-10"
+          style={{
+            animation:
+              "premium-bounce 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) infinite alternate",
+          }}
+        >
+          <div className="absolute top-2 left-2 w-3 h-3 bg-white/30 rounded-full"></div>
+        </div>
+
+        <div
+          className="absolute bottom-[-10px] left-[45px] w-[30px] h-[5px] bg-gray-200 rounded-full blur-sm"
+          style={{
+            animation: "shadow-scale 0.6s ease-in-out infinite alternate",
+          }}
+        ></div>
+
+        <div
+          className="absolute right-0 top-0 h-[8px] w-[50px] rounded-full"
           style={{
             boxShadow:
-              "0 5px 0 #c7d2fe, -35px 50px 0 #c7d2fe, -70px 95px 0 #c7d2fe",
-            animation: "loading-step 1s ease-in-out infinite",
+              "0 5px 0 #fb923c, -40px 45px 0 #f472b6, -80px 85px 0 #fb923c",
+            animation: "step-slide 1.2s linear infinite",
           }}
         />
       </div>
 
-      <p className="mt-8 text-gray-700 font-semibold text-lg animate-pulse ">
-        Loading...
-      </p>
+      <div className="mt-12 text-center">
+        <p className="text-2xl font-black bg-gradient-to-r from-orange-600 to-pink-600 bg-clip-text text-transparent uppercase tracking-[0.3em] animate-pulse">
+          Loading
+        </p>
+        <div className="flex justify-center gap-1 mt-1">
+          <span className="w-1.5 h-1.5 bg-orange-500 rounded-full animate-bounce [animation-delay:-0.3s]"></span>
+          <span className="w-1.5 h-1.5 bg-pink-500 rounded-full animate-bounce [animation-delay:-0.15s]"></span>
+          <span className="w-1.5 h-1.5 bg-orange-500 rounded-full animate-bounce"></span>
+        </div>
+      </div>
 
-      {/* Animations */}
       <style>
         {`
-          @keyframes loading-bounce {
-            0% { transform: scale(1, 0.7); }
-            40% { transform: scale(0.8, 1.2); }
-            60% { transform: scale(1, 1); }
-            100% { bottom: 140px; transform: scale(1, 1); }
+          @keyframes premium-bounce {
+            0% { 
+              transform: translateY(0) scale(1.2, 0.8); 
+            }
+            100% { 
+              transform: translateY(-80px) scale(1, 1); 
+            }
+          }
+
+          @keyframes shadow-scale {
+            0% { transform: scale(1.5); opacity: 0.4; }
+            100% { transform: scale(0.5); opacity: 0.1; }
           }
           
-          @keyframes loading-step {
+          @keyframes step-slide {
             0% {
-              box-shadow:
-                0 10px 0 rgba(0,0,0,0),
-                0 10px 0 #c7d2fe,
-                -35px 50px 0 #c7d2fe,
-                -70px 90px 0 #c7d2fe;
+              transform: translateX(0);
+              opacity: 0.5;
+            }
+            50% {
+              opacity: 1;
             }
             100% {
-              box-shadow:
-                0 10px 0 #c7d2fe,
-                -35px 50px 0 #c7d2fe,
-                -70px 90px 0 #c7d2fe,
-                -70px 90px 0 rgba(0,0,0,0);
+              transform: translateX(-20px);
+              opacity: 0.5;
             }
           }
         `}

@@ -1,6 +1,7 @@
 import React from "react";
-import { FaQuestionCircle, FaChevronDown } from "react-icons/fa";
+import { FaQuestionCircle, FaPaw } from "react-icons/fa";
 import { Link } from "react-router";
+import DynamicTitle from "../DynamicTitle";
 
 const FAQ = () => {
   const faqData = [
@@ -32,44 +33,48 @@ const FAQ = () => {
   ];
 
   return (
-    <div className="bg-white dark:bg-[#111827] min-h-screen transition-colors duration-300">
-      {/* --- Header Section --- */}
-      <section className="py-16 bg-gray-50 dark:bg-[#1f2937] border-b border-gray-100 dark:border-gray-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-orange-100 dark:bg-[#571515] text-orange-600 dark:text-orange-400 rounded-2xl mb-6">
-            <FaQuestionCircle size={32} />
+    <div className="bg-white dark:bg-[#0f172a] min-h-screen transition-colors duration-300">
+      <DynamicTitle title="FAQ | PawMart" />
+
+      <section className="relative py-20 bg-gradient-to-b from-orange-50 to-white dark:from-[#1e293b] dark:to-[#0f172a] overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 text-center relative z-10">
+          <div className="inline-flex items-center justify-center w-20 h-20 bg-white dark:bg-gray-800 text-orange-600 rounded-[2rem] mb-8 border border-orange-100 dark:border-gray-700">
+            <FaQuestionCircle size={40} />
           </div>
-          <h1 className="text-4xl font-extrabold text-gray-900 dark:text-[#d1d5db] sm:text-5xl">
+          <h1 className="text-4xl md:text-6xl font-black text-gray-900 dark:text-white uppercase tracking-tight">
             Frequently{" "}
-            <span className=" text-orange-600 dark:text-amber-200   dark:bg-[#571515] rounded-full">
-              Asked Question
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-pink-500">
+              Asked
             </span>
           </h1>
-          <p className="mt-4 text-lg text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
+          <p className="mt-6 text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto font-medium leading-relaxed">
             Everything you need to know about adoption and how PawMart works.
           </p>
         </div>
+        <div className="absolute top-10 left-[-5%] text-orange-100 dark:text-gray-800 text-[250px] rotate-12 opacity-30 pointer-events-none">
+          <FaPaw />
+        </div>
       </section>
 
-      {/* --- FAQ Accordion Section --- */}
       <section className="py-20">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="space-y-4">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="space-y-6">
             {faqData.map((item, index) => (
               <div
                 key={index}
-                className="collapse collapse-arrow bg-white dark:bg-[#1f2937] border border-gray-100 dark:border-[#4b5563] rounded-2xl shadow-sm overflow-hidden"
+                className="collapse collapse-arrow bg-gray-50 dark:bg-[#1e293b] border border-gray-100 dark:border-gray-800 rounded-[2rem] transition-all duration-300"
               >
                 <input
                   type="radio"
-                  name="my-accordion-2"
+                  name="faq-accordion"
                   defaultChecked={index === 0}
                 />
-                <div className="collapse-title text-xl font-bold text-gray-900 dark:text-[#d1d5db] p-6">
+                <div className="collapse-title text-xl font-black text-gray-900 dark:text-white p-8 uppercase tracking-tighter">
+                  <span className="text-orange-600 mr-4">0{index + 1}.</span>
                   {item.question}
                 </div>
-                <div className="collapse-content px-6 pb-6">
-                  <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
+                <div className="collapse-content px-8 pb-8">
+                  <p className="text-gray-600 dark:text-gray-400 leading-relaxed text-lg font-medium pl-10 border-l-2 border-orange-200 dark:border-orange-900">
                     {item.answer}
                   </p>
                 </div>
@@ -77,21 +82,26 @@ const FAQ = () => {
             ))}
           </div>
 
-          {/* --- Still Have Questions Section --- */}
-          <div className="mt-20 p-10 bg-orange-50 dark:bg-[#571515] rounded-[2.5rem] text-center border border-orange-100 dark:border-orange-900/30">
-            <h2 className="text-2xl font-bold text-orange-900 dark:text-orange-100 mb-4">
-              Still have questions?
-            </h2>
-            <p className="text-orange-800 dark:text-orange-200/80 mb-8">
-              If you couldn't find your answer, our support team is happy to
-              help you.
-            </p>
-            <Link
-              to={"/contact"}
-              className="bg-orange-600 hover:bg-orange-700 text-white px-10 py-4 rounded-xl font-bold transition-all shadow-lg shadow-orange-600/20 active:scale-95"
-            >
-              Contact Support
-            </Link>
+          <div className="mt-24 p-12 bg-gradient-to-br from-orange-500 to-pink-600 rounded-[3.5rem] text-center relative overflow-hidden">
+            <div className="absolute top-[-20%] right-[-10%] text-white/10 text-[200px] rotate-12 pointer-events-none">
+              <FaQuestionCircle />
+            </div>
+
+            <div className="relative z-10">
+              <h2 className="text-3xl md:text-4xl font-black text-white mb-4 uppercase tracking-tighter">
+                Still have questions?
+              </h2>
+              <p className="text-white/90 mb-10 text-lg font-medium max-w-lg mx-auto leading-relaxed">
+                If you couldn't find your answer, our support team is happy to
+                help you find the perfect companion.
+              </p>
+              <Link
+                to="/contact"
+                className="inline-block bg-white text-orange-600 px-12 py-5 rounded-2xl font-black uppercase tracking-[0.2em] hover:scale-105 active:scale-95 transition-all duration-300"
+              >
+                Contact Support
+              </Link>
+            </div>
           </div>
         </div>
       </section>

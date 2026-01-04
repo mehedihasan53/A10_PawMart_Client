@@ -17,7 +17,7 @@ const PetsSupplies = () => {
   const [listings, setListings] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Filter and Pagination States
+  // Filter and Pagination 
   const [searchQuery, setSearchQuery] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("");
   const [priceRange, setPriceRange] = useState("all");
@@ -25,7 +25,6 @@ const PetsSupplies = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 8;
 
-  // Fetch data from API
   useEffect(() => {
     const fetchListings = async () => {
       try {
@@ -90,8 +89,8 @@ const PetsSupplies = () => {
 
       <div className="max-w-7xl mx-auto px-4 py-12">
         <header className="text-center mb-12">
-          <h1 className="text-4xl font-black text-gray-900 dark:text-[#d1d5db] mb-4 uppercase tracking-tight">
-            Explore <span className="text-orange-600">PawMart</span>
+          <h1 className="text-4xl font-black text-gray-900 dark:text-[#d1d5db] mb-4 tracking-tight">
+            Explore <span className="text-orange-500">PawMart</span>
           </h1>
           <p className="text-gray-500 dark:text-gray-400">
             Find the perfect companion or the best supplies for your pets.

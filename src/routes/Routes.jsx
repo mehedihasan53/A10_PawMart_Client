@@ -19,52 +19,28 @@ import Partners from "../components/shared/Partners";
 import PrivacyPolicy from "../components/shared/PrivacyPolicy";
 import TermsOfService from "../components/shared/TermsOfService";
 import FAQ from "../components/shared/FAQ";
+import DashboardLayout from "../layouts/DashboardLayout";
+import AdminHome from "../pages/Dashboard/AdminHome";
+import Profile from "../pages/Dashboard/Profile";
+import UserHome from "../pages/Dashboard/UserHome";
+import ManageUsers from "../pages/Dashboard/ManageUsers";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
-    errorElement: <ErrorPage></ErrorPage>,
+    errorElement: <ErrorPage />,
     children: [
+      { index: true, element: <Home /> },
+      { path: "pets-supplies", element: <PetsSupplies /> },
+      { path: "about-us", element: <AboutUs /> },
+      { path: "contact", element: <Contact /> },
+      { path: "partners", element: <Partners /> },
+      { path: "privacy-policy", element: <PrivacyPolicy /> },
+      { path: "terms-of-service", element: <TermsOfService /> },
+      { path: "faq", element: <FAQ /> },
       {
-        index: true,
-        path: "/",
-        element: <Home />,
-      },
-      {
-        path: "/pets-supplies",
-        element: <PetsSupplies />,
-      },
-      {
-        path: "/about-us",
-        element: <AboutUs />,
-      },
-      {
-        path: "/add-listing",
-        element: (
-          <PrivateRoute>
-            <AddListing />
-          </PrivateRoute>
-        ),
-      },
-      {
-        path: "/my-listings",
-        element: (
-          <PrivateRoute>
-            <MyListings />
-          </PrivateRoute>
-        ),
-      },
-      {
-        path: "/my-orders",
-        element: (
-          <PrivateRoute>
-            <MyOrder />
-          </PrivateRoute>
-        ),
-      },
-      {
-        path: "/listing-details/:id",
+        path: "listing-details/:id",
         element: (
           <PrivateRoute>
             <ListingDetails />
@@ -72,7 +48,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "/category-filtered-product/:categoryName",
+        path: "category-filtered-product/:categoryName",
         element: (
           <PrivateRoute>
             <CategoryFilteredPage />
@@ -80,48 +56,60 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "/update-listing/:id",
+        path: "add-listing",
+        element: (
+          <PrivateRoute>
+            <AddListing />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "my-listings",
+        element: (
+          <PrivateRoute>
+            <MyListings />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "my-orders",
+        element: (
+          <PrivateRoute>
+            <MyOrder />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "update-listing/:id",
         element: (
           <PrivateRoute>
             <Update />
           </PrivateRoute>
         ),
       },
-      {
-        path: "/contact",
-        element: <Contact />,
-      },
-      {
-        path: "/partners",
-        element: <Partners />,
-      },
-      {
-        path: "/privacy-policy",
-        element: <PrivacyPolicy />,
-      },
-      {
-        path: "/terms-of-service",
-        element: <TermsOfService />,
-      },
-      {
-        path: "/faq",
-        element: <FAQ />,
-      },
     ],
   },
   {
-    path: "/auth",
+    path: "auth",
     element: <AuthLayout />,
-    errorElement: <ErrorPage></ErrorPage>,
     children: [
-      {
-        path: "/auth/login",
-        element: <Login />,
-      },
-      {
-        path: "/auth/register",
-        element: <Register />,
-      },
+      { path: "login", element: <Login /> },
+      { path: "register", element: <Register /> },
+    ],
+  },
+  {
+    path: "dashboard",
+    element: (
+      <PrivateRoute>
+        <DashboardLayout />
+      </PrivateRoute>
+    ),
+    children: [
+      { index: true, element: <Profile /> },
+      { path: "profile", element: <Profile /> },
+      { path: "admin-home", element: <AdminHome /> },
+      { path: "user-home", element: <UserHome /> },
+      { path: "manage-users", element: <ManageUsers /> },
     ],
   },
 ]);

@@ -54,8 +54,8 @@ const MyListings = () => {
 
       <div className="flex flex-col md:flex-row justify-between items-center mb-10 gap-4">
         <div className="text-center md:text-left">
-          <h1 className="text-3xl md:text-4xl font-black text-gray-900 uppercase tracking-tight">
-            My <span className="text-orange-600">Listings</span>
+          <h1 className="text-3xl md:text-4xl font-black text-gray-900  tracking-tight">
+            My <span className="text-orange-500">Listings</span>
           </h1>
           <p className="text-gray-500 mt-1">
             Manage your pets and supplies in one dashboard.

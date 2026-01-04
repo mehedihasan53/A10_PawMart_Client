@@ -32,7 +32,6 @@ const ListingDetails = () => {
         );
         setListing(res.data);
 
-        // Fetch Suggested Items (Category based)
         const allRes = await axios.get(
           "https://pawmart-server-ebon.vercel.app/listings"
         );
