@@ -21,7 +21,7 @@ const Register = () => {
 
   const saveUserToDb = async (name, email, photoURL, role) => {
     const userData = { name, email, photoURL, role };
-    await axios.put(`http://localhost:3000/users`, userData);
+    await axios.put(`https://pawmart-server-ebon.vercel.app/users`, userData);
   };
 
   const handleRegister = async (e) => {

@@ -13,12 +13,13 @@ const ManageUsers = () => {
   const { data: users = [], refetch } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
-      const res = await axios.get("http://localhost:3000/users");
+      const res = await axios.get(
+        "https://pawmart-server-ebon.vercel.app/users"
+      );
       return res.data;
     },
   });
 
- 
   const handleMakeAdmin = (user) => {
     Swal.fire({
       title: "Are you sure?",
@@ -31,7 +32,9 @@ const ManageUsers = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .patch(`http://localhost:3000/users/admin/${user._id}`)
+          .patch(
+            `https://pawmart-server-ebon.vercel.app/users/admin/${user._id}`
+          )
           .then((res) => {
             if (res.data.modifiedCount > 0) {
               refetch();
@@ -58,12 +61,14 @@ const ManageUsers = () => {
       confirmButtonText: "Yes, delete user!",
     }).then((result) => {
       if (result.isConfirmed) {
-        axios.delete(`http://localhost:3000/users/${user._id}`).then((res) => {
-          if (res.data.deletedCount > 0) {
-            refetch();
-            Swal.fire("Deleted!", "User has been removed.", "success");
-          }
-        });
+        axios
+          .delete(`https://pawmart-server-ebon.vercel.app/users/${user._id}`)
+          .then((res) => {
+            if (res.data.deletedCount > 0) {
+              refetch();
+              Swal.fire("Deleted!", "User has been removed.", "success");
+            }
+          });
       }
     });
   };

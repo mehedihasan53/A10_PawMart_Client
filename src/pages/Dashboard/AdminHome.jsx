@@ -15,7 +15,7 @@ const AdminHome = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/admin-stats")
+      .get("https://pawmart-server-ebon.vercel.app/admin-stats")
       .then((res) => setStats(res.data));
   }, []);
 

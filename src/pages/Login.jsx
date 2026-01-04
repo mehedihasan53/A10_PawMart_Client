@@ -30,7 +30,7 @@ const Login = () => {
       role: selectedRole,
     };
     try {
-      await axios.put(`http://localhost:3000/users`, userData);
+      await axios.put(`https://pawmart-server-ebon.vercel.app/users`, userData);
     } catch (err) {
       console.error("Error syncing user role:", err);
     }

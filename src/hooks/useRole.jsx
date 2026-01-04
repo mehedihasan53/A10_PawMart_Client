@@ -12,7 +12,7 @@ const useRole = () => {
       if (user?.email) {
         try {
           const { data } = await axios.get(
-            `http://localhost:3000/users/role/${user.email}`
+            `https://pawmart-server-ebon.vercel.app/users/role/${user.email}`
           );
           setRole(data.role);
         } catch (error) {
