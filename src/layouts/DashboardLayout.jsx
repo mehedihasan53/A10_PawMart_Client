@@ -14,6 +14,7 @@ import {
 } from "react-icons/fa";
 import useRole from "../hooks/useRole";
 import { AuthContext } from "../provider/AuthProvider";
+import ScrollToTop from "../components/shared/ScrollToTop";
 
 const DashboardLayout = () => {
   const [role] = useRole();
@@ -121,6 +122,7 @@ const DashboardLayout = () => {
 
   return (
     <div className="flex min-h-screen bg-gray-50 dark:bg-gray-900">
+        <ScrollToTop/>
       <div className="w-72 bg-white dark:bg-gray-800 shadow-2xl hidden md:flex flex-col sticky top-0 h-screen">
         <SidebarContent />
       </div>
