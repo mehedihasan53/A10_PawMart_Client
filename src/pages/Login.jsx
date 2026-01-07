@@ -1,5 +1,5 @@
-import React, { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useContext, useState } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import toast from "react-hot-toast";
 import {
   FaGoogle,
@@ -11,16 +11,22 @@ import {
 } from "react-icons/fa";
 import { AuthContext } from "../provider/AuthProvider";
 import DynamicTitle from "../components/DynamicTitle";
+import Button from "../components/ui/Button";
+import Card from "../components/ui/Card";
 import axios from "axios";
 
 const Login = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { signIn, googleLogin } = useContext(AuthContext);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("user");
   const [loading, setLoading] = useState(false);
+
+  // Get the intended destination or default to home
+  const from = location.state?.from?.pathname || "/";
 
   const saveUserToDb = async (user, selectedRole) => {
     const userData = {
@@ -58,10 +64,13 @@ const Login = () => {
       const result = await signIn(email, password);
       await saveUserToDb(result.user, role);
       toast.success(`Logged in successfully as ${role}!`);
-      navigate("/");
+      
+      // Navigate to the intended destination or home
+      navigate(from, { replace: true });
     } catch (err) {
-      setLoading(false);
       toast.error(err.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -70,8 +79,10 @@ const Login = () => {
     try {
       const result = await googleLogin();
       await saveUserToDb(result.user, "user");
-      toast.success("Login successful!");
-      navigate("/");
+      toast.success("Logged in with Google!");
+      
+      // Navigate to the intended destination or home
+      navigate(from, { replace: true });
     } catch (err) {
       toast.error(err.message);
     } finally {
@@ -80,121 +91,159 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-orange-50 to-pink-50 px-4 py-10">
+    <div className="auth-page flex items-center justify-center px-4 py-12">
       <DynamicTitle title="Login" />
-      <div className="card bg-white w-full max-w-lg shadow-2xl rounded-3xl overflow-hidden border border-orange-100">
-        <div className="bg-gradient-to-r from-orange-500 to-pink-500 p-6 text-white text-center">
-          <h1 className="text-3xl font-bold">Welcome Back</h1>
-          <p className="text-sm opacity-90 mt-1">Please enter your details</p>
-        </div>
-
-        <div className="p-8">
-          <div className="flex gap-3 mb-6">
-            <button
-              onClick={() => fillDemoCredentials("user")}
-              className="flex-1 py-2 px-3 border-2 border-dashed border-orange-200 rounded-xl flex items-center justify-center gap-2 text-xs font-bold text-gray-500 hover:bg-orange-50 transition-all active:scale-95"
-              type="button"
-            >
-              <FaUser className="text-orange-400" /> DEMO USER
-            </button>
-            <button
-              onClick={() => fillDemoCredentials("admin")}
-              className="flex-1 py-2 px-3 border-2 border-dashed border-pink-200 rounded-xl flex items-center justify-center gap-2 text-xs font-bold text-gray-500 hover:bg-pink-50 transition-all active:scale-95"
-              type="button"
-            >
-              <FaUserShield className="text-pink-400" /> DEMO ADMIN
-            </button>
+      
+      <div className="w-full max-w-md">
+        <Card className="auth-card p-8" hover={false} animated={false}>
+          {/* Header */}
+          <div className="text-center mb-8">
+            <h1 className="text-3xl font-bold mb-2" style={{ color: 'var(--color-text-primary)' }}>
+              Welcome Back
+            </h1>
+            <p style={{ color: 'var(--color-text-secondary)' }}>
+              Sign in to your PawMart account
+            </p>
           </div>
 
-          <form onSubmit={handleEmailLogin} className="space-y-4">
-            <div className="form-control">
-              <label className="label font-semibold text-gray-700">
+          {/* Demo Credentials */}
+          <div className="auth-demo-section mb-6 p-4 rounded-lg">
+            <p className="text-sm mb-3 text-center" style={{ color: 'var(--color-text-secondary)' }}>
+               Demo accounts:
+            </p>
+            <div className="flex gap-2">
+              <Button
+                onClick={() => fillDemoCredentials("user")}
+                variant="outline"
+                size="sm"
+                className="auth-button-outline flex-1 flex items-center justify-center gap-2 hover:bg-transparent hover:border-primary-500/30 relative z-10"
+              >
+                <FaUser className="text-sm" />
+                User Demo
+              </Button>
+              <Button
+                onClick={() => fillDemoCredentials("admin")}
+                variant="outline"
+                size="sm"
+                className="auth-button-outline flex-1 flex items-center justify-center gap-2 hover:bg-transparent hover:border-primary-500/30 relative z-10"
+              >
+                <FaUserShield className="text-sm" />
+                Admin Demo
+              </Button>
+            </div>
+          </div>
+
+          {/* Form */}
+          <form onSubmit={handleEmailLogin} className="space-y-6">
+            {/* Email Field */}
+            <div>
+              <label className="auth-label block text-sm mb-2">
                 Email Address
               </label>
               <div className="relative">
-                <FaEnvelope className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
+                <FaEnvelope className="auth-icon absolute left-3 top-1/2 -translate-y-1/2" />
                 <input
                   type="email"
-                  placeholder="Enter your email"
-                  className="input input-bordered w-full  focus:border-orange-400"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter your email address"
+                  className="auth-input w-full pl-10 pr-4 py-3 rounded-lg focus:ring-2 focus:ring-primary-500/20 focus:outline-none transition-all duration-200"
                   required
                 />
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="form-control">
-                <label className="label font-semibold text-gray-700">
-                  Login As
-                </label>
-                <div className="relative">
-                  <FaUserTag className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 z-10" />
-                  <select
-                    className="select select-bordered w-full pl-12 focus:border-orange-400"
-                    value={role}
-                    onChange={(e) => setRole(e.target.value)}
-                  >
-                    <option value="user">User</option>
-                    <option value="admin">Admin</option>
-                  </select>
-                </div>
+            {/* Password Field */}
+            <div>
+              <label className="auth-label block text-sm mb-2">
+                Password
+              </label>
+              <div className="relative">
+                <FaLock className="auth-icon absolute left-3 top-1/2 -translate-y-1/2" />
+                <input
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Enter your password"
+                  className="auth-input w-full pl-10 pr-4 py-3 rounded-lg focus:ring-2 focus:ring-primary-500/20 focus:outline-none transition-all duration-200"
+                  required
+                />
               </div>
+            </div>
 
-              <div className="form-control">
-                <label className="label font-semibold text-gray-700">
-                  Password
-                </label>
-                <div className="relative">
-                  <FaLock className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
-                  <input
-                    type="password"
-                    placeholder="Enter password"
-                    className="input input-bordered w-full  focus:border-orange-400"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                  />
+            {/* Role Selection */}
+            <div>
+              <label className="auth-label block text-sm mb-2">
+                Login As
+              </label>
+              <div className="relative">
+                <FaUserTag className="auth-icon absolute left-3 top-1/2 -translate-y-1/2 z-10" />
+                <select
+                  value={role}
+                  onChange={(e) => setRole(e.target.value)}
+                  className="auth-input w-full pl-10 pr-4 py-3 rounded-lg focus:ring-2 focus:ring-primary-500/20 focus:outline-none appearance-none cursor-pointer transition-all duration-200"
+                >
+                  <option value="user">User</option>
+                  <option value="admin">Admin</option>
+                </select>
+                <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
+                  <svg className="w-5 h-5 auth-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
                 </div>
               </div>
             </div>
 
-            <button
+            {/* Sign In Button */}
+            <Button
               type="submit"
+              variant="primary"
+              size="lg"
+              fullWidth
+              loading={loading}
               disabled={loading}
-              className="w-full py-3 mt-4 rounded-xl font-bold text-white bg-gradient-to-r from-orange-500 to-pink-500 hover:shadow-lg transition-all active:scale-95 disabled:opacity-70"
+              className="auth-button-primary hover:shadow-none hover:transform-none relative z-10"
             >
-              {loading ? (
-                <span className="loading loading-spinner"></span>
-              ) : (
-                "Sign In"
-              )}
-            </button>
+              {loading ? "Signing In..." : "Sign In"}
+            </Button>
 
-            <div className="divider text-gray-400 text-xs my-6 uppercase font-medium">
-              Or continue with
+            {/* Divider */}
+            <div className="relative my-6">
+              <div className="absolute inset-0 flex items-center">
+                <div className="auth-divider w-full border-t"></div>
+              </div>
+              <div className="relative flex justify-center text-sm">
+                <span className="auth-divider-text px-2">
+                  Or continue with
+                </span>
+              </div>
             </div>
 
-            <button
-              onClick={handleGoogleLogin}
+            {/* Google Button */}
+            <Button
               type="button"
-              className="w-full py-3 rounded-xl border-2 border-gray-100 flex items-center justify-center gap-2 hover:bg-gray-50 transition-all font-semibold text-gray-700"
+              onClick={handleGoogleLogin}
+              variant="outline"
+              size="lg"
+              fullWidth
+              className="auth-button-outline flex items-center justify-center gap-3 hover:bg-transparent hover:border-primary-500/30 relative z-10"
             >
-              <FaGoogle className="text-red-500" /> Google Account
-            </button>
+              <FaGoogle className="text-red-500" />
+              Continue with Google
+            </Button>
 
-            <p className="text-center mt-6 text-sm text-gray-600">
+            {/* Footer Link */}
+            <p className="text-center text-sm" style={{ color: 'var(--color-text-secondary)' }}>
               Don't have an account?{" "}
               <Link
-                className="text-orange-600 font-bold hover:underline"
+                className="auth-link font-medium transition-colors duration-200"
                 to="/auth/register"
               >
-                Sign Up
+                Create Account
               </Link>
             </p>
           </form>
-        </div>
+        </Card>
       </div>
     </div>
   );

@@ -6,6 +6,7 @@ import {
   FaEye,
   FaPaw,
 } from "react-icons/fa";
+import { motion } from "framer-motion";
 import DynamicTitle from "../DynamicTitle";
 
 const PrivacyPolicy = () => {
@@ -36,72 +37,128 @@ const PrivacyPolicy = () => {
     },
   ];
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: [0.4, 0, 0.2, 1],
+      },
+    },
+  };
+
   return (
-    <div className="bg-white dark:bg-[#0f172a] min-h-screen transition-colors duration-300">
+    <div className="bg-gradient-to-br from-bg-primary to-bg-surface transition-colors duration-300 overflow-hidden">
       <DynamicTitle title="Privacy Policy | PawMart" />
 
-      <section className="relative py-20 bg-gradient-to-b from-orange-50 to-white dark:from-[#1e293b] dark:to-[#0f172a] overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 text-center relative z-10">
-          <h1 className="text-4xl md:text-6xl font-black text-gray-900 dark:text-white uppercase tracking-tight">
-            Privacy{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-pink-500">
-              Policy
-            </span>
-          </h1>
-          <p className="mt-6 text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto font-medium leading-relaxed">
-            Last updated: January 2026. Your privacy and the safety of our
-            community is our top priority.
-          </p>
+      {/* Hero Section */}
+      <section className="relative py-24 bg-gradient-to-b from-primary-50/50 to-bg-primary">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-center"
+          >
+            <div className="inline-flex items-center justify-center w-20 h-20 glass-primary text-primary-600 rounded-3xl mb-8 border border-white/20 dark:border-white/10">
+              <FaShieldAlt size={40} />
+            </div>
+            <h1 className="text-4xl md:text-6xl font-black tracking-tight text-text-primary uppercase">
+              Privacy{" "}
+              <span className="gradient-text-primary">
+                Policy
+              </span>
+            </h1>
+            <p className="mt-8 text-xl text-text-secondary max-w-3xl mx-auto leading-relaxed font-medium">
+              Last updated: January 2026. Your privacy and the safety of our
+              community is our top priority.
+            </p>
+          </motion.div>
         </div>
-        <div className="absolute top-10 left-[-5%] text-orange-100 dark:text-gray-800 text-[250px] rotate-12 opacity-30 pointer-events-none">
+        <div className="absolute top-10 left-[-5%] text-primary-100 text-[300px] rotate-12 opacity-30 pointer-events-none">
           <FaPaw />
         </div>
       </section>
 
-      <section className="py-20">
+      {/* Content Section */}
+      <section className="py-24">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid gap-8">
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="grid gap-8"
+          >
             {sections.map((section, index) => (
-              <div
+              <motion.div
                 key={index}
-                className="flex flex-col md:flex-row gap-8 p-10 bg-gray-50 dark:bg-[#1e293b] border border-gray-100 dark:border-gray-800 rounded-[3rem] transition-all duration-300 hover:bg-white dark:hover:bg-gray-800 hover:border-orange-200 dark:hover:border-gray-700"
+                variants={itemVariants}
+                className="group flex flex-col md:flex-row gap-8 p-10 glass-primary border border-white/20 dark:border-white/10 rounded-3xl transition-all duration-300 hover:shadow-glass-lg hover:scale-[1.02]"
               >
                 <div className="flex-shrink-0">
-                  <div className="w-16 h-16 bg-white dark:bg-[#0f172a] rounded-2xl flex items-center justify-center text-2xl text-orange-600">
+                  <div className="w-16 h-16 glass-secondary rounded-2xl flex items-center justify-center text-2xl text-primary-600 group-hover:bg-primary-500 group-hover:text-white transition-all duration-300">
                     {section.icon}
                   </div>
                 </div>
                 <div>
-                  <h2 className="text-2xl font-black text-gray-900 dark:text-white mb-4 uppercase tracking-tighter">
+                  <h2 className="text-2xl font-black text-text-primary mb-4 uppercase tracking-tighter">
                     {section.title}
                   </h2>
-                  <p className="text-gray-600 dark:text-gray-400 leading-relaxed text-lg font-medium">
+                  <p className="text-text-secondary leading-relaxed text-lg font-medium">
                     {section.content}
                   </p>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
 
-          <div className="mt-16 p-10 bg-white dark:bg-[#1e293b] rounded-[3rem] border-2 border-dashed border-orange-100 dark:border-gray-800">
-            <h3 className="text-xl font-black text-gray-900 dark:text-white mb-4 uppercase tracking-widest">
+          {/* Cookies Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="mt-16 p-10 glass-secondary rounded-3xl border-2 border-dashed border-primary-500/20"
+          >
+            <h3 className="text-xl font-black text-text-primary mb-4 uppercase tracking-widest">
               Cookies & Tracking
             </h3>
-            <p className="text-gray-600 dark:text-gray-400 leading-relaxed font-medium text-lg">
+            <p className="text-text-secondary leading-relaxed font-medium text-lg">
               PawMart uses cookies to enhance your browsing experience and
               analyze site traffic. By using our platform, you consent to our
               use of cookies in accordance with this policy.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="mt-16 text-center">
-            <div className="inline-block p-1 rounded-full bg-gray-100 dark:bg-gray-800 px-6 py-3">
-              <p className="text-gray-500 dark:text-gray-400 font-bold uppercase text-xs tracking-[0.2em]">
+          {/* Contact Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="mt-16 text-center"
+          >
+            <div className="inline-block glass-secondary rounded-full px-8 py-4 border border-white/20 dark:border-white/10">
+              <p className="text-text-secondary font-bold uppercase text-sm tracking-[0.2em]">
                 Questions? Email us at{" "}
-                <span className="text-orange-600 ml-1">pawmart@gmail.com</span>
+                <span className="text-primary-600 ml-1">pawmart@gmail.com</span>
               </p>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
     </div>

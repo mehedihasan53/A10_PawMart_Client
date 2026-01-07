@@ -8,7 +8,7 @@ import DynamicTitle from "../components/DynamicTitle";
 
 const Home = () => {
   return (
-    <div className="bg-gray-50">
+    <div className="bg-light-bg dark:bg-dark-bg min-h-screen">
       <DynamicTitle title="Home" />
       <Banner />
       <CategorySection />

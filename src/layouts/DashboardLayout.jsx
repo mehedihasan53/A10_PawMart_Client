@@ -11,10 +11,14 @@ import {
   FaClipboardList,
   FaBars,
   FaExternalLinkAlt,
+  FaTimes,
 } from "react-icons/fa";
+import { motion, AnimatePresence } from "framer-motion";
 import useRole from "../hooks/useRole";
 import { AuthContext } from "../provider/AuthProvider";
 import ScrollToTop from "../components/shared/ScrollToTop";
+import Logo from "../components/ui/Logo";
+import { cn } from "../utils/cn";
 
 const DashboardLayout = () => {
   const [role] = useRole();
@@ -27,145 +31,234 @@ const DashboardLayout = () => {
     navigate("/");
   };
 
+  // Enhanced glassmorphism navigation styling
   const navStyle = ({ isActive }) =>
-    `flex items-center justify-between p-3.5 rounded-2xl transition-all duration-300 group ${
+    cn(
+      "flex items-center justify-between p-4 rounded-2xl transition-all duration-300 group relative overflow-hidden",
+      "focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:ring-offset-2 dark:focus:ring-offset-dark-bg",
       isActive
-        ? "bg-gradient-to-r from-orange-500 to-pink-500 text-white shadow-lg"
-        : "text-gray-600 dark:text-gray-400 hover:bg-orange-50 dark:hover:bg-gray-700 hover:text-orange-500"
-    }`;
+        ? "glass-primary border border-white/20 dark:border-white/10 text-primary-600 dark:text-primary-400 shadow-glass"
+        : "text-neutral-600 dark:text-neutral-400 hover:glass-tertiary hover:text-primary-600 dark:hover:text-primary-400 hover:border hover:border-white/10 dark:hover:border-white/5"
+    );
+
+  const sidebarVariants = {
+    closed: {
+      x: "-100%",
+      transition: {
+        duration: 0.3,
+        ease: "easeInOut"
+      }
+    },
+    open: {
+      x: 0,
+      transition: {
+        duration: 0.4,
+        ease: [0.4, 0, 0.2, 1]
+      }
+    }
+  };
 
   const SidebarContent = () => (
-    <>
-      <div className="p-8 flex items-center gap-3">
-        <div className="bg-gradient-to-br from-orange-500 to-pink-500 p-2.5 rounded-2xl shadow-lg">
-          <FaPaw className="text-white text-2xl" />
-        </div>
-        <span className="text-2xl font-black bg-gradient-to-r from-orange-500 to-pink-500 bg-clip-text text-transparent tracking-tight">
-          PawMart
-        </span>
-      </div>
+    <div className="flex flex-col h-full">
+      {/* Enhanced Logo Section */}
+      <motion.div 
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="p-8 border-b border-white/10 dark:border-white/5"
+      >
+        <Logo size="lg" variant="default" animated />
+      </motion.div>
 
-      <nav className="flex-1 px-6 space-y-2 overflow-y-auto">
-        <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400 ml-2 mb-2">
-          Navigation
-        </p>
-
-        <NavLink to="/" className={navStyle}>
-          <div className="flex items-center">
-            <FaExternalLinkAlt className="mr-3 text-lg text-orange-400" />
-            <span>Home</span>
-          </div>
-        </NavLink>
-
-        <NavLink
-          to="/dashboard/profile"
-          className={navStyle}
-          onClick={() => setIsMobileOpen(false)}
+      {/* Enhanced Navigation */}
+      <nav className="flex-1 px-6 py-6 space-y-3 overflow-y-auto">
+        <motion.div
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
         >
-          <div className="flex items-center">
-            <FaUser className="mr-3 text-lg" /> <span>My Profile</span>
-          </div>
-        </NavLink>
-
-        <div className="pt-4 mt-4 border-t border-gray-100 dark:border-gray-700">
-          <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400 ml-2 mb-2">
-            {role === "admin" ? "Administrator" : "User Dashboard"}
+          <p className="text-xs font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500 ml-2 mb-4">
+            Navigation
           </p>
 
-          {role === "admin" ? (
-            <>
-              <NavLink
-                to="/dashboard/admin-home"
-                className={navStyle}
-                onClick={() => setIsMobileOpen(false)}
-              >
-                <div className="flex items-center">
-                  <FaChartBar className="mr-3 text-lg" /> <span>Overview</span>
-                </div>
-              </NavLink>
-              <NavLink
-                to="/dashboard/manage-users"
-                className={navStyle}
-                onClick={() => setIsMobileOpen(false)}
-              >
-                <div className="flex items-center">
-                  <FaUsers className="mr-3 text-lg" /> <span>Manage Users</span>
-                </div>
-              </NavLink>
-            </>
-          ) : (
-            <>
+          <NavLink to="/" className={navStyle}>
+            <div className="flex items-center">
+              <div className="p-2 rounded-xl bg-gradient-to-br from-primary-500/10 to-secondary-500/10 mr-3 group-hover:from-primary-500/20 group-hover:to-secondary-500/20 transition-all duration-300">
+                <FaExternalLinkAlt className="text-lg text-primary-500" />
+              </div>
+              <span className="font-medium">Back to Home</span>
+            </div>
+          </NavLink>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
+          <NavLink
+            to="/dashboard/profile"
+            className={navStyle}
+            onClick={() => setIsMobileOpen(false)}
+          >
+            <div className="flex items-center">
+              <div className="p-2 rounded-xl bg-gradient-to-br from-neutral-500/10 to-neutral-600/10 mr-3 group-hover:from-neutral-500/20 group-hover:to-neutral-600/20 transition-all duration-300">
+                <FaUser className="text-lg text-neutral-600 dark:text-neutral-400" />
+              </div>
+              <span className="font-medium">My Profile</span>
+            </div>
+          </NavLink>
+        </motion.div>
+
+        <div className="pt-6 mt-6 border-t border-white/10 dark:border-white/5">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+          >
+            <p className="text-xs font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500 ml-2 mb-4">
+              {role === "admin" ? "Administrator" : "User Dashboard"}
+            </p>
+
+            {role === "admin" ? (
+              <div className="space-y-2">
+                <NavLink
+                  to="/dashboard/admin-home"
+                  className={navStyle}
+                  onClick={() => setIsMobileOpen(false)}
+                >
+                  <div className="flex items-center">
+                    <div className="p-2 rounded-xl bg-gradient-to-br from-primary-500/10 to-secondary-500/10 mr-3 group-hover:from-primary-500/20 group-hover:to-secondary-500/20 transition-all duration-300">
+                      <FaChartBar className="text-lg text-primary-500" />
+                    </div>
+                    <span className="font-medium">Overview</span>
+                  </div>
+                </NavLink>
+                <NavLink
+                  to="/dashboard/manage-users"
+                  className={navStyle}
+                  onClick={() => setIsMobileOpen(false)}
+                >
+                  <div className="flex items-center">
+                    <div className="p-2 rounded-xl bg-gradient-to-br from-secondary-500/10 to-primary-500/10 mr-3 group-hover:from-secondary-500/20 group-hover:to-primary-500/20 transition-all duration-300">
+                      <FaUsers className="text-lg text-secondary-500" />
+                    </div>
+                    <span className="font-medium">Manage Users</span>
+                  </div>
+                </NavLink>
+              </div>
+            ) : (
               <NavLink
                 to="/dashboard/user-home"
                 className={navStyle}
                 onClick={() => setIsMobileOpen(false)}
               >
                 <div className="flex items-center">
-                  <FaHome className="mr-3 text-lg" /> <span>Overview</span>
+                  <div className="p-2 rounded-xl bg-gradient-to-br from-primary-500/10 to-secondary-500/10 mr-3 group-hover:from-primary-500/20 group-hover:to-secondary-500/20 transition-all duration-300">
+                    <FaHome className="text-lg text-primary-500" />
+                  </div>
+                  <span className="font-medium">Overview</span>
                 </div>
               </NavLink>
-            </>
-          )}
+            )}
+          </motion.div>
         </div>
       </nav>
 
-      <div className="p-6 border-t border-gray-100 dark:border-gray-700">
+      {/* Enhanced Logout Section */}
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.4 }}
+        className="p-6 border-t border-white/10 dark:border-white/5"
+      >
         <button
           onClick={handleLogout}
-          className="w-full flex items-center p-4 bg-red-50 text-red-600 rounded-2xl font-bold transition-all hover:bg-red-100"
+          className="w-full flex items-center p-4 glass-tertiary hover:glass-secondary border border-error-500/20 hover:border-error-500/40 text-error-600 dark:text-error-400 rounded-2xl font-medium transition-all duration-300 group"
         >
-          <FaSignOutAlt className="mr-3" /> Logout
+          <div className="p-2 rounded-xl bg-error-500/10 group-hover:bg-error-500/20 mr-3 transition-all duration-300">
+            <FaSignOutAlt className="text-error-600 dark:text-error-400" />
+          </div>
+          <span>Sign Out</span>
         </button>
-      </div>
-    </>
+      </motion.div>
+    </div>
   );
 
   return (
-    <div className="flex min-h-screen bg-gray-50 dark:bg-gray-900">
-        <ScrollToTop/>
-      <div className="w-72 bg-white dark:bg-gray-800 shadow-2xl hidden md:flex flex-col sticky top-0 h-screen">
-        <SidebarContent />
-      </div>
-
-      <div
-        className={`fixed inset-0 z-50 md:hidden ${
-          isMobileOpen ? "visible" : "invisible"
-        }`}
+    <div className="flex min-h-screen bg-gradient-to-br from-bg-primary to-bg-surface">
+      <ScrollToTop />
+      
+      {/* Desktop Sidebar */}
+      <motion.div 
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className="w-80 glass-primary border-r border-white/20 dark:border-white/10 hidden md:flex flex-col sticky top-0 h-screen backdrop-blur-24"
       >
-        <div
-          className={`absolute inset-0 bg-black/50 transition-opacity ${
-            isMobileOpen ? "opacity-100" : "opacity-0"
-          }`}
-          onClick={() => setIsMobileOpen(false)}
-        ></div>
-        <div
-          className={`absolute left-0 h-full w-72 bg-white dark:bg-gray-800 transition-transform duration-300 ${
-            isMobileOpen ? "translate-x-0" : "-translate-x-full"
-          }`}
-        >
-          <SidebarContent />
-        </div>
-      </div>
+        <SidebarContent />
+      </motion.div>
 
-      <div className="flex-1 flex flex-col min-w-0">
-        <header className="md:hidden bg-white dark:bg-gray-800 p-4 flex justify-between items-center shadow-sm">
-          <div className="flex items-center gap-2">
-            <FaPaw className="text-orange-500 text-xl" />
-            <span className="font-black dark:text-white">PawMart</span>
-          </div>
-          <button
-            onClick={() => setIsMobileOpen(true)}
-            className="p-2 bg-gray-100 dark:bg-gray-700 rounded-xl"
+      {/* Mobile Sidebar Overlay */}
+      <AnimatePresence>
+        {isMobileOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 z-50 md:hidden"
           >
-            <FaBars className="text-gray-600 dark:text-gray-300" />
-          </button>
-        </header>
+            <div
+              className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+              onClick={() => setIsMobileOpen(false)}
+            />
+            <motion.div
+              variants={sidebarVariants}
+              initial="closed"
+              animate="open"
+              exit="closed"
+              className="absolute left-0 h-full w-80 glass-primary border-r border-white/20 dark:border-white/10 backdrop-blur-24"
+            >
+              <SidebarContent />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-        <main className="flex-1 p-6 md:p-12">
-          <div className="max-w-6xl mx-auto">
+      {/* Main Content Area */}
+      <div className="flex-1 flex flex-col min-w-0">
+        {/* Enhanced Mobile Header */}
+        <motion.header 
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="md:hidden glass-primary border-b border-white/20 dark:border-white/10 p-4 flex justify-between items-center backdrop-blur-24"
+        >
+          <Logo size="sm" variant="navbar" />
+          <div className="flex items-center space-x-3">
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => setIsMobileOpen(true)}
+              className="p-3 glass-secondary border border-white/20 dark:border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/50 transition-all duration-300"
+            >
+              <FaBars className="text-neutral-600 dark:text-neutral-300" />
+            </motion.button>
+          </div>
+        </motion.header>
+
+        {/* Enhanced Main Content */}
+        <motion.main 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+          className="flex-1 p-6 md:p-12 overflow-auto"
+        >
+          <div className="max-w-7xl mx-auto">
             <Outlet />
           </div>
-        </main>
+        </motion.main>
       </div>
     </div>
   );

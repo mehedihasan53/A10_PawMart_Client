@@ -1,6 +1,7 @@
 import React from "react";
 import { FaQuestionCircle, FaPaw } from "react-icons/fa";
 import { Link } from "react-router";
+import { motion } from "framer-motion";
 import DynamicTitle from "../DynamicTitle";
 
 const FAQ = () => {
@@ -32,57 +33,103 @@ const FAQ = () => {
     },
   ];
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: [0.4, 0, 0.2, 1],
+      },
+    },
+  };
+
   return (
-    <div className="bg-white dark:bg-[#0f172a] min-h-screen transition-colors duration-300">
+    <div className="bg-gradient-to-br from-bg-primary to-bg-surface transition-colors duration-300 overflow-hidden">
       <DynamicTitle title="FAQ | PawMart" />
 
-      <section className="relative py-20 bg-gradient-to-b from-orange-50 to-white dark:from-[#1e293b] dark:to-[#0f172a] overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 text-center relative z-10">
-          <div className="inline-flex items-center justify-center w-20 h-20 bg-white dark:bg-gray-800 text-orange-600 rounded-[2rem] mb-8 border border-orange-100 dark:border-gray-700">
-            <FaQuestionCircle size={40} />
-          </div>
-          <h1 className="text-4xl md:text-6xl font-black text-gray-900 dark:text-white uppercase tracking-tight">
-            Frequently{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-pink-500">
-              Asked
-            </span>
-          </h1>
-          <p className="mt-6 text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto font-medium leading-relaxed">
-            Everything you need to know about adoption and how PawMart works.
-          </p>
+      {/* Hero Section */}
+      <section className="relative py-24 bg-gradient-to-b from-primary-50/50 to-bg-primary">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-center"
+          >
+            <div className="inline-flex items-center justify-center w-20 h-20 glass-primary text-primary-600 rounded-3xl mb-8 border border-white/20 dark:border-white/10">
+              <FaQuestionCircle size={40} />
+            </div>
+            <h1 className="text-4xl md:text-6xl font-black tracking-tight text-text-primary uppercase">
+              Frequently{" "}
+              <span className="gradient-text-primary">
+                Asked Questions
+              </span>
+            </h1>
+            <p className="mt-8 text-xl text-text-secondary max-w-3xl mx-auto leading-relaxed font-medium">
+              Everything you need to know about adoption and how PawMart works.
+            </p>
+          </motion.div>
         </div>
-        <div className="absolute top-10 left-[-5%] text-orange-100 dark:text-gray-800 text-[250px] rotate-12 opacity-30 pointer-events-none">
+        <div className="absolute top-10 left-[-5%] text-primary-100 text-[300px] rotate-12 opacity-30 pointer-events-none">
           <FaPaw />
         </div>
       </section>
 
-      <section className="py-20">
+      {/* FAQ Section */}
+      <section className="py-24">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="space-y-6">
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="space-y-6"
+          >
             {faqData.map((item, index) => (
-              <div
+              <motion.div
                 key={index}
-                className="collapse collapse-arrow bg-gray-50 dark:bg-[#1e293b] border border-gray-100 dark:border-gray-800 rounded-[2rem] transition-all duration-300"
+                variants={itemVariants}
+                className="collapse collapse-arrow glass-primary border border-white/20 dark:border-white/10 rounded-3xl transition-all duration-300 hover:shadow-glass-lg"
               >
                 <input
                   type="radio"
                   name="faq-accordion"
                   defaultChecked={index === 0}
                 />
-                <div className="collapse-title text-xl font-black text-gray-900 dark:text-white p-8 uppercase tracking-tighter">
-                  <span className="text-orange-600 mr-4">0{index + 1}.</span>
+                <div className="collapse-title text-xl font-black text-text-primary p-8 uppercase tracking-tighter">
+                  <span className="text-primary-600 mr-4">0{index + 1}.</span>
                   {item.question}
                 </div>
                 <div className="collapse-content px-8 pb-8">
-                  <p className="text-gray-600 dark:text-gray-400 leading-relaxed text-lg font-medium pl-10 border-l-2 border-orange-200 dark:border-orange-900">
+                  <p className="text-text-secondary leading-relaxed text-lg font-medium pl-10 border-l-4 border-primary-500/20">
                     {item.answer}
                   </p>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
 
-          <div className="mt-24 p-12 bg-gradient-to-br from-orange-500 to-pink-600 rounded-[3.5rem] text-center relative overflow-hidden">
+          {/* CTA Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="mt-24 p-12 bg-gradient-to-br from-primary-600 to-secondary-600 rounded-3xl text-center relative overflow-hidden"
+          >
             <div className="absolute top-[-20%] right-[-10%] text-white/10 text-[200px] rotate-12 pointer-events-none">
               <FaQuestionCircle />
             </div>
@@ -97,12 +144,12 @@ const FAQ = () => {
               </p>
               <Link
                 to="/contact"
-                className="inline-block bg-white text-orange-600 px-12 py-5 rounded-2xl font-black uppercase tracking-[0.2em] hover:scale-105 active:scale-95 transition-all duration-300"
+                className="inline-block bg-white text-primary-600 px-12 py-5 rounded-2xl font-black uppercase tracking-[0.2em] hover:scale-105 active:scale-95 transition-all duration-300 shadow-glass-lg"
               >
                 Contact Support
               </Link>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
     </div>

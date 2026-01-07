@@ -1,19 +1,13 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { FaHandshake, FaAward, FaBuilding, FaPaw } from "react-icons/fa";
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-};
+import DynamicTitle from "../DynamicTitle";
 
 const Partners = () => {
   const partnerCategories = [
     {
       title: "Strategic Partners",
-      icon: (
-        <FaHandshake className="text-orange-600 dark:text-orange-500 text-4xl" />
-      ),
+      icon: <FaHandshake className="text-primary-600 text-4xl" />,
       description: "Organizations that help us scale our impact and reach.",
       logos: [
         { name: "Animal Welfare Trust", id: 1 },
@@ -24,7 +18,7 @@ const Partners = () => {
     },
     {
       title: "Corporate Supporters",
-      icon: <FaBuilding className="text-pink-500 text-4xl" />,
+      icon: <FaBuilding className="text-secondary-500 text-4xl" />,
       description: "Companies providing resources and financial support.",
       logos: [
         { name: "Tech For Good", id: 5 },
@@ -35,69 +29,149 @@ const Partners = () => {
     },
   ];
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: [0.4, 0, 0.2, 1],
+      },
+    },
+  };
+
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+  };
+
   return (
-    <div className="bg-white dark:bg-[#0f172a] min-h-screen transition-colors duration-300 overflow-hidden">
-      <section className="relative py-24 bg-gradient-to-b from-orange-50 to-white dark:from-[#1e293b] dark:to-[#0f172a]">
-        <div className="max-w-7xl mx-auto px-6 text-center relative z-10">
-          <motion.div initial="hidden" animate="visible" variants={fadeInUp}>
-            <span className="inline-block px-5 py-2 mb-6 text-xs font-black tracking-[0.2em] text-orange-600 dark:text-orange-400 uppercase bg-white dark:bg-gray-800 rounded-full border border-orange-100 dark:border-gray-700">
+    <div className="bg-gradient-to-br from-bg-primary to-bg-surface transition-colors duration-300 overflow-hidden">
+      <DynamicTitle title="Partners | PawMart" />
+
+      {/* Hero Section */}
+      <section className="relative py-24 bg-gradient-to-b from-primary-50/50 to-bg-primary">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-center"
+          >
+            <div className="inline-block glass-secondary px-6 py-3 mb-8 text-xs font-black tracking-[0.2em] text-primary-600 uppercase rounded-full border border-white/20 dark:border-white/10">
               Our Network
-            </span>
-            <h1 className="text-4xl md:text-6xl font-black text-gray-900 dark:text-white mb-6 uppercase tracking-tight">
+            </div>
+            <h1 className="text-4xl md:text-6xl font-black tracking-tight text-text-primary uppercase">
               Meet Our{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-pink-500">
+              <span className="gradient-text-primary">
                 Key Partners
               </span>
             </h1>
-            <p className="max-w-2xl mx-auto text-xl text-gray-600 dark:text-gray-400 font-medium leading-relaxed">
+            <p className="mt-8 text-xl text-text-secondary max-w-3xl mx-auto leading-relaxed font-medium">
               Collaboration drives our mission. We work with global and local
               leaders to ensure every pet finds a home.
             </p>
           </motion.div>
         </div>
-        <div className="absolute top-10 right-[-5%] text-orange-100 dark:text-gray-800 text-[200px] rotate-[-15deg] opacity-30 pointer-events-none">
+        <div className="absolute top-10 right-[-5%] text-primary-100 text-[300px] rotate-[-15deg] opacity-30 pointer-events-none">
           <FaPaw />
         </div>
       </section>
 
-      <section className="py-20">
-        <div className="max-w-7xl mx-auto px-6">
+      {/* Partners Section */}
+      <section className="py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {partnerCategories.map((category, idx) => (
             <div key={idx} className={idx !== 0 ? "mt-32" : ""}>
-              <div className="flex flex-col items-center mb-16 text-center">
-                <div className="mb-6 bg-orange-50 dark:bg-gray-800 p-5 rounded-3xl">
+              {/* Category Header */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+                viewport={{ once: true }}
+                className="flex flex-col items-center mb-16 text-center"
+              >
+                <div className="mb-6 glass-primary p-6 rounded-3xl border border-white/20 dark:border-white/10">
                   {category.icon}
                 </div>
-                <h2 className="text-3xl md:text-4xl font-black text-gray-900 dark:text-white uppercase tracking-tighter">
+                <h2 className="text-3xl md:text-4xl font-black text-text-primary uppercase tracking-tighter">
                   {category.title}
                 </h2>
-                <p className="mt-4 text-lg text-gray-500 dark:text-gray-400 max-w-lg font-medium">
+                <p className="mt-4 text-lg text-text-secondary max-w-lg font-medium">
                   {category.description}
                 </p>
-              </div>
+              </motion.div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+              {/* Partner Cards */}
+              <motion.div
+                variants={containerVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"
+              >
                 {category.logos.map((partner) => (
                   <motion.div
                     key={partner.id}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true }}
-                    variants={fadeInUp}
-                    whileHover={{ scale: 1.05 }}
-                    className="group flex flex-col items-center justify-center p-10 bg-gray-50 dark:bg-[#1e293b] border border-gray-100 dark:border-gray-800 rounded-[2.5rem] transition-all duration-300 hover:bg-white dark:hover:bg-gray-800 hover:border-orange-200 dark:hover:border-gray-700"
+                    variants={itemVariants}
+                    whileHover={{ scale: 1.05, y: -8 }}
+                    className="group flex flex-col items-center justify-center p-10 glass-primary border border-white/20 dark:border-white/10 rounded-3xl transition-all duration-300 hover:shadow-glass-lg"
                   >
-                    <div className="w-14 h-14 bg-white dark:bg-[#0f172a] rounded-2xl mb-6 flex items-center justify-center text-orange-600 group-hover:bg-orange-600 group-hover:text-white transition-all duration-300 shadow-none">
+                    <div className="w-14 h-14 glass-secondary rounded-2xl mb-6 flex items-center justify-center text-primary-600 group-hover:bg-primary-500 group-hover:text-white transition-all duration-300">
                       <FaAward size={24} />
                     </div>
-                    <span className="text-gray-900 dark:text-white font-black text-center tracking-tight leading-tight uppercase text-sm">
+                    <span className="text-text-primary font-black text-center tracking-tight leading-tight uppercase text-sm">
                       {partner.name}
                     </span>
                   </motion.div>
                 ))}
-              </div>
+              </motion.div>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-24">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center p-12 glass-primary rounded-3xl border border-white/20 dark:border-white/10"
+          >
+            <div className="inline-flex items-center justify-center w-16 h-16 glass-secondary text-primary-600 rounded-2xl mb-6">
+              <FaHandshake size={32} />
+            </div>
+            <h2 className="text-3xl md:text-4xl font-black text-text-primary mb-6 uppercase tracking-tighter">
+              Become a Partner
+            </h2>
+            <p className="text-text-secondary mb-8 text-lg font-medium max-w-2xl mx-auto leading-relaxed">
+              Join our mission to create a world where every pet finds a loving home. 
+              Together, we can make a greater impact in animal welfare.
+            </p>
+            <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
+              <button className="w-full sm:w-auto bg-gradient-to-r from-primary-600 to-secondary-600 text-white px-10 py-4 rounded-2xl font-black uppercase tracking-widest hover:shadow-glass-lg hover:scale-105 transition-all active:scale-95">
+                Partner With Us
+              </button>
+              <button className="w-full sm:w-auto glass-secondary border-2 border-white/20 dark:border-white/10 text-text-primary px-10 py-4 rounded-2xl font-black uppercase tracking-widest hover:glass-primary hover:scale-105 transition-all">
+                Learn More
+              </button>
+            </div>
+          </motion.div>
         </div>
       </section>
     </div>

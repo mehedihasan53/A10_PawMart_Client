@@ -1,20 +1,21 @@
 import React, { useContext } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 import { AuthContext } from "./AuthProvider";
+import Loading from "../components/Loading";
 
 const PrivateRoute = ({ children }) => {
-  const { user, loading } = useContext(AuthContext);
+  const { user, loading, authInitialized } = useContext(AuthContext);
+  const location = useLocation();
 
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="w-16 h-16 border-4 border-orange-500 border-t-transparent rounded-full animate-spin"></div>
-      </div>
-    );
+  // Show loading while auth is being initialized or during auth operations
+  if (!authInitialized || loading) {
+    return <Loading />;
   }
 
+  // If no user after auth is initialized, redirect to login
   if (!user) {
-    return <Navigate to="/auth/login" replace />;
+    // Save the attempted location for redirecting after login
+    return <Navigate to="/auth/login" state={{ from: location }} replace />;
   }
 
   return children;

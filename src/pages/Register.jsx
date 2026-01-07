@@ -1,5 +1,5 @@
-import React, { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useContext, useState } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import toast from "react-hot-toast";
 import {
   FaGoogle,
@@ -11,13 +11,19 @@ import {
 } from "react-icons/fa";
 import { AuthContext } from "../provider/AuthProvider";
 import DynamicTitle from "../components/DynamicTitle";
+import Button from "../components/ui/Button";
+import Card from "../components/ui/Card";
 import axios from "axios";
 
 const Register = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [loading, setLoading] = useState(false);
   const { createUser, googleLogin, updateUserProfile } =
     useContext(AuthContext);
+
+  // Get the intended destination or default to home
+  const from = location.state?.from?.pathname || "/";
 
   const saveUserToDb = async (name, email, photoURL, role) => {
     const userData = { name, email, photoURL, role };
@@ -44,9 +50,10 @@ const Register = () => {
       await createUser(email, password);
       await updateUserProfile({ displayName: name, photoURL });
       await saveUserToDb(name, email, photoURL, role);
-
-      toast.success(`Account created as ${role}!`);
-      navigate("/");
+      toast.success("Account created successfully!");
+      
+      // Navigate to the intended destination or home
+      navigate(from, { replace: true });
     } catch (err) {
       toast.error(err.message);
     } finally {
@@ -54,7 +61,8 @@ const Register = () => {
     }
   };
 
-  const handleGoogleRegister = async () => {
+  const handleGoogleLogin = async () => {
+    setLoading(true);
     try {
       const result = await googleLogin();
       await saveUserToDb(
@@ -64,135 +72,175 @@ const Register = () => {
         "user"
       );
       toast.success("Logged in with Google");
-      navigate("/");
+      
+      // Navigate to the intended destination or home
+      navigate(from, { replace: true });
     } catch (err) {
       toast.error(err.message);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-orange-50 to-pink-50 px-4 py-10">
+    <div className="auth-page flex items-center justify-center px-4 py-12">
       <DynamicTitle title="Register" />
-      <div className="card bg-white w-full max-w-lg shadow-2xl rounded-3xl overflow-hidden border border-orange-100">
-        <div className="bg-gradient-to-r from-orange-500 to-pink-500 p-6 text-white text-center">
-          <h1 className="text-3xl font-bold">Create Account</h1>
-          <p className="text-sm opacity-90 mt-1">Join the PawMart community</p>
-        </div>
-
-        <form onSubmit={handleRegister} className="p-8 space-y-4">
-          <div className="form-control">
-            <label className="label font-semibold text-gray-700">
-              Full Name
-            </label>
-            <div className="relative">
-              <FaUser className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
-              <input
-                name="name"
-                placeholder="Enter your name"
-                className="input input-bordered w-full focus:border-orange-400"
-                required
-              />
-            </div>
+      
+      <div className="w-full max-w-lg">
+        <Card className="auth-card p-8" hover={false} animated={false}>
+          {/* Header */}
+          <div className="text-center mb-8">
+            <h1 className="text-3xl font-bold mb-2" style={{ color: 'var(--color-text-primary)' }}>
+              Create Account
+            </h1>
+            <p style={{ color: 'var(--color-text-secondary)' }}>
+              Join the PawMart community
+            </p>
           </div>
 
-          <div className="form-control">
-            <label className="label font-semibold text-gray-700">
-              Email Address
-            </label>
-            <div className="relative">
-              <FaEnvelope className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
-              <input
-                name="email"
-                type="email"
-                placeholder="Enter your email"
-                className="input input-bordered w-full focus:border-orange-400"
-                required
-              />
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="form-control">
-              <label className="label font-semibold text-gray-700">
-                Account Role
+          {/* Form */}
+          <form onSubmit={handleRegister} className="space-y-6">
+            {/* Name Field */}
+            <div>
+              <label className="auth-label block text-sm mb-2">
+                Full Name
               </label>
               <div className="relative">
-                <FaUserTag className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 z-10" />
-                <select
-                  name="role"
-                  className="select select-bordered w-full pl-12 focus:border-orange-400"
-                  defaultValue="user"
-                >
-                  <option value="user">User</option>
-                  <option value="admin">Admin</option>
-                </select>
-              </div>
-            </div>
-
-            <div className="form-control">
-              <label className="label font-semibold text-gray-700">
-                Password
-              </label>
-              <div className="relative">
-                <FaLock className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
+                <FaUser className="auth-icon absolute left-3 top-1/2 -translate-y-1/2" />
                 <input
-                  name="password"
-                  type="password"
-                  placeholder="Enter your password"
-                  className="input input-bordered w-full pl-12 focus:border-orange-400"
+                  name="name"
+                  placeholder="Enter your full name"
+                  className="auth-input w-full pl-10 pr-4 py-3 rounded-lg focus:ring-2 focus:ring-primary-500/20 focus:outline-none transition-all duration-200"
                   required
                 />
               </div>
             </div>
-          </div>
 
-          <div className="form-control">
-            <label className="label font-semibold text-gray-700">
-              Profile Photo URL
-            </label>
-            <div className="relative">
-              <FaImage className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
-              <input
-                name="photoURL"
-                placeholder="Enter photo URL"
-                className="input input-bordered w-full pl-12 focus:border-orange-400"
-                required
-              />
+            {/* Email Field */}
+            <div>
+              <label className="auth-label block text-sm mb-2">
+                Email Address
+              </label>
+              <div className="relative">
+                <FaEnvelope className="auth-icon absolute left-3 top-1/2 -translate-y-1/2" />
+                <input
+                  name="email"
+                  type="email"
+                  placeholder="Enter your email"
+                  className="auth-input w-full pl-10 pr-4 py-3 rounded-lg focus:ring-2 focus:ring-primary-500/20 focus:outline-none transition-all duration-200"
+                  required
+                />
+              </div>
             </div>
-          </div>
 
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full py-3 mt-4 rounded-xl font-bold text-white bg-gradient-to-r from-orange-500 to-pink-500 hover:shadow-lg transition-all active:scale-95 disabled:opacity-70"
-          >
-            {loading ? (
-              <span className="loading loading-spinner"></span>
-            ) : (
-              "Register Now"
-            )}
-          </button>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* Role Field */}
+              <div>
+                <label className="auth-label block text-sm mb-2">
+                  Account Role
+                </label>
+                <div className="relative">
+                  <FaUserTag className="auth-icon absolute left-3 top-1/2 -translate-y-1/2 z-10" />
+                  <select
+                    name="role"
+                    className="auth-input w-full pl-10 pr-4 py-3 rounded-lg focus:ring-2 focus:ring-primary-500/20 focus:outline-none appearance-none cursor-pointer transition-all duration-200"
+                    defaultValue="user"
+                  >
+                    <option value="user">User</option>
+                    <option value="admin">Admin</option>
+                  </select>
+                  <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
+                    <svg className="w-5 h-5 auth-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
 
-          <div className="divider text-gray-400 text-xs">OR CONTINUE WITH</div>
+              {/* Password Field */}
+              <div>
+                <label className="auth-label block text-sm mb-2">
+                  Password
+                </label>
+                <div className="relative">
+                  <FaLock className="auth-icon absolute left-3 top-1/2 -translate-y-1/2" />
+                  <input
+                    name="password"
+                    type="password"
+                    placeholder="Enter password"
+                    className="auth-input w-full pl-10 pr-4 py-3 rounded-lg focus:ring-2 focus:ring-primary-500/20 focus:outline-none transition-all duration-200"
+                    required
+                  />
+                </div>
+              </div>
+            </div>
 
-          <button
-            onClick={handleGoogleRegister}
-            type="button"
-            className="w-full py-3 rounded-xl border-2 border-gray-100 flex items-center justify-center gap-2 hover:bg-gray-50 transition-all font-semibold"
-          >
-            <FaGoogle className="text-red-500" /> Google
-          </button>
+            {/* Photo URL Field */}
+            <div>
+              <label className="auth-label block text-sm mb-2">
+                Profile Photo URL
+              </label>
+              <div className="relative">
+                <FaImage className="auth-icon absolute left-3 top-1/2 -translate-y-1/2" />
+                <input
+                  name="photoURL"
+                  placeholder="Enter photo URL"
+                  className="auth-input w-full pl-10 pr-4 py-3 rounded-lg focus:ring-2 focus:ring-primary-500/20 focus:outline-none transition-all duration-200"
+                  required
+                />
+              </div>
+            </div>
 
-          <p className="text-center mt-4 text-sm text-gray-600">
-            Already have an account?{" "}
-            <Link
-              className="text-orange-600 font-bold hover:underline"
-              to="/auth/login"
+            {/* Create Account Button */}
+            <Button
+              type="submit"
+              variant="primary"
+              size="lg"
+              fullWidth
+              loading={loading}
+              disabled={loading}
+              className="auth-button-primary hover:shadow-none hover:transform-none relative z-10"
             >
-              Login
-            </Link>
-          </p>
-        </form>
+              {loading ? "Creating Account..." : "Create Account"}
+            </Button>
+
+            {/* Divider */}
+            <div className="relative my-6">
+              <div className="absolute inset-0 flex items-center">
+                <div className="auth-divider w-full border-t"></div>
+              </div>
+              <div className="relative flex justify-center text-sm">
+                <span className="auth-divider-text px-2">
+                  Or continue with
+                </span>
+              </div>
+            </div>
+
+            {/* Google Button */}
+            <Button
+              type="button"
+              onClick={handleGoogleLogin}
+              variant="outline"
+              size="lg"
+              fullWidth
+              className="auth-button-outline flex items-center justify-center gap-3 hover:bg-transparent hover:border-primary-500/30 relative z-10"
+            >
+              <FaGoogle className="text-red-500" />
+              Continue with Google
+            </Button>
+
+            {/* Footer Link */}
+            <p className="text-center text-sm" style={{ color: 'var(--color-text-secondary)' }}>
+              Already have an account?{" "}
+              <Link
+                className="auth-link font-medium transition-colors duration-200"
+                to="/auth/login"
+              >
+                Sign In
+              </Link>
+            </p>
+          </form>
+        </Card>
       </div>
     </div>
   );

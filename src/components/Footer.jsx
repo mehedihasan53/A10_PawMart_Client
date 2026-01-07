@@ -1,149 +1,201 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import {
   FaPaw,
   FaHome,
   FaShoppingBag,
   FaPhone,
-  FaLock,
-  FaFileAlt,
+  FaEnvelope,
+  FaMapMarkerAlt,
   FaQuestionCircle,
+  FaShieldAlt,
+  FaFileContract,
+  FaUsers,
 } from "react-icons/fa";
 import { SiX, SiGithub, SiLinkedin, SiInstagram } from "react-icons/si";
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-200 border-t border-gray-200 py-10">
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
-          {/* Brand */}
-          <div>
-            <div className="flex items-center space-x-3 mb-3">
-              <div className="bg-gradient-to-r from-orange-500 to-pink-500 p-2 rounded-full">
-                <FaPaw className="text-white text-xl" />
-              </div>
-              <h2 className="text-2xl font-extrabold bg-gradient-to-r from-orange-500 to-pink-500 bg-clip-text text-transparent">
-                PawMart
-              </h2>
+    <footer className="bg-gray-800 text-white py-12">
+      <div className="container mx-auto px-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {/* Brand Section */}
+          <div className="lg:col-span-1">
+            <div className="flex items-center mb-4">
+              <FaPaw className="text-orange-500 text-2xl mr-2" />
+              <h2 className="text-2xl font-bold">PawMart</h2>
             </div>
-            <p className="text-gray-600 leading-relaxed">
+            <p className="text-gray-300 mb-6 leading-relaxed">
               A safe place to adopt pets, buy supplies, and connect with caring
-              pet owners.
+              pet owners. Building a community where every pet finds their forever home.
             </p>
-
+            
             {/* Social Media */}
-            <div className="flex mt-4 space-x-4">
+            <div className="flex space-x-4">
               <a
                 href="https://twitter.com/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-600 hover:text-blue-500 transition"
+                className="text-gray-400 hover:text-blue-400 transition-colors"
+                aria-label="Follow us on Twitter"
               >
-                <SiX className="text-2xl" />
+                <SiX className="text-xl" />
               </a>
               <a
                 href="https://github.com/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-600 hover:text-gray-900 transition"
+                className="text-gray-400 hover:text-gray-200 transition-colors"
+                aria-label="View our GitHub"
               >
-                <SiGithub className="text-2xl" />
+                <SiGithub className="text-xl" />
               </a>
               <a
                 href="https://www.linkedin.com/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-600 hover:text-blue-700 transition"
+                className="text-gray-400 hover:text-blue-600 transition-colors"
+                aria-label="Connect on LinkedIn"
               >
-                <SiLinkedin className="text-2xl" />
+                <SiLinkedin className="text-xl" />
               </a>
               <a
                 href="https://www.instagram.com/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-600 hover:text-pink-500 transition"
+                className="text-gray-400 hover:text-pink-500 transition-colors"
+                aria-label="Follow us on Instagram"
               >
-                <SiInstagram className="text-2xl" />
+                <SiInstagram className="text-xl" />
               </a>
             </div>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-lg font-semibold text-gray-800 mb-3">
-              Quick Links
-            </h3>
-            <ul className="space-y-3">
+            <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
+            <ul className="space-y-2">
               <li>
                 <Link
                   to="/"
-                  className="flex items-center space-x-2 text-gray-600 hover:text-orange-500 transition"
+                  className="text-gray-300 hover:text-orange-500 transition-colors flex items-center"
                 >
-                  <FaHome />
-                  <span>Home</span>
+                  <FaHome className="mr-2" />
+                  Home
                 </Link>
               </li>
               <li>
                 <Link
                   to="/pets-supplies"
-                  className="flex items-center space-x-2 text-gray-600 hover:text-orange-500 transition"
+                  className="text-gray-300 hover:text-orange-500 transition-colors flex items-center"
                 >
-                  <FaShoppingBag />
-                  <span>Pets & Supplies</span>
+                  <FaShoppingBag className="mr-2" />
+                  Pets & Supplies
                 </Link>
               </li>
               <li>
                 <Link
-                  to="/contact"
-                  className="flex items-center space-x-2 text-gray-600 hover:text-orange-500 transition"
+                  to="/about-us"
+                  className="text-gray-300 hover:text-orange-500 transition-colors flex items-center"
                 >
-                  <FaPhone />
-                  <span>Contact Us</span>
+                  <FaPaw className="mr-2" />
+                  About Us
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/partners"
+                  className="text-gray-300 hover:text-orange-500 transition-colors flex items-center"
+                >
+                  <FaUsers className="mr-2" />
+                  Partners
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Legal */}
+          {/* Legal & Support */}
           <div>
-            <h3 className="text-lg font-semibold text-gray-800 mb-3">Legal</h3>
-            <ul className="space-y-3">
+            <h3 className="text-lg font-semibold mb-4">Legal & Support</h3>
+            <ul className="space-y-2">
+              <li>
+                <Link
+                  to="/faq"
+                  className="text-gray-300 hover:text-orange-500 transition-colors flex items-center"
+                >
+                  <FaQuestionCircle className="mr-2" />
+                  FAQ
+                </Link>
+              </li>
               <li>
                 <Link
                   to="/privacy-policy"
-                  className="flex items-center space-x-2 text-gray-600 hover:text-orange-500 transition"
+                  className="text-gray-300 hover:text-orange-500 transition-colors flex items-center"
                 >
-                  <FaLock />
-                  <span>Privacy Policy</span>
+                  <FaShieldAlt className="mr-2" />
+                  Privacy Policy
                 </Link>
               </li>
               <li>
                 <Link
                   to="/terms-of-service"
-                  className="flex items-center space-x-2 text-gray-600 hover:text-orange-500 transition"
+                  className="text-gray-300 hover:text-orange-500 transition-colors flex items-center"
                 >
-                  <FaFileAlt />
-                  <span>Terms of Service</span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/faq"
-                  className="flex items-center space-x-2 text-gray-600 hover:text-orange-500 transition"
-                >
-                  <FaQuestionCircle />
-                  <span>FAQ</span>
+                  <FaFileContract className="mr-2" />
+                  Terms of Service
                 </Link>
               </li>
             </ul>
           </div>
+
+          {/* Contact Info */}
+          <div>
+            <h3 className="text-lg font-semibold mb-4">Contact Us</h3>
+            <div className="space-y-2 text-gray-300">
+              <div className="flex items-center">
+                <FaEnvelope className="mr-2 text-orange-500 flex-shrink-0" />
+                <span className="break-all">hello@pawmart.com</span>
+              </div>
+              <div className="flex items-center">
+                <FaPhone className="mr-2 text-orange-500 flex-shrink-0" />
+                <span>+1 (555) 123-4567</span>
+              </div>
+              <div className="flex items-start">
+                <FaMapMarkerAlt className="mr-2 text-orange-500 flex-shrink-0 mt-1" />
+                <span>123 Pet Street, Animal City</span>
+              </div>
+            </div>
+          </div>
         </div>
 
-        {/* Bottom */}
-        <div className="text-center border-t border-gray-200 mt-10 pt-5">
-          <p className="text-gray-500 text-sm">
-            © {new Date().getFullYear()} PawMart — All Rights Reserved.
-          </p>
+        {/* Bottom Section */}
+        <div className="border-t border-gray-700 mt-8 pt-8">
+          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+            <p className="text-gray-400 text-center md:text-left">
+              © {new Date().getFullYear()} PawMart. All rights reserved.
+            </p>
+            
+            {/* Additional Legal Links for Mobile */}
+            <div className="flex flex-wrap justify-center md:justify-end space-x-4 text-sm">
+              <Link
+                to="/privacy-policy"
+                className="text-gray-400 hover:text-orange-500 transition-colors"
+              >
+                Privacy
+              </Link>
+              <Link
+                to="/terms-of-service"
+                className="text-gray-400 hover:text-orange-500 transition-colors"
+              >
+                Terms
+              </Link>
+              <Link
+                to="/faq"
+                className="text-gray-400 hover:text-orange-500 transition-colors"
+              >
+                FAQ
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </footer>

@@ -24,6 +24,7 @@ import AdminHome from "../pages/Dashboard/AdminHome";
 import Profile from "../pages/Dashboard/Profile";
 import UserHome from "../pages/Dashboard/UserHome";
 import ManageUsers from "../pages/Dashboard/ManageUsers";
+import Settings from "../pages/Dashboard/Settings";
 
 export const router = createBrowserRouter([
   {
@@ -110,6 +111,7 @@ export const router = createBrowserRouter([
       { path: "admin-home", element: <AdminHome /> },
       { path: "user-home", element: <UserHome /> },
       { path: "manage-users", element: <ManageUsers /> },
+      { path: "settings", element: <Settings /> },
     ],
   },
 ]);

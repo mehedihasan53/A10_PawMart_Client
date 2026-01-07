@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import {
   FaMapMarkerAlt,
   FaTag,
@@ -9,6 +10,8 @@ import {
   FaSortAmountDown,
   FaChevronLeft,
   FaChevronRight,
+  FaPaw,
+  FaStore,
 } from "react-icons/fa";
 import Loading from "../components/Loading";
 import DynamicTitle from "../components/DynamicTitle";
@@ -81,158 +84,232 @@ const PetsSupplies = () => {
     }
   };
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: [0.4, 0, 0.2, 1],
+      },
+    },
+  };
+
   if (loading) return <Loading />;
 
   return (
-    <div className="bg-white dark:bg-[#111827] min-h-screen transition-colors duration-300">
+    <div className="bg-gradient-to-br from-bg-primary to-bg-surface min-h-screen transition-colors duration-300">
       <DynamicTitle title="Explore Pets & Supplies" />
 
-      <div className="max-w-7xl mx-auto px-4 py-12">
-        <header className="text-center mb-12">
-          <h1 className="text-4xl font-black text-gray-900 dark:text-[#d1d5db] mb-4 tracking-tight">
-            Explore <span className="text-orange-500">PawMart</span>
-          </h1>
-          <p className="text-gray-500 dark:text-gray-400">
-            Find the perfect companion or the best supplies for your pets.
-          </p>
-        </header>
-
-        {/* Standard Filter Bar */}
-        <div className="bg-white dark:bg-[#1f2937] p-4 md:p-6 rounded-[2rem] border border-gray-100 dark:border-gray-800 shadow-lg mb-12 transition-all">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-            {/* Search */}
-            <div className="relative lg:col-span-2">
-              <FaSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
-              <input
-                type="text"
-                placeholder="Search by name..."
-                value={searchQuery}
-                onChange={(e) => {
-                  setSearchQuery(e.target.value);
-                  setCurrentPage(1);
-                }}
-                className="w-full pl-12 pr-4 py-3 bg-gray-50 dark:bg-[#374151] border-none rounded-2xl focus:ring-2 focus:ring-orange-500 text-gray-700 dark:text-[#d1d5db] outline-none"
-              />
-            </div>
-
-            {/* Category */}
-            <div className="relative">
-              <FaFilter className="absolute left-4 top-1/2 -translate-y-1/2 text-xs text-gray-400" />
-              <select
-                value={categoryFilter}
-                onChange={(e) => {
-                  setCategoryFilter(e.target.value);
-                  setCurrentPage(1);
-                }}
-                className="w-full pl-10 pr-4 py-3 bg-gray-50 dark:bg-[#374151] border-none rounded-2xl focus:ring-2 focus:ring-orange-500 text-gray-700 dark:text-[#d1d5db] appearance-none cursor-pointer outline-none"
-              >
-                <option value="">All Categories</option>
-                <option value="pets">Pets</option>
-                <option value="food">Food</option>
-                <option value="accessories">Accessories</option>
-              </select>
-            </div>
-
-            {/* Price Range */}
-            <div className="relative">
-              <FaTag className="absolute left-4 top-1/2 -translate-y-1/2 text-xs text-gray-400" />
-              <select
-                value={priceRange}
-                onChange={(e) => {
-                  setPriceRange(e.target.value);
-                  setCurrentPage(1);
-                }}
-                className="w-full pl-10 pr-4 py-3 bg-gray-50 dark:bg-[#374151] border-none rounded-2xl focus:ring-2 focus:ring-orange-500 text-gray-700 dark:text-[#d1d5db] appearance-none cursor-pointer outline-none"
-              >
-                <option value="all">Any Price</option>
-                <option value="free">Free Adoption</option>
-                <option value="low">Under ৳1000</option>
-                <option value="high">Over ৳1000</option>
-              </select>
-            </div>
-
-            {/* Sorting */}
-            <div className="relative">
-              <FaSortAmountDown className="absolute left-4 top-1/2 -translate-y-1/2 text-xs text-gray-400" />
-              <select
-                value={sortBy}
-                onChange={(e) => setSortBy(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 bg-gray-50 dark:bg-[#374151] border-none rounded-2xl focus:ring-2 focus:ring-orange-500 text-gray-700 dark:text-[#d1d5db] appearance-none cursor-pointer outline-none"
-              >
-                <option value="newest">Newest First</option>
-                <option value="priceLow">Price: Low to High</option>
-                <option value="priceHigh">Price: High to Low</option>
-              </select>
-            </div>
-          </div>
+      {/* Minimal Hero Section - Just Heading */}
+      <section className="relative py-8 bg-gradient-to-r from-primary-50/20 via-bg-primary to-secondary-50/20 border-b border-white/10 dark:border-white/5">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-center"
+          >
+            <h1 className="text-3xl lg:text-4xl font-bold tracking-tight text-text-primary">
+              Explore <span className="gradient-text-primary">PawMart</span>
+            </h1>
+          </motion.div>
         </div>
+      </section>
 
+      {/* Fixed Filter Bar - Community Section - Positioned at very top */}
+      <div className="sticky top-0 z-50 bg-bg-primary/98 backdrop-blur-xl border-b border-white/10 dark:border-white/5 shadow-lg">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="glass-primary p-4 rounded-2xl border border-white/20 dark:border-white/10"
+          >
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+              {/* Search */}
+              <div className="relative lg:col-span-2">
+                <FaSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted text-sm" />
+                <input
+                  type="text"
+                  placeholder="Search pets & supplies..."
+                  value={searchQuery}
+                  onChange={(e) => {
+                    setSearchQuery(e.target.value);
+                    setCurrentPage(1);
+                  }}
+                  className="w-full pl-10 pr-4 py-3 glass-secondary border border-white/20 dark:border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/50 text-text-primary placeholder-text-muted text-sm font-medium"
+                />
+              </div>
+
+              {/* Category */}
+              <div className="relative">
+                <FaFilter className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted text-sm z-10" />
+                <select
+                  value={categoryFilter}
+                  onChange={(e) => {
+                    setCategoryFilter(e.target.value);
+                    setCurrentPage(1);
+                  }}
+                  className="w-full pl-10 pr-4 py-3 glass-secondary border border-white/20 dark:border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/50 text-text-primary appearance-none cursor-pointer text-sm font-medium"
+                >
+                  <option value="">All Categories</option>
+                  <option value="pets">Pets</option>
+                  <option value="food">Food</option>
+                  <option value="accessories">Accessories</option>
+                </select>
+              </div>
+
+              {/* Price Range */}
+              <div className="relative">
+                <FaTag className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted text-sm z-10" />
+                <select
+                  value={priceRange}
+                  onChange={(e) => {
+                    setPriceRange(e.target.value);
+                    setCurrentPage(1);
+                  }}
+                  className="w-full pl-10 pr-4 py-3 glass-secondary border border-white/20 dark:border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/50 text-text-primary appearance-none cursor-pointer text-sm font-medium"
+                >
+                  <option value="all">Any Price</option>
+                  <option value="free">Free Adoption</option>
+                  <option value="low">Under ৳1000</option>
+                  <option value="high">Over ৳1000</option>
+                </select>
+              </div>
+
+              {/* Sorting */}
+              <div className="relative">
+                <FaSortAmountDown className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted text-sm z-10" />
+                <select
+                  value={sortBy}
+                  onChange={(e) => setSortBy(e.target.value)}
+                  className="w-full pl-10 pr-4 py-3 glass-secondary border border-white/20 dark:border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/50 text-text-primary appearance-none cursor-pointer text-sm font-medium"
+                >
+                  <option value="newest">Newest First</option>
+                  <option value="priceLow">Price: Low to High</option>
+                  <option value="priceHigh">Price: High to Low</option>
+                </select>
+              </div>
+            </div>
+
+            {/* Results Summary */}
+            <div className="mt-4 pt-4 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-2">
+              <div className="text-sm text-text-secondary font-medium">
+                Showing {currentItems.length} of {filteredAndSortedListings.length} results
+              </div>
+              {(searchQuery || categoryFilter || priceRange !== "all") && (
+                <button
+                  onClick={() => {
+                    setSearchQuery("");
+                    setCategoryFilter("");
+                    setPriceRange("all");
+                    setSortBy("newest");
+                    setCurrentPage(1);
+                  }}
+                  className="text-sm text-primary-600 hover:text-primary-700 font-semibold transition-colors"
+                >
+                  Clear all filters
+                </button>
+              )}
+            </div>
+          </motion.div>
+        </div>
+      </div>
+
+      {/* Main Content with proper spacing for fixed header */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Listings Grid */}
         {currentItems.length > 0 ? (
           <>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-              {currentItems.map((item) => (
-                <div
+            <motion.div
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+              className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
+            >
+              {currentItems.map((item, index) => (
+                <motion.div
                   key={item._id}
-                  className="group bg-white dark:bg-[#1f2937] rounded-[2.5rem] border border-gray-100 dark:border-gray-800 overflow-hidden hover:shadow-2xl transition-all duration-300 flex flex-col h-full"
+                  variants={itemVariants}
+                  whileHover={{ y: -8, scale: 1.02 }}
+                  className="group glass-primary rounded-2xl border border-white/20 dark:border-white/10 overflow-hidden hover:shadow-glass-lg transition-all duration-300 flex flex-col h-full"
                 >
-                  <div className="relative h-60 overflow-hidden">
+                  <div className="relative h-48 overflow-hidden">
                     <img
                       src={item.image}
                       alt={item.name}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                     />
-                    <div className="absolute top-4 right-4 bg-orange-600 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase">
+                    <div className="absolute top-3 right-3 bg-gradient-to-r from-primary-600 to-secondary-600 text-white text-xs font-bold px-2.5 py-1.5 rounded-full uppercase shadow-glass">
                       {item.category}
                     </div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   </div>
 
-                  <div className="p-6 flex flex-col flex-grow">
-                    <h3 className="text-xl font-bold text-gray-900 dark:text-[#d1d5db] mb-2 truncate">
+                  <div className="p-5 flex flex-col flex-grow">
+                    <h3 className="text-lg font-bold text-text-primary mb-2 truncate">
                       {item.name}
                     </h3>
-                    <div className="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-4 gap-2">
-                      <FaMapMarkerAlt className="text-orange-500" />{" "}
-                      {item.location}
+                    <div className="flex items-center text-sm text-text-secondary mb-4 gap-2">
+                      <FaMapMarkerAlt className="text-primary-500 flex-shrink-0" />
+                      <span className="truncate">{item.location}</span>
                     </div>
                     <div className="mt-auto">
-                      <p className="text-2xl font-black text-orange-600 mb-4">
+                      <p className="text-xl font-bold gradient-text-primary mb-4">
                         {parseFloat(item.price) === 0
                           ? "FREE"
                           : `৳${item.price}`}
                       </p>
                       <Link
                         to={`/listing-details/${item._id}`}
-                        className="block w-full text-center bg-orange-600 hover:bg-orange-700 text-white py-3 rounded-2xl font-bold transition-all shadow-lg shadow-orange-600/20 active:scale-95"
+                        className="block w-full text-center bg-gradient-to-r from-primary-600 to-secondary-600 text-white py-2.5 rounded-xl font-semibold hover:shadow-glass-lg hover:scale-105 transition-all active:scale-95"
                       >
                         View Details
                       </Link>
                     </div>
                   </div>
-                </div>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
 
-            {/* Pagination Controls */}
+            {/* Enhanced Pagination Controls */}
             {totalPages > 1 && (
-              <div className="mt-16 flex flex-wrap justify-center items-center gap-3">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                className="mt-12 flex flex-wrap justify-center items-center gap-2"
+              >
                 <button
                   onClick={() => handlePageChange(currentPage - 1)}
                   disabled={currentPage === 1}
-                  className="flex items-center justify-center w-12 h-12 rounded-xl bg-gray-100 dark:bg-[#1f2937] text-gray-600 dark:text-gray-400 hover:bg-orange-600 hover:text-white disabled:opacity-30 disabled:hover:bg-gray-100 transition-all"
+                  className="flex items-center justify-center w-10 h-10 rounded-xl glass-secondary border border-white/20 dark:border-white/10 text-text-primary hover:glass-primary hover:text-primary-600 disabled:opacity-30 disabled:hover:glass-secondary disabled:hover:text-text-primary transition-all"
                 >
-                  <FaChevronLeft size={14} />
+                  <FaChevronLeft size={12} />
                 </button>
 
-                <div className="flex gap-2">
+                <div className="flex gap-1">
                   {[...Array(totalPages)].map((_, i) => (
                     <button
                       key={i}
                       onClick={() => handlePageChange(i + 1)}
-                      className={`w-12 h-12 rounded-xl font-bold transition-all ${
+                      className={`w-10 h-10 rounded-xl font-semibold text-sm transition-all ${
                         currentPage === i + 1
-                          ? "bg-orange-600 text-white shadow-lg"
-                          : "bg-gray-100 dark:bg-[#1f2937] text-gray-600 dark:text-gray-400 hover:bg-orange-100"
+                          ? "bg-gradient-to-r from-primary-600 to-secondary-600 text-white shadow-glass-lg"
+                          : "glass-secondary border border-white/20 dark:border-white/10 text-text-primary hover:glass-primary hover:text-primary-600"
                       }`}
                     >
                       {i + 1}
@@ -243,21 +320,40 @@ const PetsSupplies = () => {
                 <button
                   onClick={() => handlePageChange(currentPage + 1)}
                   disabled={currentPage === totalPages}
-                  className="flex items-center justify-center w-12 h-12 rounded-xl bg-gray-100 dark:bg-[#1f2937] text-gray-600 dark:text-gray-400 hover:bg-orange-600 hover:text-white disabled:opacity-30 disabled:hover:bg-gray-100 transition-all"
+                  className="flex items-center justify-center w-10 h-10 rounded-xl glass-secondary border border-white/20 dark:border-white/10 text-text-primary hover:glass-primary hover:text-primary-600 disabled:opacity-30 disabled:hover:glass-secondary disabled:hover:text-text-primary transition-all"
                 >
-                  <FaChevronRight size={14} />
+                  <FaChevronRight size={12} />
                 </button>
-              </div>
+              </motion.div>
             )}
           </>
         ) : (
-          <div className="text-center py-20 bg-gray-50 dark:bg-[#1f2937]/50 rounded-[3rem] border-2 border-dashed border-gray-200 dark:border-gray-800">
-            <div className="text-6xl mb-4 text-gray-300">🔍</div>
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-[#d1d5db]">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6 }}
+            className="text-center py-16 glass-secondary rounded-2xl border-2 border-dashed border-white/20 dark:border-white/10"
+          >
+            <div className="text-5xl mb-4 text-primary-400">🔍</div>
+            <h2 className="text-xl font-bold text-text-primary mb-3">
               No items found
             </h2>
-            <p className="text-gray-500">Try adjusting your filters.</p>
-          </div>
+            <p className="text-text-secondary font-medium mb-6">
+              Try adjusting your filters to find what you're looking for.
+            </p>
+            <button
+              onClick={() => {
+                setSearchQuery("");
+                setCategoryFilter("");
+                setPriceRange("all");
+                setSortBy("newest");
+                setCurrentPage(1);
+              }}
+              className="px-6 py-3 bg-gradient-to-r from-primary-600 to-secondary-600 text-white rounded-xl font-semibold hover:shadow-glass-lg hover:scale-105 transition-all"
+            >
+              Clear Filters
+            </button>
+          </motion.div>
         )}
       </div>
     </div>
