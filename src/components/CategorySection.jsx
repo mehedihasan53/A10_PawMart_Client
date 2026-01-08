@@ -65,7 +65,7 @@ const CategorySection = () => {
   };
 
   return (
-    <section className="py-20 relative overflow-hidden">
+    <section className="py-7 relative overflow-hidden">
       {/* Background elements */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary-50/30 via-transparent to-secondary-50/30 dark:from-primary-950/30 dark:to-secondary-950/30" />
       <div className="absolute top-20 right-20 w-64 h-64 bg-gradient-to-br from-primary-400/10 to-secondary-400/10 rounded-full blur-3xl animate-float" />

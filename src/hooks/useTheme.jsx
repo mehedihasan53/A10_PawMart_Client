@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 const useTheme = () => {
   const [isDark, setIsDark] = useState(() => {
     // Check if we're in the browser
-    if (typeof window === 'undefined') return false;
+    if (typeof window === 'undefined') return true; // Default to dark mode
     
     // Check localStorage first
     const saved = localStorage.getItem('theme');
@@ -11,8 +11,8 @@ const useTheme = () => {
       return saved === 'dark';
     }
     
-    // Check system preference
-    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    // Default to dark mode instead of system preference
+    return true;
   });
 
   useEffect(() => {
@@ -41,7 +41,8 @@ const useTheme = () => {
       // Only update if user hasn't manually set a preference
       const saved = localStorage.getItem('theme');
       if (!saved) {
-        setIsDark(e.matches);
+        // Still default to dark mode even if system changes
+        setIsDark(true);
       }
     };
 

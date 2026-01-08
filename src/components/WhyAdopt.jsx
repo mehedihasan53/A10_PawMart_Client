@@ -60,7 +60,7 @@ const WhyAdopt = () => {
   };
 
   return (
-    <section className="py-20 relative overflow-hidden">
+    <section className="py-7 relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0 bg-gradient-to-br from-secondary-50/40 via-transparent to-primary-50/40 dark:from-secondary-950/30 dark:to-primary-950/30" />
       <div className="absolute top-10 right-20 w-64 h-64 bg-gradient-to-br from-primary-200/30 to-secondary-200/30 dark:from-primary-800/20 dark:to-secondary-800/20 rounded-full blur-3xl" />

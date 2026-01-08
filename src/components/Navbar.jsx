@@ -78,7 +78,7 @@ const Navbar = () => {
     );
 
   return (
-    <nav className="sticky top-0 z-50 navbar-glass border-b border-white/10 dark:border-white/5">
+    <nav className="w-full navbar-glass border-b border-white/10 dark:border-white/5" data-lenis-prevent>
       <div className="container mx-auto px-4 lg:px-6">
         <div className="flex items-center justify-between h-16 lg:h-18">
           {/* Logo */}

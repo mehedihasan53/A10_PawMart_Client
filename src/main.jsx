@@ -7,7 +7,8 @@ import AuthProvider from "./provider/AuthProvider.jsx";
 import { Toaster } from "react-hot-toast";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import ScrollToTop from "./components/shared/ScrollToTop.jsx";
-import { initSmoothScroll } from "./utils/smoothScroll.js";
+// Temporarily disable smooth scroll to test navbar
+// import { initSmoothScroll } from "./utils/smoothScroll.js";
 import PageLoader from "./components/PageLoader.jsx";
 
 const queryClient = new QueryClient();
@@ -16,8 +17,8 @@ function App() {
   const [isAppLoading, setIsAppLoading] = useState(true);
 
   useEffect(() => {
-    // Initialize smooth scrolling
-    const lenis = initSmoothScroll();
+    // Temporarily disable smooth scrolling to test navbar
+    // const lenis = initSmoothScroll();
     
     // Simulate app initialization and ensure smooth loading
     const initializeApp = async () => {
@@ -43,9 +44,9 @@ function App() {
     
     // Cleanup on unmount
     return () => {
-      if (lenis) {
-        lenis.destroy();
-      }
+      // if (lenis) {
+      //   lenis.destroy();
+      // }
     };
   }, []);
 

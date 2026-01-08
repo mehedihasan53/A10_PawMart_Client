@@ -107,17 +107,6 @@ const CategoryFilteredPage = () => {
         {categoryName?.replace(/-/g, ' ') || 'Category'}
       </h1>
 
-      {/* Debug info in development */}
-      {process.env.NODE_ENV === 'development' && (
-        <div className="mb-4 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg text-sm">
-          <p><strong>Debug Info:</strong></p>
-          <p>Category: {categoryName}</p>
-          <p>Loading: {loading.toString()}</p>
-          <p>Error: {error || 'None'}</p>
-          <p>Items count: {items.length}</p>
-        </div>
-      )}
-
       {/* No items found */}
       {items.length === 0 ? (
         <div className="text-center py-12">

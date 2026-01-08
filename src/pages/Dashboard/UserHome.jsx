@@ -285,69 +285,289 @@ const UserHome = () => {
         </div>
       </motion.div>
 
-      {/* Enhanced Quick Actions */}
+      {/* Enhanced Recent Activity & Recommendations */}
       <motion.div
         variants={itemVariants}
-        className="grid grid-cols-1 md:grid-cols-2 gap-8"
+        className="grid grid-cols-1 lg:grid-cols-2 gap-8"
       >
+        {/* Enhanced Recent Orders */}
         <div className="glass-card p-6 rounded-3xl border border-white/20 dark:border-white/10">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="p-2 rounded-xl bg-gradient-to-br from-primary-500/10 to-secondary-500/10">
-              <FaBox className="text-lg text-primary-600 dark:text-primary-400" />
-            </div>
-            <h4 className="text-lg font-bold text-text-primary">
-              Recent Orders
-            </h4>
-          </div>
-          <div className="space-y-3">
-            {orders.slice(0, 3).map((order, index) => (
-              <div key={index} className="flex items-center justify-between p-3 glass-tertiary rounded-xl border border-white/10 dark:border-white/5">
-                <div>
-                  <p className="text-sm font-medium text-text-primary">
-                    Order #{order.id || `00${index + 1}`}
-                  </p>
-                  <p className="text-xs text-text-secondary">
-                    {order.date || "Recent"}
-                  </p>
-                </div>
-                <span className="text-sm font-bold text-primary-600">
-                  ৳{order.price || 0}
-                </span>
+          <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center gap-3">
+              <div className="p-2 rounded-xl bg-gradient-to-br from-primary-500/10 to-secondary-500/10">
+                <FaBox className="text-lg text-primary-600 dark:text-primary-400" />
               </div>
-            ))}
-            {orders.length === 0 && (
-              <p className="text-sm text-text-secondary text-center py-4">
-                No orders yet
-              </p>
+              <div>
+                <h4 className="text-lg font-bold text-text-primary">Recent Orders</h4>
+                <p className="text-xs text-text-secondary">Your latest purchases</p>
+              </div>
+            </div>
+            {orders.length > 0 && (
+              <button className="text-xs text-primary-600 hover:text-primary-700 font-medium transition-colors">
+                View All
+              </button>
+            )}
+          </div>
+          
+          <div className="space-y-3">
+            {isLoading ? (
+              // Loading skeleton
+              Array.from({ length: 3 }).map((_, index) => (
+                <div key={index} className="animate-pulse">
+                  <div className="flex items-center justify-between p-3 glass-tertiary rounded-xl">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-gray-200 dark:bg-gray-700 rounded-lg"></div>
+                      <div>
+                        <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-24 mb-1"></div>
+                        <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-16"></div>
+                      </div>
+                    </div>
+                    <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-12"></div>
+                  </div>
+                </div>
+              ))
+            ) : orders.length > 0 ? (
+              orders.slice(0, 4).map((order, index) => (
+                <motion.div 
+                  key={order._id || index}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  className="flex items-center justify-between p-3 glass-tertiary rounded-xl border border-white/10 dark:border-white/5 hover:glass-secondary transition-all duration-300 group cursor-pointer"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-gradient-to-br from-primary-500/20 to-secondary-500/20 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+                      <FaBox className="text-primary-600 text-sm" />
+                    </div>
+                    <div>
+                      <p className="text-sm font-medium text-text-primary">
+                        {order.buyerName || `Order #${String(index + 1).padStart(3, '0')}`}
+                      </p>
+                      <p className="text-xs text-text-secondary">
+                        {order.date ? new Date(order.date).toLocaleDateString() : "Recent"}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <span className="text-sm font-bold text-primary-600">
+                      ৳{Number(order.price || 0).toLocaleString()}
+                    </span>
+                    <p className="text-xs text-success-600">Completed</p>
+                  </div>
+                </motion.div>
+              ))
+            ) : (
+              <div className="text-center py-8">
+                <div className="w-16 h-16 bg-gradient-to-br from-primary-500/10 to-secondary-500/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                  <FaBox className="text-2xl text-primary-600 dark:text-primary-400" />
+                </div>
+                <p className="text-sm text-text-secondary mb-2">No orders yet</p>
+                <p className="text-xs text-text-muted">Start shopping to see your orders here</p>
+              </div>
             )}
           </div>
         </div>
 
+        {/* New: Pet Care Recommendations */}
         <div className="glass-card p-6 rounded-3xl border border-white/20 dark:border-white/10">
           <div className="flex items-center gap-3 mb-6">
             <div className="p-2 rounded-xl bg-gradient-to-br from-secondary-500/10 to-primary-500/10">
               <FaHeart className="text-lg text-secondary-600 dark:text-secondary-400" />
             </div>
-            <h4 className="text-lg font-bold text-text-primary">
-              Quick Actions
-            </h4>
+            <div>
+              <h4 className="text-lg font-bold text-text-primary">Pet Care Tips</h4>
+              <p className="text-xs text-text-secondary">Personalized recommendations</p>
+            </div>
           </div>
+          
+          <div className="space-y-4">
+            {[
+              {
+                icon: "🐕",
+                title: "Daily Exercise",
+                description: "30 minutes of walking recommended",
+                priority: "high",
+                color: "from-red-500/10 to-orange-500/10"
+              },
+              {
+                icon: "🥘",
+                title: "Nutrition Check",
+                description: "Premium food supplies running low",
+                priority: "medium",
+                color: "from-yellow-500/10 to-orange-500/10"
+              },
+              {
+                icon: "💊",
+                title: "Health Reminder",
+                description: "Vaccination due next month",
+                priority: "low",
+                color: "from-blue-500/10 to-purple-500/10"
+              },
+              {
+                icon: "🎾",
+                title: "Playtime",
+                description: "Interactive toys boost mental health",
+                priority: "medium",
+                color: "from-green-500/10 to-teal-500/10"
+              }
+            ].map((tip, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+                className="flex items-center gap-3 p-3 glass-tertiary rounded-xl border border-white/10 dark:border-white/5 hover:glass-secondary transition-all duration-300 group cursor-pointer"
+              >
+                <div className={`w-10 h-10 bg-gradient-to-br ${tip.color} rounded-lg flex items-center justify-center text-lg group-hover:scale-110 transition-transform`}>
+                  {tip.icon}
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 mb-1">
+                    <p className="text-sm font-medium text-text-primary">{tip.title}</p>
+                    <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${
+                      tip.priority === 'high' ? 'bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400' :
+                      tip.priority === 'medium' ? 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-600 dark:text-yellow-400' :
+                      'bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400'
+                    }`}>
+                      {tip.priority}
+                    </span>
+                  </div>
+                  <p className="text-xs text-text-secondary">{tip.description}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </motion.div>
+
+      {/* New: Quick Actions & Pet Management */}
+      <motion.div
+        variants={itemVariants}
+        className="grid grid-cols-1 md:grid-cols-3 gap-6"
+      >
+        {/* Quick Actions */}
+        <div className="glass-card p-6 rounded-3xl border border-white/20 dark:border-white/10">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="p-2 rounded-xl bg-gradient-to-br from-primary-500/10 to-secondary-500/10">
+              <FaShoppingBag className="text-lg text-primary-600 dark:text-primary-400" />
+            </div>
+            <div>
+              <h4 className="text-lg font-bold text-text-primary">Quick Actions</h4>
+              <p className="text-xs text-text-secondary">Common tasks</p>
+            </div>
+          </div>
+          
           <div className="space-y-3">
-            <button className="w-full text-left p-3 rounded-xl glass-tertiary hover:glass-secondary border border-white/10 dark:border-white/5 transition-all duration-300 group">
-              <span className="text-sm font-medium text-text-primary group-hover:text-primary-600">
-                Browse Pet Supplies
+            {[
+              { icon: FaShoppingBag, label: "Browse Supplies", link: "/pets-supplies" },
+              { icon: FaBox, label: "View All Orders", link: "/my-orders" },
+              { icon: FaUserCircle, label: "Update Profile", link: "/dashboard/profile" },
+              { icon: FaHeart, label: "My Favorites", link: "/favorites" }
+            ].map((action, index) => (
+              <motion.button
+                key={index}
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: index * 0.1 }}
+                className="w-full flex items-center gap-3 p-3 rounded-xl glass-tertiary hover:glass-secondary border border-white/10 dark:border-white/5 transition-all duration-300 group text-left"
+              >
+                <div className="p-2 rounded-lg bg-gradient-to-br from-primary-500/10 to-secondary-500/10 group-hover:from-primary-500/20 group-hover:to-secondary-500/20 transition-all">
+                  <action.icon className="text-sm text-primary-600 dark:text-primary-400" />
+                </div>
+                <span className="text-sm font-medium text-text-primary group-hover:text-primary-600 transition-colors">
+                  {action.label}
+                </span>
+              </motion.button>
+            ))}
+          </div>
+        </div>
+
+        {/* Pet Profile Summary */}
+        <div className="glass-card p-6 rounded-3xl border border-white/20 dark:border-white/10">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="p-2 rounded-xl bg-gradient-to-br from-secondary-500/10 to-primary-500/10">
+              <FaHeart className="text-lg text-secondary-600 dark:text-secondary-400" />
+            </div>
+            <div>
+              <h4 className="text-lg font-bold text-text-primary">My Pets</h4>
+              <p className="text-xs text-text-secondary">Pet profiles</p>
+            </div>
+          </div>
+          
+          <div className="space-y-4">
+            {/* Sample pet data - in real app this would come from user's pet profiles */}
+            {[
+              { name: "Buddy", type: "Golden Retriever", age: "3 years", emoji: "🐕" },
+              { name: "Whiskers", type: "Persian Cat", age: "2 years", emoji: "🐱" }
+            ].map((pet, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+                className="flex items-center gap-3 p-3 glass-tertiary rounded-xl border border-white/10 dark:border-white/5 hover:glass-secondary transition-all duration-300 group cursor-pointer"
+              >
+                <div className="w-10 h-10 bg-gradient-to-br from-primary-500/20 to-secondary-500/20 rounded-lg flex items-center justify-center text-lg group-hover:scale-110 transition-transform">
+                  {pet.emoji}
+                </div>
+                <div className="flex-1">
+                  <p className="text-sm font-medium text-text-primary">{pet.name}</p>
+                  <p className="text-xs text-text-secondary">{pet.type} • {pet.age}</p>
+                </div>
+                <div className="w-2 h-2 bg-success-500 rounded-full animate-pulse"></div>
+              </motion.div>
+            ))}
+            
+            <button className="w-full p-3 rounded-xl glass-tertiary hover:glass-secondary border border-white/10 dark:border-white/5 border-dashed transition-all duration-300 group">
+              <span className="text-sm font-medium text-text-secondary group-hover:text-primary-600 transition-colors">
+                + Add New Pet
               </span>
             </button>
-            <button className="w-full text-left p-3 rounded-xl glass-tertiary hover:glass-secondary border border-white/10 dark:border-white/5 transition-all duration-300 group">
-              <span className="text-sm font-medium text-text-primary group-hover:text-primary-600">
-                View Order History
-              </span>
-            </button>
-            <button className="w-full text-left p-3 rounded-xl glass-tertiary hover:glass-secondary border border-white/10 dark:border-white/5 transition-all duration-300 group">
-              <span className="text-sm font-medium text-text-primary group-hover:text-primary-600">
-                Update Profile
-              </span>
-            </button>
+          </div>
+        </div>
+
+        {/* Account Status */}
+        <div className="glass-card p-6 rounded-3xl border border-white/20 dark:border-white/10">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="p-2 rounded-xl bg-gradient-to-br from-success-500/10 to-success-600/10">
+              <FaUserCircle className="text-lg text-success-600 dark:text-success-400" />
+            </div>
+            <div>
+              <h4 className="text-lg font-bold text-text-primary">Account Status</h4>
+              <p className="text-xs text-text-secondary">Your membership</p>
+            </div>
+          </div>
+          
+          <div className="space-y-4">
+            <div className="flex items-center justify-between p-3 glass-tertiary rounded-xl border border-white/10 dark:border-white/5">
+              <div>
+                <p className="text-sm font-medium text-text-primary">Membership</p>
+                <p className="text-xs text-text-secondary">Premium Member</p>
+              </div>
+              <div className="flex items-center gap-1">
+                <FaStar className="text-yellow-500 text-sm" />
+                <span className="text-xs font-bold text-yellow-600 dark:text-yellow-400">Premium</span>
+              </div>
+            </div>
+            
+            <div className="flex items-center justify-between p-3 glass-tertiary rounded-xl border border-white/10 dark:border-white/5">
+              <div>
+                <p className="text-sm font-medium text-text-primary">Trust Score</p>
+                <p className="text-xs text-text-secondary">Excellent rating</p>
+              </div>
+              <div className="flex items-center gap-1">
+                <span className="text-sm font-bold text-success-600">9.8</span>
+                <FaStar className="text-success-500 text-xs" />
+              </div>
+            </div>
+            
+            <div className="flex items-center justify-between p-3 glass-tertiary rounded-xl border border-white/10 dark:border-white/5">
+              <div>
+                <p className="text-sm font-medium text-text-primary">Rewards Points</p>
+                <p className="text-xs text-text-secondary">Available to redeem</p>
+              </div>
+              <span className="text-sm font-bold text-primary-600">2,450</span>
+            </div>
           </div>
         </div>
       </motion.div>

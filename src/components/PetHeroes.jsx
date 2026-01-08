@@ -53,7 +53,7 @@ const PetHeroes = () => {
   };
 
   return (
-    <section className="py-20 relative overflow-hidden">
+    <section className="py-7 relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary-50/30 via-transparent to-secondary-50/30 dark:from-primary-950/20 dark:to-secondary-950/20" />
       <div className="absolute top-20 left-10 w-32 h-32 bg-primary-200/20 dark:bg-primary-800/20 rounded-full blur-3xl" />
@@ -146,25 +146,6 @@ const PetHeroes = () => {
               </Card>
             </motion.div>
           ))}
-        </motion.div>
-
-        {/* Call to Action */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="text-center mt-16"
-        >
-          <p className="text-text-secondary mb-4">
-            Want to become a pet hero too?
-          </p>
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="inline-block px-6 py-3 bg-gradient-to-r from-primary-500 to-secondary-500 text-white rounded-full font-medium cursor-pointer"
-          >
-            Join Our Community
-          </motion.div>
         </motion.div>
       </div>
     </section>
