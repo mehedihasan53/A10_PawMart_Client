@@ -30,7 +30,7 @@ const Profile = () => {
   const [isSaving, setIsSaving] = useState(false);
   const [errors, setErrors] = useState({});
   const [lastUpdated, setLastUpdated] = useState(null);
-  
+
   // Form state
   const [formData, setFormData] = useState({
     displayName: "",
@@ -47,7 +47,7 @@ const Profile = () => {
       const location = localStorage.getItem(`user_location_${user.uid}`) || "";
       const bio = localStorage.getItem(`user_bio_${user.uid}`) || "";
       const updated = localStorage.getItem(`user_profile_updated_${user.uid}`);
-      
+
       setFormData({
         displayName: user.displayName || "",
         photoURL: user.photoURL || "",
@@ -55,9 +55,9 @@ const Profile = () => {
         location: location,
         bio: bio,
       });
-      
+
       setLastUpdated(updated);
-      
+
       console.log("Profile data loaded:", { phone, location, bio });
     }
   }, [user]);
@@ -109,7 +109,7 @@ const Profile = () => {
       ...prev,
       [field]: value
     }));
-    
+
     // Clear error for this field when user starts typing
     if (errors[field]) {
       setErrors(prev => ({
@@ -127,7 +127,7 @@ const Profile = () => {
     }
 
     setIsSaving(true);
-    
+
     try {
       // Update Firebase profile
       const profileUpdate = {
@@ -145,18 +145,18 @@ const Profile = () => {
         localStorage.setItem(`user_phone_${user.uid}`, formData.phone.trim());
         localStorage.setItem(`user_location_${user.uid}`, formData.location.trim());
         localStorage.setItem(`user_bio_${user.uid}`, formData.bio.trim());
-        
+
         // Also save a timestamp for when the profile was last updated
         localStorage.setItem(`user_profile_updated_${user.uid}`, new Date().toISOString());
       }
 
       toast.success("Profile updated successfully!");
       setIsEditing(false);
-      
+
       // Update the lastUpdated state to trigger re-render
       const updateTime = new Date().toISOString();
       setLastUpdated(updateTime);
-      
+
       // Force a small delay to ensure localStorage is written before any potential re-renders
       setTimeout(() => {
         console.log("Profile data saved:", {
@@ -165,7 +165,7 @@ const Profile = () => {
           bio: localStorage.getItem(`user_bio_${user.uid}`)
         });
       }, 100);
-      
+
     } catch (error) {
       console.error("Error updating profile:", error);
       toast.error("Failed to update profile. Please try again.");
@@ -181,7 +181,7 @@ const Profile = () => {
       const phone = localStorage.getItem(`user_phone_${user.uid}`) || "";
       const location = localStorage.getItem(`user_location_${user.uid}`) || "";
       const bio = localStorage.getItem(`user_bio_${user.uid}`) || "";
-      
+
       setFormData({
         displayName: user.displayName || "",
         photoURL: user.photoURL || "",
@@ -189,7 +189,7 @@ const Profile = () => {
         location: location,
         bio: bio,
       });
-      
+
       console.log("Form reset with data:", { phone, location, bio });
     }
     setErrors({});
@@ -240,7 +240,7 @@ const Profile = () => {
                 />
                 {isEditing && (
                   <div className="absolute -bottom-2 -right-2">
-                    <button 
+                    <button
                       onClick={() => {
                         const newURL = prompt("Enter new profile picture URL:", formData.photoURL);
                         if (newURL !== null) {
@@ -278,7 +278,7 @@ const Profile = () => {
                   <div className="flex items-center justify-center lg:justify-start gap-2">
                     <span className={cn(
                       "px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider",
-                      role === "admin" 
+                      role === "admin"
                         ? "bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400"
                         : "bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400"
                     )}>
@@ -354,7 +354,7 @@ const Profile = () => {
             className="glass-primary rounded-2xl p-6 lg:p-8"
           >
             <h3 className="text-xl font-semibold text-text-primary mb-6">Profile Information</h3>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Display Name */}
               <div>
@@ -368,8 +368,8 @@ const Profile = () => {
                   disabled={!isEditing}
                   className={cn(
                     "w-full px-4 py-3 rounded-xl glass-secondary border transition-all",
-                    errors.displayName 
-                      ? "border-error-500 focus:ring-error-500/50" 
+                    errors.displayName
+                      ? "border-error-500 focus:ring-error-500/50"
                       : "border-white/20 dark:border-white/10 focus:ring-primary-500/50",
                     "focus:outline-none focus:ring-2 text-text-primary placeholder-text-secondary",
                     !isEditing && "opacity-60 cursor-not-allowed"
@@ -383,7 +383,7 @@ const Profile = () => {
                   </div>
                 )}
               </div>
-              
+
               {/* Email Address */}
               <div>
                 <label className="block text-sm font-medium text-text-primary mb-2">
@@ -410,8 +410,8 @@ const Profile = () => {
                   disabled={!isEditing}
                   className={cn(
                     "w-full px-4 py-3 rounded-xl glass-secondary border transition-all",
-                    errors.phone 
-                      ? "border-error-500 focus:ring-error-500/50" 
+                    errors.phone
+                      ? "border-error-500 focus:ring-error-500/50"
                       : "border-white/20 dark:border-white/10 focus:ring-primary-500/50",
                     "focus:outline-none focus:ring-2 text-text-primary placeholder-text-secondary",
                     !isEditing && "opacity-60 cursor-not-allowed"
@@ -426,7 +426,7 @@ const Profile = () => {
                 )}
                 {!isEditing && formData.phone && (
                   <p className="text-xs text-success-600 dark:text-success-400 mt-1">
-                  
+
                   </p>
                 )}
               </div>
@@ -443,8 +443,8 @@ const Profile = () => {
                   disabled={!isEditing}
                   className={cn(
                     "w-full px-4 py-3 rounded-xl glass-secondary border transition-all",
-                    errors.location 
-                      ? "border-error-500 focus:ring-error-500/50" 
+                    errors.location
+                      ? "border-error-500 focus:ring-error-500/50"
                       : "border-white/20 dark:border-white/10 focus:ring-primary-500/50",
                     "focus:outline-none focus:ring-2 text-text-primary placeholder-text-secondary",
                     !isEditing && "opacity-60 cursor-not-allowed"
@@ -475,8 +475,8 @@ const Profile = () => {
                 disabled={!isEditing}
                 className={cn(
                   "w-full px-4 py-3 rounded-xl glass-secondary border transition-all resize-none",
-                  errors.bio 
-                    ? "border-error-500 focus:ring-error-500/50" 
+                  errors.bio
+                    ? "border-error-500 focus:ring-error-500/50"
                     : "border-white/20 dark:border-white/10 focus:ring-primary-500/50",
                   "focus:outline-none focus:ring-2 text-text-primary placeholder-text-secondary",
                   !isEditing && "opacity-60 cursor-not-allowed"
@@ -504,8 +504,8 @@ const Profile = () => {
                   onChange={(e) => handleInputChange('photoURL', e.target.value)}
                   className={cn(
                     "w-full px-4 py-3 rounded-xl glass-secondary border transition-all",
-                    errors.photoURL 
-                      ? "border-error-500 focus:ring-error-500/50" 
+                    errors.photoURL
+                      ? "border-error-500 focus:ring-error-500/50"
                       : "border-white/20 dark:border-white/10 focus:ring-primary-500/50",
                     "focus:outline-none focus:ring-2 text-text-primary placeholder-text-secondary"
                   )}

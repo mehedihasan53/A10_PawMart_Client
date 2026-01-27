@@ -6,11 +6,11 @@ import Footer from "../components/Footer";
 const AuthLayout = () => {
   return (
     <div className="min-h-screen flex flex-col">
-      {/* Fixed Navbar with stronger positioning */}
+      {/* Fixed Navbar */}
       <nav className="navbar-fixed">
         <Navbar />
       </nav>
-      {/* Main content with top padding to account for fixed navbar */}
+      {/* Main content */}
       <main className="flex-1 pt-16 lg:pt-18" style={{ paddingTop: '4rem' }}>
         <Outlet />
       </main>

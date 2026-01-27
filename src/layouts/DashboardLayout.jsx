@@ -31,7 +31,6 @@ const DashboardLayout = () => {
     navigate("/");
   };
 
-  // Enhanced glassmorphism navigation styling
   const navStyle = ({ isActive }) =>
     cn(
       "flex items-center justify-between p-4 rounded-2xl transition-all duration-300 group relative overflow-hidden",

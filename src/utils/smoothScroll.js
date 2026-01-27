@@ -13,7 +13,6 @@ export const initSmoothScroll = () => {
         smoothTouch: false,
         touchMultiplier: 2,
         infinite: false,
-        // Ensure fixed elements work properly
         wrapper: window,
         content: document.documentElement,
     });

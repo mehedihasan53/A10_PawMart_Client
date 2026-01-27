@@ -64,7 +64,7 @@ const Login = () => {
       const result = await signIn(email, password);
       await saveUserToDb(result.user, role);
       toast.success(`Logged in successfully as ${role}!`);
-      
+
       // Navigate to the intended destination or home
       navigate(from, { replace: true });
     } catch (err) {
@@ -80,7 +80,7 @@ const Login = () => {
       const result = await googleLogin();
       await saveUserToDb(result.user, "user");
       toast.success("Logged in with Google!");
-      
+
       // Navigate to the intended destination or home
       navigate(from, { replace: true });
     } catch (err) {
@@ -93,7 +93,7 @@ const Login = () => {
   return (
     <div className="auth-page flex items-center justify-center px-4 py-12">
       <DynamicTitle title="Login" />
-      
+
       <div className="w-full max-w-md">
         <Card className="auth-card p-8" hover={false} animated={false}>
           {/* Header */}
@@ -109,7 +109,7 @@ const Login = () => {
           {/* Demo Credentials */}
           <div className="auth-demo-section mb-6 p-4 rounded-lg">
             <p className="text-sm mb-3 text-center" style={{ color: 'var(--color-text-secondary)' }}>
-               Demo accounts:
+              Demo accounts:
             </p>
             <div className="flex gap-2">
               <Button

@@ -131,7 +131,7 @@ const UserHome = () => {
       >
         <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-primary-500/20 to-secondary-500/20 rounded-full blur-3xl -translate-y-32 translate-x-32"></div>
         <div className="absolute bottom-0 left-0 w-48 h-48 bg-gradient-to-tr from-secondary-500/20 to-primary-500/20 rounded-full blur-3xl translate-y-24 -translate-x-24"></div>
-        
+
         <div className="relative z-10 flex flex-col md:flex-row items-center gap-6">
           <div className="flex-shrink-0">
             <Avatar
@@ -308,7 +308,7 @@ const UserHome = () => {
               </button>
             )}
           </div>
-          
+
           <div className="space-y-3">
             {isLoading ? (
               // Loading skeleton
@@ -328,7 +328,7 @@ const UserHome = () => {
               ))
             ) : orders.length > 0 ? (
               orders.slice(0, 4).map((order, index) => (
-                <motion.div 
+                <motion.div
                   key={order._id || index}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -379,7 +379,7 @@ const UserHome = () => {
               <p className="text-xs text-text-secondary">Personalized recommendations</p>
             </div>
           </div>
-          
+
           <div className="space-y-4">
             {[
               {
@@ -424,11 +424,10 @@ const UserHome = () => {
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-1">
                     <p className="text-sm font-medium text-text-primary">{tip.title}</p>
-                    <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${
-                      tip.priority === 'high' ? 'bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400' :
+                    <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${tip.priority === 'high' ? 'bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400' :
                       tip.priority === 'medium' ? 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-600 dark:text-yellow-400' :
-                      'bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400'
-                    }`}>
+                        'bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400'
+                      }`}>
                       {tip.priority}
                     </span>
                   </div>
@@ -456,7 +455,7 @@ const UserHome = () => {
               <p className="text-xs text-text-secondary">Common tasks</p>
             </div>
           </div>
-          
+
           <div className="space-y-3">
             {[
               { icon: FaShoppingBag, label: "Browse Supplies", link: "/pets-supplies" },
@@ -493,7 +492,7 @@ const UserHome = () => {
               <p className="text-xs text-text-secondary">Pet profiles</p>
             </div>
           </div>
-          
+
           <div className="space-y-4">
             {/* Sample pet data - in real app this would come from user's pet profiles */}
             {[
@@ -517,7 +516,7 @@ const UserHome = () => {
                 <div className="w-2 h-2 bg-success-500 rounded-full animate-pulse"></div>
               </motion.div>
             ))}
-            
+
             <button className="w-full p-3 rounded-xl glass-tertiary hover:glass-secondary border border-white/10 dark:border-white/5 border-dashed transition-all duration-300 group">
               <span className="text-sm font-medium text-text-secondary group-hover:text-primary-600 transition-colors">
                 + Add New Pet
@@ -537,7 +536,7 @@ const UserHome = () => {
               <p className="text-xs text-text-secondary">Your membership</p>
             </div>
           </div>
-          
+
           <div className="space-y-4">
             <div className="flex items-center justify-between p-3 glass-tertiary rounded-xl border border-white/10 dark:border-white/5">
               <div>
@@ -549,7 +548,7 @@ const UserHome = () => {
                 <span className="text-xs font-bold text-yellow-600 dark:text-yellow-400">Premium</span>
               </div>
             </div>
-            
+
             <div className="flex items-center justify-between p-3 glass-tertiary rounded-xl border border-white/10 dark:border-white/5">
               <div>
                 <p className="text-sm font-medium text-text-primary">Trust Score</p>
@@ -560,7 +559,7 @@ const UserHome = () => {
                 <FaStar className="text-success-500 text-xs" />
               </div>
             </div>
-            
+
             <div className="flex items-center justify-between p-3 glass-tertiary rounded-xl border border-white/10 dark:border-white/5">
               <div>
                 <p className="text-sm font-medium text-text-primary">Rewards Points</p>

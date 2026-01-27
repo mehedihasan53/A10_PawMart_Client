@@ -88,7 +88,7 @@ const Avatar = ({
         </div>
       )}
       
-      {/* Online indicator (optional) */}
+      {/* Online indicator */}
       {props.online && (
         <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-success-500 border-2 border-white dark:border-dark-bg rounded-full" />
       )}

@@ -65,10 +65,10 @@ const MyOrder = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-bg-primary to-bg-surface">
       <DynamicTitle title="My Orders | PawMart" />
-      
+
       <div className="max-w-7xl mx-auto px-4 py-12">
         {/* Hero Section */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -76,7 +76,7 @@ const MyOrder = () => {
         >
           <div className="flex flex-col md:flex-row justify-between items-center gap-6">
             <div className="text-center md:text-left">
-              <motion.h1 
+              <motion.h1
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
@@ -84,7 +84,7 @@ const MyOrder = () => {
               >
                 My <span className="gradient-text-primary">Orders</span>
               </motion.h1>
-              <motion.p 
+              <motion.p
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
@@ -93,7 +93,7 @@ const MyOrder = () => {
                 Track and manage all your orders in one place
               </motion.p>
             </div>
-            
+
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -104,7 +104,7 @@ const MyOrder = () => {
                 <p className="text-text-secondary text-sm">Total Orders</p>
                 <p className="text-2xl font-bold text-primary-600">{orders.length}</p>
               </div>
-              
+
               {orders.length > 0 && (
                 <button
                   onClick={downloadPDF}
@@ -121,13 +121,13 @@ const MyOrder = () => {
 
         {/* Content Section */}
         {orders.length === 0 ? (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.5 }}
             className="glass-secondary rounded-3xl p-12 text-center"
           >
-            <motion.div 
+            <motion.div
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ duration: 0.8, delay: 0.7, type: "spring", bounce: 0.4 }}
@@ -135,7 +135,7 @@ const MyOrder = () => {
             >
               <FaBoxOpen className="mx-auto text-primary-400" />
             </motion.div>
-            <motion.h3 
+            <motion.h3
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.8 }}
@@ -143,7 +143,7 @@ const MyOrder = () => {
             >
               No orders yet
             </motion.h3>
-            <motion.p 
+            <motion.p
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.9 }}
@@ -155,7 +155,7 @@ const MyOrder = () => {
         ) : (
           <>
             {/* Desktop Table */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.5 }}

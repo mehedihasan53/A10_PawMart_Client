@@ -306,11 +306,10 @@ const PetsSupplies = () => {
                     <button
                       key={i}
                       onClick={() => handlePageChange(i + 1)}
-                      className={`w-10 h-10 rounded-xl font-semibold text-sm transition-all ${
-                        currentPage === i + 1
-                          ? "bg-gradient-to-r from-primary-600 to-secondary-600 text-white shadow-glass-lg"
-                          : "glass-secondary border border-white/20 dark:border-white/10 text-text-primary hover:glass-primary hover:text-primary-600"
-                      }`}
+                      className={`w-10 h-10 rounded-xl font-semibold text-sm transition-all ${currentPage === i + 1
+                        ? "bg-gradient-to-r from-primary-600 to-secondary-600 text-white shadow-glass-lg"
+                        : "glass-secondary border border-white/20 dark:border-white/10 text-text-primary hover:glass-primary hover:text-primary-600"
+                        }`}
                     >
                       {i + 1}
                     </button>

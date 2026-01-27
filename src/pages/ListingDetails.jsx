@@ -107,7 +107,7 @@ const ListingDetails = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
           {/* Image Gallery Section */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
@@ -124,7 +124,7 @@ const ListingDetails = () => {
               </div>
               <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent"></div>
             </div>
-            
+
             {/* Image Gallery Thumbnails */}
             <div className="grid grid-cols-4 gap-4">
               {[1, 2, 3, 4].map((i) => (
@@ -146,14 +146,14 @@ const ListingDetails = () => {
           </motion.div>
 
           {/* Main Info & CTA Section */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             className="flex flex-col space-y-8"
           >
             <div>
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: 0.3 }}
@@ -166,8 +166,8 @@ const ListingDetails = () => {
                   (12 Verified Reviews)
                 </span>
               </motion.div>
-              
-              <motion.h1 
+
+              <motion.h1
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.4 }}
@@ -175,8 +175,8 @@ const ListingDetails = () => {
               >
                 {listing.name}
               </motion.h1>
-              
-              <motion.p 
+
+              <motion.p
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: 0.5 }}
@@ -189,7 +189,7 @@ const ListingDetails = () => {
             </div>
 
             {/* Quick Specs */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.6 }}
@@ -247,7 +247,7 @@ const ListingDetails = () => {
               </span>
             </motion.button>
 
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.8 }}
@@ -263,7 +263,7 @@ const ListingDetails = () => {
         </div>
 
         {/* Description Section */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.9 }}
@@ -281,7 +281,7 @@ const ListingDetails = () => {
 
         {/* Related Items */}
         {relatedItems.length > 0 && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 1.0 }}
@@ -328,13 +328,13 @@ const ListingDetails = () => {
 
       {/* Order Modal */}
       {isModalOpen && (
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-50"
         >
-          <motion.div 
+          <motion.div
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.8, opacity: 0 }}
@@ -368,7 +368,7 @@ const ListingDetails = () => {
                   className="w-full px-6 py-4 glass-tertiary rounded-2xl border border-primary-500/20 text-text-primary placeholder-text-muted focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500 transition-all duration-300"
                 />
               </div>
-              
+
               <div className="space-y-2">
                 <label className="flex items-center gap-2 text-text-primary font-semibold">
                   <FaPhone className="text-primary-500" />
@@ -382,7 +382,7 @@ const ListingDetails = () => {
                   className="w-full px-6 py-4 glass-tertiary rounded-2xl border border-primary-500/20 text-text-primary placeholder-text-muted focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500 transition-all duration-300"
                 />
               </div>
-              
+
               <div className="space-y-2">
                 <label className="flex items-center gap-2 text-text-primary font-semibold">
                   <FaHome className="text-primary-500" />
@@ -396,7 +396,7 @@ const ListingDetails = () => {
                   className="w-full px-6 py-4 glass-tertiary rounded-2xl border border-primary-500/20 text-text-primary placeholder-text-muted focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500 transition-all duration-300"
                 />
               </div>
-              
+
               <div className="space-y-2">
                 <label className="flex items-center gap-2 text-text-primary font-semibold">
                   <FaCalendarAlt className="text-primary-500" />
@@ -409,7 +409,7 @@ const ListingDetails = () => {
                   className="w-full px-6 py-4 glass-tertiary rounded-2xl border border-primary-500/20 text-text-primary focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500 transition-all duration-300"
                 />
               </div>
-              
+
               <button
                 type="submit"
                 className="w-full btn-gradient-primary py-4 rounded-2xl font-bold text-lg text-white shadow-glow-primary hover:scale-[1.02] transition-all duration-300"

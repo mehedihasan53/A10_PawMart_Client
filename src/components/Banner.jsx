@@ -43,7 +43,7 @@ const Banner = () => {
       setIsTransitioning(false);
     }, 300);
   }, [isTransitioning]);
-  
+
   const prevSlide = useCallback(() => {
     if (isTransitioning) return;
     setIsTransitioning(true);
@@ -52,7 +52,7 @@ const Banner = () => {
       setIsTransitioning(false);
     }, 300);
   }, [isTransitioning]);
-  
+
   const goToSlide = useCallback((index) => {
     if (isTransitioning || index === current) return;
     setIsTransitioning(true);
@@ -64,7 +64,7 @@ const Banner = () => {
 
   useEffect(() => {
     if (!isPlaying) return;
-    
+
     const interval = setInterval(() => {
       nextSlide();
     }, 5000);
@@ -75,7 +75,7 @@ const Banner = () => {
     <div className="relative w-full min-h-screen md:h-[700px] lg:h-[800px] overflow-hidden bg-gradient-to-br from-bg-primary to-bg-surface">
       {/* Enhanced background with subtle animation */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary-50/30 to-bg-primary dark:from-primary-950/30 dark:to-bg-primary" />
-      
+
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-primary-400/15 to-secondary-400/15 rounded-full blur-3xl animate-pulse-slow" />
@@ -112,7 +112,7 @@ const Banner = () => {
                   alt={slides[current].heading}
                   className="w-full h-56 object-cover rounded-xl transition-all duration-500"
                 />
-                
+
                 {/* Mobile decorative elements */}
                 <div className="absolute -top-2 -right-2 glass-primary p-2 rounded-xl border border-white/20 dark:border-white/10 shadow-glass animate-float">
                   <span className="text-base">🐾</span>
@@ -147,8 +147,8 @@ const Banner = () => {
                 { number: "500+", label: "Families", icon: FaHeart },
                 { number: "50+", label: "Partners", icon: FaPaw },
               ].map((stat, index) => (
-                <div 
-                  key={index} 
+                <div
+                  key={index}
                   className="text-center glass-tertiary p-4 rounded-xl border border-white/10 hover:scale-105 hover:-translate-y-1 transition-all duration-300 cursor-default"
                 >
                   <div className="text-primary-500 text-lg mb-2 flex justify-center">
@@ -213,8 +213,8 @@ const Banner = () => {
                 { number: "500+", label: "Families", icon: FaHeart },
                 { number: "50+", label: "Partners", icon: FaPaw },
               ].map((stat, index) => (
-                <div 
-                  key={index} 
+                <div
+                  key={index}
                   className="text-center glass-tertiary p-6 rounded-2xl border border-white/10 hover:scale-105 hover:-translate-y-1 transition-all duration-300 cursor-default"
                 >
                   <div className="text-primary-500 text-2xl mb-3 flex justify-center">
@@ -239,7 +239,7 @@ const Banner = () => {
                 alt={slides[current].heading}
                 className="w-full h-[400px] md:h-[480px] object-cover rounded-2xl transition-all duration-500"
               />
-              
+
               {/* Desktop decorative elements */}
               <div className="absolute -top-4 -right-4 glass-primary p-4 rounded-2xl border border-white/20 dark:border-white/10 shadow-glass animate-float">
                 <span className="text-3xl">🐾</span>
@@ -247,7 +247,7 @@ const Banner = () => {
               <div className="absolute -bottom-4 -left-4 glass-primary p-4 rounded-2xl border border-white/20 dark:border-white/10 shadow-glass animate-float" style={{ animationDelay: '1s' }}>
                 <span className="text-3xl">❤️</span>
               </div>
-              
+
               <div className="absolute top-1/4 -left-4 glass-secondary p-3 rounded-xl border border-white/20 dark:border-white/10 animate-bounce-gentle">
                 <span className="text-2xl">🏠</span>
               </div>
@@ -264,7 +264,7 @@ const Banner = () => {
       >
         <FaChevronLeft className="text-primary-600 group-hover:scale-110 group-hover:-translate-x-1 transition-all" />
       </button>
-      
+
       <button
         onClick={nextSlide}
         disabled={isTransitioning}
@@ -280,11 +280,10 @@ const Banner = () => {
             key={index}
             onClick={() => goToSlide(index)}
             disabled={isTransitioning}
-            className={`w-2 h-2 rounded-full transition-all duration-300 ${
-              current === index 
-                ? 'bg-primary-500 w-6' 
+            className={`w-2 h-2 rounded-full transition-all duration-300 ${current === index
+                ? 'bg-primary-500 w-6'
                 : 'bg-white/40 hover:bg-white/60'
-            }`}
+              }`}
           />
         ))}
       </div>
@@ -292,9 +291,8 @@ const Banner = () => {
       {/* Progress bar */}
       <div className="absolute bottom-0 left-0 right-0 h-1 bg-white/10">
         <div
-          className={`h-full bg-gradient-to-r from-primary-500 to-secondary-500 shadow-glow-primary transition-all duration-300 ${
-            isPlaying ? 'animate-progress-bar' : 'w-0'
-          }`}
+          className={`h-full bg-gradient-to-r from-primary-500 to-secondary-500 shadow-glow-primary transition-all duration-300 ${isPlaying ? 'animate-progress-bar' : 'w-0'
+            }`}
           key={`${current}-${isPlaying}`}
         />
       </div>

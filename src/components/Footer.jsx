@@ -28,7 +28,7 @@ const Footer = () => {
               A safe place to adopt pets, buy supplies, and connect with caring
               pet owners. Building a community where every pet finds their forever home.
             </p>
-            
+
             {/* Social Media */}
             <div className="flex space-x-4">
               <a
@@ -50,7 +50,7 @@ const Footer = () => {
                 <SiGithub className="text-lg text-text-secondary group-hover:text-text-primary transition-colors" />
               </a>
               <a
-                href="https://www.linkedin.com/in/mehedi-hasan-c3/"
+                href="https://www.linkedin.com/in/mehedi-hasan-x3/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2.5 rounded-xl glass-button hover:scale-105 transition-all duration-300 group"
@@ -194,12 +194,12 @@ const Footer = () => {
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 dark:via-white/10 to-transparent h-px"></div>
             <div className="relative bg-white/10 dark:bg-white/5 h-px"></div>
           </div>
-          
+
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <p className="text-text-muted text-center md:text-left">
               © {new Date().getFullYear()} PawMart. All rights reserved.
             </p>
-            
+
             {/* Additional Legal Links for Mobile */}
             <div className="flex flex-wrap justify-center md:justify-end space-x-6 text-sm">
               <Link

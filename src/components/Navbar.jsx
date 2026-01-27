@@ -67,7 +67,7 @@ const Navbar = () => {
 
   const aboutUsItem = { to: "/about-us", label: "About Us", icon: FaPaw };
 
-  // Enhanced active link styling with glassmorphism only on active buttons
+  // only on active buttons
   const activeLinkClass = ({ isActive }) =>
     cn(
       "flex items-center gap-3 px-4 py-2.5 rounded-xl font-medium transition-all duration-300 relative group",
@@ -200,7 +200,7 @@ const Navbar = () => {
                   <div
                     className="absolute right-0 mt-3 w-80 sm:w-80 glass-primary rounded-2xl overflow-hidden z-50 border border-white/20 dark:border-white/10 shadow-2xl backdrop-blur-24 max-w-[calc(100vw-2rem)] sm:max-w-none"
                     style={{
-                      background: isDark 
+                      background: isDark
                         ? 'linear-gradient(135deg, rgba(23, 23, 23, 0.95) 0%, rgba(23, 23, 23, 0.9) 100%)'
                         : 'linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.9) 100%)',
                     }}
@@ -212,7 +212,7 @@ const Navbar = () => {
                         <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-primary-400/20 to-transparent rounded-full blur-2xl"></div>
                         <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-secondary-400/20 to-transparent rounded-full blur-xl"></div>
                       </div>
-                      
+
                       <div className="relative flex items-center space-x-4">
                         <div className="relative">
                           <Avatar
@@ -363,7 +363,7 @@ const Navbar = () => {
                   </Link>
                 </div>
               ))}
-              
+
               {user && (
                 <>
                   <div>

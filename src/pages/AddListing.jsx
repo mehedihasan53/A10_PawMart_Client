@@ -59,7 +59,7 @@ const AddListing = () => {
     <div className="bg-gradient-to-br from-bg-primary to-bg-surface min-h-screen transition-colors duration-300">
       <DynamicTitle title="Add Listing | PawMart" />
       <Toaster position="top-right" />
-      
+
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Header - Consistent with site design */}
         <div className="text-center mb-12">
@@ -125,9 +125,8 @@ const AddListing = () => {
                   onChange={(e) => setPrice(e.target.value)}
                   readOnly={isPriceReadonly}
                   required
-                  className={`w-full px-4 py-3 glass-secondary border border-white/20 dark:border-white/10 rounded-xl text-text-primary placeholder-text-muted focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-transparent transition-all duration-300 ${
-                    isPriceReadonly ? 'opacity-60 cursor-not-allowed' : ''
-                  }`}
+                  className={`w-full px-4 py-3 glass-secondary border border-white/20 dark:border-white/10 rounded-xl text-text-primary placeholder-text-muted focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-transparent transition-all duration-300 ${isPriceReadonly ? 'opacity-60 cursor-not-allowed' : ''
+                    }`}
                   placeholder="0 if pet is selected"
                 />
               </div>
@@ -207,11 +206,10 @@ const AddListing = () => {
               <button
                 type="submit"
                 disabled={loading}
-                className={`w-full py-4 px-6 rounded-2xl font-semibold text-white text-lg transition-all duration-300 ${
-                  loading
-                    ? 'bg-gray-400 cursor-not-allowed opacity-60'
-                    : 'bg-gradient-to-r from-primary-600 to-secondary-600 hover:from-primary-700 hover:to-secondary-700 hover:shadow-glass-lg hover:scale-[1.02] active:scale-[0.98]'
-                }`}
+                className={`w-full py-4 px-6 rounded-2xl font-semibold text-white text-lg transition-all duration-300 ${loading
+                  ? 'bg-gray-400 cursor-not-allowed opacity-60'
+                  : 'bg-gradient-to-r from-primary-600 to-secondary-600 hover:from-primary-700 hover:to-secondary-700 hover:shadow-glass-lg hover:scale-[1.02] active:scale-[0.98]'
+                  }`}
               >
                 {loading ? 'Adding Listing...' : 'Add Listing'}
               </button>

@@ -65,10 +65,7 @@ const Contact = () => {
             className="text-center"
           >
             <h1 className="text-4xl md:text-6xl font-black tracking-tight text-text-primary uppercase">
-              Get in{" "}
-              <span className="gradient-text-primary">
-                Touch
-              </span>
+              Get in <span className="gradient-text-primary">Touch</span>
             </h1>
             <p className="mt-8 text-xl text-text-secondary max-w-3xl mx-auto leading-relaxed font-medium">
               Have questions about adoption or want to support our mission? Our

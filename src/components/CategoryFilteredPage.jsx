@@ -14,55 +14,69 @@ const CategoryFilteredPage = () => {
       try {
         setLoading(true);
         setError(null);
-        
+
         console.log(`Fetching items for category: ${categoryName}`);
-        
+
         // First try the category-specific endpoint
         let apiUrl = `https://pawmart-server-ebon.vercel.app/listings/category/${categoryName}`;
         console.log(`Trying category endpoint: ${apiUrl}`);
-        
+
         try {
           const res = await axios.get(apiUrl);
           console.log(`Category API Response:`, res.data);
           setItems(res.data || []);
           return;
         } catch (categoryError) {
-          console.log(`Category endpoint failed, trying fallback:`, categoryError.response?.status);
-          
+          console.log(
+            `Category endpoint failed, trying fallback:`,
+            categoryError.response?.status,
+          );
+
           // Fallback: Get all listings and filter client-side
-          if (categoryError.response?.status === 404 || categoryError.response?.status === 500) {
-            console.log(`Falling back to all listings and filtering client-side`);
-            const allListingsRes = await axios.get('https://pawmart-server-ebon.vercel.app/listings');
+          if (
+            categoryError.response?.status === 404 ||
+            categoryError.response?.status === 500
+          ) {
+            console.log(
+              `Falling back to all listings and filtering client-side`,
+            );
+            const allListingsRes = await axios.get(
+              "https://pawmart-server-ebon.vercel.app/listings",
+            );
             console.log(`All listings response:`, allListingsRes.data);
-            
+
             // Filter by category client-side
-            const filteredItems = allListingsRes.data.filter(item => 
-              item.category && item.category.toLowerCase() === categoryName.toLowerCase()
+            const filteredItems = allListingsRes.data.filter(
+              (item) =>
+                item.category &&
+                item.category.toLowerCase() === categoryName.toLowerCase(),
             );
             console.log(`Filtered items:`, filteredItems);
             setItems(filteredItems);
             return;
           }
-          
+
           throw categoryError;
         }
-        
       } catch (err) {
         console.error("Error fetching category items:", err);
         console.error("Error details:", {
           message: err.message,
           status: err.response?.status,
           statusText: err.response?.statusText,
-          data: err.response?.data
+          data: err.response?.data,
         });
-        
-        setError(err.response?.data?.message || "Failed to load items. Please try again.");
+
+        setError(
+          err.response?.data?.message ||
+          "Failed to load items. Please try again.",
+        );
         setItems([]);
       } finally {
         setLoading(false);
       }
     };
-    
+
     if (categoryName) {
       loadItems();
     }
@@ -73,7 +87,7 @@ const CategoryFilteredPage = () => {
     return (
       <div className="max-w-6xl mx-auto px-4 py-12">
         <h1 className="text-3xl font-bold mb-6 capitalize">
-          {categoryName?.replace(/-/g, ' ') || 'Category'}
+          {categoryName?.replace(/-/g, " ") || "Category"}
         </h1>
         <Loading />
       </div>
@@ -85,10 +99,12 @@ const CategoryFilteredPage = () => {
     return (
       <div className="max-w-6xl mx-auto px-4 py-12">
         <h1 className="text-3xl font-bold mb-6 capitalize">
-          {categoryName?.replace(/-/g, ' ') || 'Category'}
+          {categoryName?.replace(/-/g, " ") || "Category"}
         </h1>
         <div className="text-center py-12">
-          <div className="text-red-500 text-lg mb-4">⚠️ Error Loading Items</div>
+          <div className="text-red-500 text-lg mb-4">
+            ⚠️ Error Loading Items
+          </div>
           <p className="text-gray-600 dark:text-gray-400 mb-6">{error}</p>
           <button
             onClick={() => window.location.reload()}
@@ -104,7 +120,7 @@ const CategoryFilteredPage = () => {
   return (
     <div className="max-w-6xl mx-auto px-4 py-12">
       <h1 className="text-3xl font-bold mb-6 capitalize">
-        {categoryName?.replace(/-/g, ' ') || 'Category'}
+        {categoryName?.replace(/-/g, " ") || "Category"}
       </h1>
 
       {/* No items found */}
@@ -129,7 +145,8 @@ const CategoryFilteredPage = () => {
           {/* Items count */}
           <div className="mb-6">
             <p className="text-gray-600 dark:text-gray-400">
-              Found {items.length} item{items.length !== 1 ? 's' : ''} in "{categoryName}"
+              Found {items.length} item{items.length !== 1 ? "s" : ""} in "
+              {categoryName}"
             </p>
           </div>
 
@@ -145,7 +162,8 @@ const CategoryFilteredPage = () => {
                   alt={item.name}
                   className="w-full h-56 rounded-lg object-cover"
                   onError={(e) => {
-                    e.target.src = 'https://via.placeholder.com/400x300?text=No+Image';
+                    e.target.src =
+                      "https://via.placeholder.com/400x300?text=No+Image";
                   }}
                 />
 

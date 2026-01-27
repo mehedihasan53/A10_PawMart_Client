@@ -189,19 +189,19 @@ const AdminHome = () => {
                     <stop offset="100%" stopColor="#ec4899" stopOpacity={0.6} />
                   </linearGradient>
                 </defs>
-                <CartesianGrid 
-                  strokeDasharray="3 3" 
-                  vertical={false} 
+                <CartesianGrid
+                  strokeDasharray="3 3"
+                  vertical={false}
                   stroke="rgba(156, 163, 175, 0.2)"
                 />
-                <XAxis 
-                  dataKey="category" 
+                <XAxis
+                  dataKey="category"
                   stroke="#9ca3af"
                   fontSize={12}
                   tickLine={false}
                   axisLine={false}
                 />
-                <YAxis 
+                <YAxis
                   stroke="#9ca3af"
                   fontSize={12}
                   tickLine={false}
@@ -217,9 +217,9 @@ const AdminHome = () => {
                   }}
                   cursor={{ fill: 'rgba(249, 115, 22, 0.1)' }}
                 />
-                <Bar 
-                  dataKey="count" 
-                  fill="url(#barGradient)" 
+                <Bar
+                  dataKey="count"
+                  fill="url(#barGradient)"
                   radius={[8, 8, 0, 0]}
                   className="hover:opacity-80 transition-opacity duration-300"
                 />
