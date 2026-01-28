@@ -386,7 +386,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **Tailwind CSS** for the utility-first approach
 - **Firebase** for authentication and backend services
 - **Vite** for the lightning-fast development experience
-- **Open Source Community** for the incredible libraries and tools
+- **Open Source Community** for the incredible libraries and tool
 
 ---
 
