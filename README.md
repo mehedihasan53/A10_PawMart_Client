@@ -6,7 +6,7 @@
 [![Vite](https://img.shields.io/badge/Vite-7.2.4-646CFF?style=for-the-badge&logo=vite)](https://vitejs.dev/)
 [![Firebase](https://img.shields.io/badge/Firebase-12.6.0-FFCA28?style=for-the-badge&logo=firebase)](https://firebase.google.com/)
 
-PawMart is a comprehensive, full-stack pet marketplace that connects pet lover with adoption opportunities and premium pet supplies. Built with modern React architecture, it features a sophisticated glassmorphism design system, advanced authentication, and powerful admin controls.
+PawMart is a comprehensive, full-stack pet marketplace that connects pet lovers with adoption opportunities and premium pet supplies. Built with modern React architecture, it features a sophisticated glassmorphism design system, advanced authentication, and powerful admin controls.
 
 ---
 
