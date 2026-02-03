@@ -47,7 +47,7 @@ PawMart is a comprehensive, full-stack pet marketplace that connects pet lovers 
 - **Analytics Overview:** Visual charts showing user statistics and pet categories
 - **User Management:** Complete CRUD operations for user accounts with role assignment
 - **System Statistics:** Real-time metrics with growth indicators
-- **Modern UI:** Glassmorphism design with smooth animations and responsive layout
+- **Modern UI:** Glassmorphism design with smooth animations and responsive layouts
 
 ### � **User Dashboard**
 
