@@ -127,7 +127,7 @@ PawMart is a comprehensive, full-stack pet marketplace that connects pet lovers 
 
 ---
 
-## 📁 Project Structure
+## 📁 Project Structures
 
 ```
 src/
