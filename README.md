@@ -82,7 +82,7 @@ PawMart is a comprehensive, full-stack pet marketplace that connects pet lovers 
 
 ---
 
-## �️ Technology Stack
+## �️ Technology Stack 
 
 ### **Frontend Architecture**
 
