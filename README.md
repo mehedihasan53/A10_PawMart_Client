@@ -18,7 +18,7 @@ PawMart is a comprehensive, full-stack pet marketplace that connects pet lovers 
 
 ---
 
-## ✨ Core Features
+## ✨ Core Features 
 
 ### 🏠 **Homepage Experience**
 
